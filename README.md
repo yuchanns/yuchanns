@@ -9,3 +9,10 @@ I'm a backend developer using Golang as the main language. I also have some appr
 An ambisious target is to hold a setup of Computer Science from the bottom up. I wish to be a **Lifelong** CS user.
 
 You can touch me with [email](mailto:airamusume@gmail.com).
+
+<a href="https://github.com/anuraghazra/github-readme-stats">
+  <img align="left" src="https://github-readme-stats.vercel.app/api?username=yuchanns&show_icons=true&bg_color=30,e96443,904e95&title_color=fff&text_color=fff" />
+</a>
+<a href="https://github.com/anuraghazra/github-readme-stats">
+  <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=yuchanns&hide=css,vue,stylus&bg_color=30,e96443,904e95&title_color=fff&text_color=fff" />
+</a>

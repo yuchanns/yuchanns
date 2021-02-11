@@ -4,11 +4,7 @@ And my avatar was illustrated by a friend, a gopher drinking coffe and coding,  
 
 ![](./readme.png)
 
-I have my own blog theme [gatsby-theme-yuchanns](https://github.com/yuchanns/gatsby-theme-yuchanns) powerd by [gatsby](https://www.gatsbyjs.com/). It combines styles of github and reddit. You may expect an implementation with [vuerpess-next](https://github.com/vuepress/vuepress-next) once it is released.
-
-Up to present I talked all about frontend. As a matter of fact, I'm a backend developer working with php, python and go. Pleasure to be a gopher.
-
-Besides, I have particular appreciation on Lisp and Rust.
+I'm a backend developer using Golang as the main language. I also have some appreciation on Rust and Lisp.
 
 An ambisious target is to hold a setup of Computer Science from the bottom up. I wish to be a **Lifelong** CS user.
 

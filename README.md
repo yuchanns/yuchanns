@@ -1,6 +1,6 @@
 Hi there~I'm [@yuchanns](https://github.com/yuchanns), having a fregquently used Chinese nickname 科学搜查官 which is a profession of [Ema Skye](https://w.atwiki.jp/aniwotawiki/pages/31294.html) from the video game Phoenix Wright.
 
-And my avatar was illustrated by a friend, a gopher drinking coffe and coding,  which acts as one sticker of Bronya from mobile game honkai3.
+And my avatar was illustrated by a friend, a gopher drinking coffe and coding,  which acts as one sticker of Bronya from mobile game Honkai3.
 
 ![](./readme.png)
 

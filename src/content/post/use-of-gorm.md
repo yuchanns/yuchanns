@@ -13,7 +13,7 @@ draft: false
 <details>
 <summary>Demo表结构</summary>
 
-```sql
+```
 CREATE TABLE `order` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `order_no` varchar(32) NOT NULL DEFAULT '',
@@ -55,7 +55,7 @@ CREATE TABLE `order_item` (
 
 ## 连接数据库
 ### 连接mysql
-```go
+```
 import (
     _ "github.com/go-sql-driver/mysql" // 记得引入mysql驱动
     "github.com/jinzhu/gorm"
@@ -74,7 +74,7 @@ DB.LogMode(true) // 开启日志模式
 ### 忽视字段和**模型关联**
 在结构体对应的字段的tag上写入`gorm:"-"`可以使gorm在写入数据库时忽视该字段
 
-```go
+```
 const (
     OrderPending      uint8 = 0
     OrderPayed        uint8 = 1
@@ -136,14 +136,14 @@ type OrderItem struct {
 > 查询钩子
 
 查询钩子的声明周期如下
-```go
+```
 // load data from database
 // Preloading (eager loading)
 AfterFind
 ```
 
 在查询之后自动将时间戳转换成`Y-m-d H:i:s`的格式
-```go
+```
 // 查询钩子
 func (o *Order) AfterFind() {
     o.CreatedTime = time.Unix(o.CreatedAt, 0).Format("2006-01-02 15:04:05")
@@ -158,7 +158,7 @@ func (o *Order) AfterFind() {
 
 新增钩子的生命周期如下
 
-```go
+```
 // begin transaction
 BeforeSave
 BeforeCreate
@@ -173,7 +173,7 @@ AfterSave
 ```
 
 在新增之前，自动写入新增时间和更新时间的时间戳，对订单状态值进行边界检查
-```go
+```
 // 新增钩子
 func (o *Order) BeforeCreate(scope *gorm.Scope) (err error) {
     scope.SetColumn("CreatedAt", time.Now().Unix())
@@ -192,7 +192,7 @@ func (o *Order) BeforeCreate(scope *gorm.Scope) (err error) {
 > 更新钩子
 
 更新钩子的生命周期如下
-```go
+```
 // begin transaction
 BeforeSave
 BeforeUpdate
@@ -206,7 +206,7 @@ AfterSave
 ```
 
 在更新之前自动写入更新时间戳，对订单状态值进行边界检查
-```go
+```
 // 更新钩子
 func (o *Order) BeforeUpdate(scope gorm.Scope) (err error) {
     scope.SetColumn("UpdatedAt", time.Now().Unix())
@@ -224,7 +224,7 @@ func (o *Order) BeforeUpdate(scope gorm.Scope) (err error) {
 ```
 ### 指定表名
 gorm默认使用复数表名
-```go
+```
 func (o *Order) TableName() string {
 	  return "order"
 }
@@ -240,7 +240,7 @@ func (oi *OrderItem) TableName() string {
 
 * 本文使用`github.com/bwmarrin/snowflake`雪花算法生成唯一订单号
 
-```go
+```
 var Node *snowflake.Node
 
 func init() {
@@ -310,7 +310,7 @@ func InsertGoods(DB *gorm.DB) uint {
 * 使用**Preload**预加载自动加载关联模型
 * gorm查询默认添加非软删除条件，需要使用**Unscoped**方法取消这一条件；在使用预加载时，通过闭包使用这一方法
 
-```go
+```
 func QueryPreload(DB *gorm.DB) *model.Order {
     var order model.Order
     DB.Where("id = ?", 1).Preload("OrderItems", func(db *gorm.DB) *gorm.DB {
@@ -334,7 +334,7 @@ func QueryPreload(DB *gorm.DB) *model.Order {
 * 使用**Update**方法时，如果存在`UpdatedAt`字段，gorm会强制覆盖值为**time.Time**类型，优先级比钩子更高。
 * 使用**Save**方法可以避免`UpdatedAt`被强制覆盖，通过**Select**方法设置允许更新的字段；否则会更新所有字段
 
-```go
+```
 func UpdateAutoComplete(order *model.Order, DB *gorm.DB) (err error) {
 	//DB.Set("gorm:save_associations", false).Model(&order).Unscoped().Update("Status", model.OrderPayed) // 不支持字段为int类型的UpdatedAt自动更新
 	//DB.Model(&order).Updates(model.Order{Status: model.OrderTransporting, IsDeleted: 0}) // 不支持字段为int类型的UpdatedAt自动更新
@@ -351,7 +351,7 @@ func UpdateAutoComplete(order *model.Order, DB *gorm.DB) (err error) {
 * 使用**Commit**和**Rollback**进行提交回滚
 * 可以使用闭包实现自动开闭事务
 
-```go
+```
 func Transaction(order *model.Order, DB *gorm.DB) {
 	tx := DB.Begin()
 	InsertGoods(tx) // 注意传递的是tx而不是DB
@@ -361,7 +361,7 @@ func Transaction(order *model.Order, DB *gorm.DB) {
 ```
 ## 高级查询
 ### Join
-```go
+```
 type OrderJoin struct {
 	ID      uint64
 	Name    string
@@ -378,7 +378,7 @@ func Join(DB *gorm.DB) []*OrderJoin {
 ### Group
 有关Rows结构体查看[标准库文档](https://golang.org/pkg/database/sql/#Rows)
 
-```go
+```
 func Group(DB *gorm.DB) []map[string]interface{} {
 	rows, _ := DB.Table("order_item").Select("order_id").Group("order_id").Rows()
 	defer rows.Close() // rows是go标准库sql的结构体Rows的实例，存储着查询结果集
@@ -396,7 +396,7 @@ func Group(DB *gorm.DB) []map[string]interface{} {
 }
 ```
 ### Count
-```go
+```
 func Count(DB *gorm.DB) (count int) {
 	DB.Model(model.OrderItem{}).Unscoped().Where("order_id = ?", 1).Count(&count)
 	return
@@ -405,7 +405,7 @@ func Count(DB *gorm.DB) (count int) {
 ### 子查询
 使用**SubQuery**生成子查询语句
 
-```go
+```
 func SubQuery(DB *gorm.DB) (orderItemSub model.OrderItem) {
 	DB.Where("order_id = ?", DB.Table("order").Select("id").
 		Where("id = ?", 1).SubQuery()).

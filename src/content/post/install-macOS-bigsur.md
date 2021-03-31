@@ -22,7 +22,7 @@ draft: false
 假设U盘格式化后命名为`yuchanns`，那么硬盘的路径为`/Volumes/yuchanns`。
 
 打开终端，执行下列命令，将系统安装工具注入到U盘：
-```bash
+```
 sudo /Applications/Install\ macOS\ BigSur.app/Contents/Resources/createinstallmedia --volume /Volumes/yuchanns
 ```
 等待终端执行完毕，会发现U盘名称被改写成`Install macOS BigSur`。

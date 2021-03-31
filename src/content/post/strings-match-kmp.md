@@ -108,7 +108,7 @@ $$\therefore子A_1?=主A_9$$
 细心的读者也许会发现，在提到规则1时，我用的是**匹配**这个词，而提到规则时，我用的是**重复**这个词。这两个词在这里表达完全一致的意思，之所以区别使用，是为了使读者能清晰认识到，现在讨论的是主串与子串的匹配，还是子串自身的重复性。如果在总结规则的过程中混乱了自己的判断场景，就会陷入逻辑混乱的状态。
 
 好了，我们已经总结出获取next数组的逻辑规则，那么要将之转化为代码就变得很容易——
-```php
+```
 <?php
 /**
  * @var string $string 子串
@@ -184,7 +184,7 @@ function getNext($string)
 * 当i字符与j字符不重复时，那么i不动，寻找j字符记录的与之重复的字符的下一位字符的位置，也就是next$_j$，然后比较与i是否重复
 
 有了文字描述的规则3，转化为代码是很容易的事——
-```php
+```
 <?php
 /**
  * @var string $string 子串
@@ -223,7 +223,7 @@ function getNextNew($string)
 除了修改，我们还对规则4进行了扩充，考虑了完全匹配/不匹配以及首字失配的处理逻辑。
 
 然后我们对照这个规则4进行代码编写——
-```php
+```
 /**
  * @var string $str 主串
  * @var string $substr 子串
@@ -270,7 +270,7 @@ function kmpStrSearch($str, $substr)
 
 上面这句话的逻辑，可以在kmpStrSearch中实现，也可以在getNext中实现。本着不修改kmpStrSearch这个大方法的前提，我们把修改放在getNext中——
 
-```php
+```
 <?php
 /**
  * @var string $string 子串
@@ -299,7 +299,7 @@ function getNextHyper($string)
 
 ![](/images/kmpalgorithm.gif)
 
-```php
+```
 <?php
 /**
  * @var string $string 子串

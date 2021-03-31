@@ -24,7 +24,7 @@ protoc是protobuf的编译器。就像其他编程语言，用户编写代码，
 
 直接从[protocolbuffers/protobuf](https://github.com/protocolbuffers/protobuf)下载编译安装。
 
-```bash
+```
 # 下载
 wget https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/protobuf-all-3.14.0.tar.gz
 # 解压
@@ -51,11 +51,11 @@ protoc --version
 > v1.3对gatewayc的支持也和v1.4不同，语法上也有所不同。
 
 首先安装生成go语言代码的插件v1.3版本[protoc-gen-go](https://github.com/golang/protobuf/tree/master/protoc-gen-go)。
-```bash
+```
 GO111MODULE=on GOPROXY=https://goproxy.cn go get github.com/golang/protobuf/protoc-gen-go@v1.3
 ```
 然后安装`grpc gateway`插件，这里我们使用v1插件，理由同上，避免不兼容情况。
-```bash
+```
 GO111MODULE=on GOPROXY=https://goproxy.cn go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway@v1
 ```
 > 注意，如果操作系统是macOS，还需要把两个插件(`protoc-gen-go`和`protoc-gen-grpc-gateway`)从`$GOPATH/bin/`移动到`/usr/local/go/bin`下才能在使用时自动寻找到。
@@ -66,7 +66,7 @@ GO111MODULE=on GOPROXY=https://goproxy.cn go get github.com/grpc-ecosystem/grpc-
 安装php的插件是三种语言中最麻烦的一个步骤。
 
 首先确认你的php环境包含`pecl`，然后安装`grpc-1.34.0`和`protobuf`的扩展:
-```bash
+```
 pecl install grpc-1.34.0 protobuf
 ## 找到php.ini的位置
 php -i | grep php.ini
@@ -82,7 +82,7 @@ php -m | egrep 'grpc|protobuf'
 
 > `bazel`是Google开发的一款代码构建工具，可以处理大规模构建，解决环境问题。
 
-```bash
+```
 sudo apt install curl gnupg
 curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > bazel.gpg
 sudo mv bazel.gpg /etc/apt/trusted.gpg.d/
@@ -93,7 +93,7 @@ apt install bazel
 > 如果使用macOS则直接使用**Homebrew**安装`brew install bazel`。
 
 然后Clone [grpc/grpc](https://github.com/grpc/grpc)，并编译安装：
-```bash
+```
 git clone git@github.com:grpc/grpc.git
 cd grpc
 bazel build @com_google_protobuf//:protoc
@@ -105,7 +105,7 @@ bazel build src/compiler:grpc_php_plugin
 *如果你关注的不是node客户端的部分，可以跳过这一节。*
 
 Node安装gprc是最简单的。直接在项目根目录(`package.json`所在的目录)安装两个插件就可以了：
-```bash
+```
 yarn add grpc @grpc/proto-loader
 ```
 
@@ -121,7 +121,7 @@ yarn add grpc @grpc/proto-loader
 ### 编写message
 
 一次通讯过程中会有请求和响应体，在protobuf中，被定义为`message`关键字。写起来有点像定义结构体那样：
-```protobuf
+```
 syntax = "proto3";
 
 package "greeter"
@@ -142,7 +142,7 @@ message HelloRequest {
 * 字段名也不能重复。
 
 同样，我们可以再定义一个`HelloResponse`，作为响应体:
-```protobuf
+```
 /* 这里可以添加注释
  * 可以是多行注释 */
 message HelloResponse {
@@ -150,7 +150,7 @@ message HelloResponse {
 }
 ```
 如果对`message`做出了更新，删除字段或数字标识等操作，需要避免后来人重用这些字段或数字标识造成的问题，这时候使用`reserved`关键字指定保留字段和数字标识。一旦这些字段或标识被使用，编译器将会提示：
-```protobuf
+```
 message Foo {
   reserved 2, 15, 9 to 11;
   reserved "foo", "bar";
@@ -159,7 +159,7 @@ message Foo {
 如果希望`message`中某个字段可以重复数次，可以在字段前面加上`repeated`关键字。
 
 `message`之间也可以嵌套使用，如：
-```protobuf
+```
 message SearchResponse {
   repeated Result results = 1;
 }
@@ -171,11 +171,11 @@ message Result {
 }
 ```
 以及可以通过`import`关键字引入其他`proto`文件(在编译时需要指定所有文件所在的路径)：
-```protobuf
+```
 import other "myproject/other_protos.proto";
 ```
 如果你希望一个`message`中两个字段二选一，可以使用`oneof`关键字：
-```protobuf
+```
 message SampleMessage {
   oneof test_oneof {
     string name = 4;
@@ -184,7 +184,7 @@ message SampleMessage {
 }
 ```
 定义一个字典：
-```protobuf
+```
 message SampleMessage {
   map<key_type, value_type> map_field = N;
 }
@@ -195,7 +195,7 @@ message SampleMessage {
 有了请求和响应，接下来就是定义通信服务。
 
 使用`service`关键字可以定义一个通信服务的接口；然后通过`rpc`关键字定义路由(接口的方法)，这一步骤将会用上前面定义的`message`结构体，将他们组合起来，表达请求和响应的内容结构：
-```protobuf
+```
 service Greeter {
   rpc SayHello(HelloRequest) returns (HelloResponse);
 }
@@ -205,7 +205,7 @@ service Greeter {
 编写完`proto`文件，我们就可以对其进行编译了，请确保环境安装环节没有缺漏，否则会失败。
 ### 生成go服务端代码
 使用安装好的**protobuf**编译器`protoc`，它具有一个flag参数`-I`，表示`Import Path`，以及对应语言的`--lang_out`参数。
-```bash
+```
 protoc -I . --go_out=plugins=grpc:. *.proto
 ```
 这段命令表达的意思是，使用当前路径(`-I .`)，在当前目录生成go代码并且使用grpc插件(`--go_out=plugins=grpc:.`)，编译源为当前目录下的所有`proto`文件(`*.proto`)。注意`.`不要忽略，它表示当前目录。
@@ -215,7 +215,7 @@ protoc -I . --go_out=plugins=grpc:. *.proto
 在这个文件中，提供了`RegisterGreeterServer`方法，接受一个`*grpc.Server`和一个实现了`GreeterServer`接口的结构体指针。
 
 我们只要在代码中实现对应的接口，在实现中编写具体的业务逻辑，然后通过`RegisterGreeterServer`注册到`grpc.Server`，接着启动，就实现了go grpc服务端的编写：
-```go
+```
 package main
 
 import (
@@ -260,7 +260,7 @@ func (s *GreeterServer) SayHello(c context.Context, req *greeter.HelloRequest) (
 ```
 运行代码，启动grpc服务端。
 ### 生成PHP端代码
-```bash
+```
 protoc -I. --php_out=. --grpc_out=. --plugin=protoc-gen-grpc=./grpc/bazel-bin/src/compiler/grpc_php_plugin *.proto 
 ```
 这段命令表达的意思是，使用当前路径(`-I .`)，在当前目录生成php代码(`--php_out=.`)，grpc代码生成在当前目录(`--grpc_out=.`)，指定插件路径(`--plugin=protoc-gen-grpc=./grpc/bazel-bin/src/compiler/grpc_php_plugin`)，编译源为当前目录下的所有`proto`文件(`*.proto`)。注意`.`不要忽略，它表示当前目录。
@@ -268,7 +268,7 @@ protoc -I. --php_out=. --grpc_out=. --plugin=protoc-gen-grpc=./grpc/bazel-bin/sr
 结果将会在当前目录生成两个文件夹`GPBMetadata`和`Greeter`，分别包含了`message`和gprc服务代码。
 
 然后我们通过`composer`安装`grpc/grpc:1.34`的代码库，引用生成的代码编写客户端请求代码：
-```php
+```
 <?php
 require __DIR__ . "/vendor/autoload.php";
 require __DIR__ . "/proto/GPBMetadata/Greeter.php";
@@ -290,7 +290,7 @@ $client = new Greeter\GreeterClient('localhost:9090', [
 
 ### 生成node端代码
 node端是使用起来最简单的。无需生成代码，直接引用原始proto文件就可以使用：
-```js
+```
 const PROTO_PATH = __dirname + '/greeter.proto'
 const grpc = require('grpc')
 const protoLoader = require('@grpc/proto-loader')
@@ -318,7 +318,7 @@ client.SayHello({name: "node"}, (error, resp) => {
 因此我们需要在`proto`文件中引入`google/api/annotations.proto`，这个文件可以在[googleapis/googleapis](https://github.com/googleapis/googleapis)获得。
 
 将其下载下来放置在`./googleapis/google/api`下，然后对`proto`文件进行修改：
-```protobuf
+```
 syntax = "proto3";
 package greeter;
 option go_package="greeter";
@@ -349,7 +349,7 @@ message HelloResponse {
 
 ### 编译go服务端代码
 然后重新进行编译，这次一并生成`grpc gateway`的代码：
-```bash
+```
 protoc -I. -I./googleapis --go_out=plugins=grpc:. *.proto
 protoc -I. -I./googleapis --grpc-gateway_out=:. *.proto
 ```
@@ -358,7 +358,7 @@ protoc -I. -I./googleapis --grpc-gateway_out=:. *.proto
 稍后在当前目录可以看到生成了两个文件，分别带`*.pb.go`和`*.pb.gw.go`后缀。
 
 然后我们在原来的`grpc server`基础上添加一个`*runtime.ServeMux`，使用`*.pb.gw.go`提供的`RegisterGreeterHandlerFromEndpoint`方法将实现了`GreeterServer`接口的结构体指针注册到`runtime.ServeMux`，然后再次启动服务：
-```go
+```
 package main
 
 import (
@@ -419,7 +419,7 @@ func (s *GreeterServer) SayHello(c context.Context, req *greeter.HelloRequest) (
 }
 ```
 尝试通过curl发出一个post请求到路由`/api/greeter/say_hello`:
-```bash
+```
 curl -X POST -d '{"name": "curl"}' localhost:8080/api/greeter/say_hello
 ## {"msg":"hello, curl"}
 ```
@@ -430,7 +430,7 @@ RESTFUL请求成功。
 * composer需要添加一个新的依赖`composer require google/common-protos`，否则会找不到`annotation`相关的代码
 * 生成PHP代码时记得带上`googleapis`路径，避免找不到报错
 
-```bash
+```
 protoc -I. -I./googleapis --php_out=. --grpc_out=. --plugin=protoc-gen-grpc=./grpc/bazel-bin/src/compiler/grpc_php_plugin *.proto
 ```
 

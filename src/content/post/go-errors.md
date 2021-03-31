@@ -14,7 +14,7 @@ go的原生错误看起来只提供了“错误信息”，我们只能知道错
 
 ## error类型到底是什么
 我们对`error`类型进行追踪跳转，会发现这其实是一个内建接口类：
-```go
+```
 type error interface {
 	Error() string
 }
@@ -23,7 +23,7 @@ type error interface {
 
 ### 创建一个错误
 当我们需要创建一个错误时，可以选择创建一个实现了错误接口的结构体实例——这通常是一些包的做法；如果我们只是临时创建一个简单的错误，则可以通过**errors**包的`New(text string) error`快速实现。这个方法返回的是一个简陋的**errorString**类：
-```go
+```
 type errorString struct {
 	s string
 }
@@ -39,7 +39,7 @@ func (e *errorString) Error() string {
 ## errors标准库
 
 从[文档](https://pkg.go.dev/errors?tab=doc)上看，原生`errors`包只有四个方法，分别是：
-```go
+```
 func As(err error, target interface{}) bool
 func Is(err, target error) bool
 func New(text string) error
@@ -51,7 +51,7 @@ func Unwrap(err error) error
 
 ### Unwrap方法
 从文档描述或源码看，可知这一方法判断如果错误类实现了`Unwrap() error`方法则调用该方法，否则返回nil：
-```go
+```
 // GoSDK1.14/src/errors/wrap.go:line 14
 // Unwrap returns the result of calling the Unwrap method on err, if err's
 // type contains an Unwrap method returning error.
@@ -67,7 +67,7 @@ func Unwrap(err error) error {
 }
 ```
 这个**Unwrap**又有什么作用？我们可以直接通过源码附带的测试文件找到参考：
-```go
+```
 // GoSDK1.14/src/errors/wrap_test.go:
 // line 219
 type wrapped struct {
@@ -90,7 +90,7 @@ erra := wrapped{"wrap 2", err1}
 明白了**Unwrap**的用途，接下来可以继续了解基于此方法的**As**方法。
 
 根据注释描述，可知该方法首先判断err的值是否可以赋给target，否则递归地调用**Unwrap**方法重复检查，直到得到**nil**或者可以赋值。赋值成功或者其中某一层的错误类实现了`As(interface{}) bool`且结果为true时返回true，否则false：
-```go
+```
 // GoSDK1.14/src/errors/wrap.go:line90
 func As(err error, target interface{}) bool {
 	// 省略
@@ -109,7 +109,7 @@ func As(err error, target interface{}) bool {
 ```
 
 这个方法有什么用呢？前文中提到，在其他语言中可以通过捕获不同类型的错误来有选择地后续处理的错误，在理解了error本质是一个接口时，我们实际上也可以通过类型断言的方式(`pe, ok := err.(PathErr)`)来判断返回的错误是**PathErr**还是**SyscallError**。但是如果用到递归记录错误信息的结构时，就难以直接通过这种方式来判断某一层的错误类型。递归的错误需要递归地**Unwrap**判断——此时我们再回顾**As**这个方法便明白了它的用途：判断返回的错误中是否递归包含了某个类型的错误，并且在肯定的情况下获取那个错误的信息，相当于实现了：
-```php
+```
 try {
   // ... something will cause FileNotFoundException
 } catch (FileNotFoundException $e) {
@@ -120,7 +120,7 @@ try {
 
 ### Is方法
 如果说**As**方法判断的是递归中的错误类型，那么**Is**方法则是递归判断两个错误的类型和值是否完全相等，如果错误类型中实现了`Is(target error) bool`方法则会在无法比较(`isComparable=false`)或比较失败的情况下根据此方法再一次判断是否相等：
-```go
+```
 // GoSDK1.14/src/errors/wrap.go:line45
 func Is(err, target error) bool {
 	// 省略
@@ -145,7 +145,7 @@ func Is(err, target error) bool {
 
 ## pkg/errors第三方库
 查看[文档](https://pkg.go.dev/github.com/pkg/errors?tab=doc)索引，比起errors标准库似乎方法更多了一些，实际上其中有4个是标准库的方法，这个第三方包其实是对标准库的一个补充。补充的内容主要包括四个方法和两个结构体：
-```go
+```
 func Cause(err error) error
 func WithMessage(err error, message string) error
 func WithStack(err error) error
@@ -158,7 +158,7 @@ type StackTrace
 ```
 ### 重新实现的New方法
 在阅读文档时候，我们发现pkg/errors也有一个自己的**New**方法，我们先使用它实例化一个错误变量，然后对其进行打印：
-```go
+```
 package main
 
 import (
@@ -181,7 +181,7 @@ func main() {
 %+v   扩展格式。错误栈中的每一帧都会被详细地打印出来
 ```
 前两个没什么特殊的，当我们使用`fmt.Printf("%+v\n", err)`进行打印时，发现除了字符串错误信息，“文件名”、“函数名”、“代码行数”也一并洋洋洒洒地输出在终端中！
-```bash
+```
 an error
 github.com/yuchanns/gobyexample/errors.TestPkgErrors
 	/Users/yuchanns/Coding/golang/gobyexample/errors/pkg_errors_test.go:10
@@ -195,7 +195,7 @@ runtime.goexit
 也许我们应该接着探究这个功能是怎么实现的，但是这涉及到另一个标准库，因此我决定暂且按下不表:smirk:。
 
 前文我们提到标准库有一个**Unwrap**方法，用于递归读取错误信息，但是包裹错误需要由我们自行实现。而在这个第三方库中，提供了一个**WithWrap**方法来帮我们实现了包裹方法：
-```go
+```
 package main
 
 import (
@@ -232,7 +232,7 @@ func main() {
 > 通过**errors.Cause**获取上一个错误类的字符串错误信息
 
 而如果已有的错误使用的是标准库错误实例，那么通过**errors.WithStack**就可以将其转成具备详细错误信息的错误类，其他处理流程和上面的相同。结合自定义类，我们就可以轻松做到精确捕捉错误类型和定位错误发生点：
-```go
+```
 package main
 
 import (

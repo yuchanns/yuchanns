@@ -13,7 +13,7 @@ draft: false
 
 ## 情景简述
 案例情景介绍如下：有一个`TExchangeInfo`结构体，实例化后填充数据，然后执行**InsertOrUpdate**，当数据存在时，使用更新，当数据不存在时才插入：
-```go
+```
 type TExchangeInfo struct {
 	ID           int64     `orm:"column(id);auto"`
 	DeparmentID  int64     `orm:"column(deparment_id)"`
@@ -32,7 +32,7 @@ sqlmock的使用其实很简单，参照文档就可以。我这里简单说明�
 而我们拿到`*sql.DB`之后，就可以递交给orm来使用了。
 
 以beego orm为例，它有一个`orm.NewOrmWithDB`方法，用来实例化并指定连接句柄。
-```go
+```
 func InsertOrUpdatePrintSql() error {
 	db, mock, err := sqlmock.New()
 	if err != nil {
@@ -47,7 +47,7 @@ func InsertOrUpdatePrintSql() error {
 }
 ```
 写到这里，似乎我们已经能够和往常一样使用orm了。试着写一个测试用例运行这个函数，结果会发现报错了，一个`panic`：
-```bash
+```
 panic: all expectations were already fulfilled, call to Prepare 'SELECT TIMEDIFF(NOW(), UTC_TIMESTAMP)' query was not expected [recovered]
 ```
 一时之间令人摸不着头脑？这和接下来我们要讲的`sqlmock.Sqlmock`有关。
@@ -58,7 +58,7 @@ sqlmock也同样如此，你需要在mock测试过程中，指定你期望(**Exp
 
 > 注：beego orm在启动时候，会先执行`SELECT TIMEDIFF...`和`SELECT ENGINE...`两个语句，所以我们也需要把它添加到我们的期望中。
 
-```go
+```
 func InsertOrUpdatePrintSql() error {
 	db, mock, err := sqlmock.New()
 	if err != nil {
@@ -92,7 +92,7 @@ func InsertOrUpdatePrintSql() error {
 }
 ```
 添加你的期望，然后执行orm动作。接着我们在标准输出口看到打印出来的sql语句
-```bash
+```
 === RUN   TestInsertOrUpdatePrintSql
 [ORM]2020/09/16 23:43:39  -[Queries/default] - [  OK /     db.Exec /     0.1ms] - [INSERT INTO `t_exchange_info` (`deparment_id`, `times`, `number`, `lastmodified`) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `deparment_id`=?, `times`=?, `number`=?, `lastmodified`=?] - `1`, `0`, `10`, `2020-09-16 23:43:39.178543 +0800 CST`, `1`, `0`, `10`, `2020-09-16 23:43:39.178543 +0800 CST`
 --- PASS: TestInsertOrUpdatePrintSql (0.00s)
@@ -102,7 +102,7 @@ PASS
 ## 分析问题
 整理一下输出语句，我们发现，beego orm使用的是数据库自身的`insert or update`功能来实现的新增插入修改更新的交互。但是整条语句中却毫无主键的痕迹——
 
-```sql
+```
 INSERT INTO `t_exchange_info` (`deparment_id`, `times`, `number`, `lastmodified`) VALUES (`1`, `0`, `10`, `2020-09-16 23:43:39.178543 +0800 CST`) ON DUPLICATE KEY UPDATE `deparment_id`=`1`, `times`=`0`, `number`=`10`, `lastmodified`=`2020-09-16 23:43:39.178543 +0800 CST`
 ```
 
@@ -124,7 +124,7 @@ INSERT INTO `t_exchange_info` (`deparment_id`, `times`, `number`, `lastmodified`
 ## 附：sqlmock更多用法
 > 查询语句mock
 
-```go
+```
 package sqlmock
 
 import (

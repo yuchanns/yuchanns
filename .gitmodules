@@ -1,3 +1,6 @@
 [submodule "src/themes/lithium"]
 	path = src/themes/lithium
 	url = https://github.com/jrutheiser/hugo-lithium-theme
+[submodule "src/themes/goblog"]
+	path = src/themes/goblog
+	url = git@github.com:yuchanns/hugo-theme-goblog.git

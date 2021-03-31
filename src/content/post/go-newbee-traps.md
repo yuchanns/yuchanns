@@ -10,7 +10,7 @@ draft: false
 ## 初级篇
 ### 未指定类型变量不能用nil初始化
 支持`nil`初始化的变量类型有`interface`、`function`、`pointer`、`map`、`slice`和`channel`。所以使用nil初始化未指定类型的变量会导致编译器无法自动推断：
-```go
+```
 package main
 
 func main() {
@@ -22,7 +22,7 @@ func main() {
 应该使用*make*方法声明来对`map`进行实际的内存分配；slice可以使用*append*方法对值为nil追加元素。
 
 当然，初始化slice时最好预估一个长度，节省重复扩容开销。
-```go
+```
 package main
 
 func main() {
@@ -36,7 +36,7 @@ func main() {
 ```
 ### 初始化string不能为nil
 `nil`不支持`string`类型的初始化。它的初始值应为空字符串：
-```go
+```
 package main
 
 func main() {
@@ -54,7 +54,7 @@ func main() {
 
 在大数组中最好不使用range来遍历，因为range的本质是对索引和值的复制和再赋值，开销较大；推荐使用`for i := 0; i < len(s); i++ {}`的方式进行。
 
-```go
+```
 package main
 
 import "fmt"
@@ -73,7 +73,7 @@ func main() {
 * 为每个元素分配一个内层slice
 
 这样的好处是每个内层数组都是独立的，更改不影响其他内层数组。
-```go
+```
 package main
 
 func main() {
@@ -90,7 +90,7 @@ func main() {
 字符串是只读的二进制slice，无法通过访问索引的方式更改个别字符。如果想要更改，需要转化成`[]byte`类型。
 
 对于**UTF8**字符串，实际上应该转换为`[]rune`类型，避免出现字节更新错误。
-```go
+```
 package main
 
 import "fmt"
@@ -112,7 +112,7 @@ func main() {
 字符串的内容并不一定是合法utf8文本，可以是任意字节，可以用`unicode/utf8`包的*ValidString*方法判断。
 
 直接用内建的*len*方法获取的是字符串的byte数，同样可以使用`unicode/utf8`包的*RuneCountInString*来获取字符长度
-```go
+```
 package main
 
 import (
@@ -129,7 +129,7 @@ func main() {
 ```
 ### 使用值为nil的通道
 向值为nil的通道发送和接收信息会永远阻塞，造成死锁。利用这个特性可以在select中动态的打开和关闭case语句块。
-```go
+```
 package main
 
 import "fmt"
@@ -181,7 +181,7 @@ func main() {
 两者都是把数据结构转化为json格式，但是两者的结果并不相等。
 
 原因在于*Encode*是为了流准备的方法，它会在转换结果末尾自动添加一个换行符——这是流式json通信中用于换行分隔另一个json对象的符号。
-```go
+```
 package main
 
 import (
@@ -212,7 +212,7 @@ func main() {
 json包默认任何html关键字都会进行自动转义，这有时候和使用者的预期不符：
 
 有可能第三方提出不能进行转义的奇葩要求，有可能你想表达的意思并非是html关键字代表的意思。
-```go
+```
 package main
 
 func main() {
@@ -237,7 +237,7 @@ func main() {
 > 默认情况下，go会将json中的数字解成`float64`类型的变量，这会导致panic
 
 解决办法有：1.先转成int再使用；2.使用`Decoder`类型明确指定值类型；3.使用结构体(也就是笔者通常用的方法)
-```go
+```
 package main
 
 import (
@@ -283,7 +283,7 @@ func main() {
 虽然是个小细节，笔者很少用到第三种以外的方法，仍然值得注意。
 
 值得一提的是，当struct遇到字段类型不固定时(事实上在对接第三方接口的时候很有可能会遇到这种难受的事情)，可以使用json.RawMessage来接收并根据情况解码为不同类型的变量。
-```go
+```
 pakcage main
 
 import (
@@ -329,7 +329,7 @@ func main() {
 也可以使用完整的切片表达式，*input[low:hight:max]*，这样容量就变成`max-low`了。
 
 上面两种做法的结果是新的slice底层指向的是新的数组。
-```go
+```
 package main
 
 import "fmt"
@@ -354,7 +354,7 @@ func main() {
 在如下的循环体中，如果需要每次循环都执行defer里的操作，应该创建一个函数来执行循环中的操作。常见于批量读取文件需要关闭文件之类的场景中。
 
 同时可以注意另一个小细节：**每次循环的变量v应该通过赋值或者作为函数参数的方式来使用，否则循环中会指向最后一个值**。
-```go
+```
 package main
 
 import "fmt"
@@ -376,7 +376,7 @@ func main() {
 `interface`类变量只有在类型和值均为`nil`的时候才与nil相等。
 
 尤其需要注意当返回值类型为interface时，应明确返回nil，才能用是否为nil来判断。
-```go
+```
 func main() {
     var data *byte
     var in interface{}

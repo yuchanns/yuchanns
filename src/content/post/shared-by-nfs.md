@@ -44,7 +44,7 @@ draft: false
 ### 服务端
 宿主机使用的是Deepin15，Debian系主机。
 
-```bash
+```
 # 首先安装nfs服务器和rpcbind
 sudo apt install nfs-kernel-server rpcbind
 # 查看两者是否启动服务
@@ -55,7 +55,7 @@ systemctl enable nfs-kernel-server.service
 systemctl enable rpcbind.service
 ```
 然后在/etc/exports配置要分享的路径，允许访问的ip，权限等
-```bash
+```
 # 首先创建一个分享路径
 mkdir /home/$(echo $USER)/share-for-nfs
 # 设置拥有者为匿名组
@@ -66,7 +66,7 @@ echo "/home/$(echo $USER)/share-for-nfs *(rw,sync,all_squash)" >> /etc/exports
 sudo /usr/sbin/exportfs -ra
 ```
 其中，配置/etc/exports时，*号表示对任何访问者都允许，如果要设置特定访问者，可以写上具体ip，例如192.168.1.140(rw,sync,all_squash)；而括号中的东西则表示访问的权限。上文里表示可读写(rw)，同步写入(sync)，访问者映射为匿名组(all_squash)。常用可选参数有：
-```bash
+```
 ro：共享目录只读；
 rw：共享目录可读可写
 sync：同步，将数据同步写入内存缓冲区与磁盘中，效率低，但可以保证数据的一致性；
@@ -89,7 +89,7 @@ no_hide：共享子目录；
 可用`man exports`进一步了解。
 
 而exportfs的flag含义如下：
-```bash
+```
 -a ：全部输出或取消输出/etc/exports中共享的内容
 -r ：重新读取/etc/exports中的配置
 -u ：取消一个或多个共享目录的输出
@@ -100,7 +100,7 @@ no_hide：共享子目录；
 于是我们配置好了nfs服务器和分享路径。
 
 最后，我们获取一下宿主机在docker中的ip
-```bash
+```
 ip addr show docker0
 # inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
 ```
@@ -108,7 +108,7 @@ ip addr show docker0
 ### 客户端
 客户端采用docker容器，符合目的使用场景。
 
-```bash
+```
 # 使用debian容器，注意选择性配置sys_admin权限才能挂载
 docker run -it --rm --cap-add sys_admin debian /bin/bash
 # 进入容器进行一系列中国特色设置以及安装需要的依赖

@@ -21,7 +21,7 @@ draft: false
 通常来说，我们要实现的目标是，判断一个字符串是否在另一个字符串当中，如果是，则返回从包含字符串在内的剩余全部内容，否则返回false。
 
 此处我们稍作修改，实现判断是否存在，存在返回匹配字符的角标，否则返回false。
-```php
+```
 class StringsHelper
 {
     /**
@@ -87,7 +87,7 @@ echo "bf cost: " . getMicrotime($t2 - $t1) . 'μs' . PHP_EOL;  // bf cost: 41.96
 
 ### 不使用哈希
 下面来看代码实现：
-```php
+```
 class StringsHelper
 {
     /**
@@ -142,7 +142,7 @@ class StringsHelper
 答案是越大越好。以golang来说，使用的是**16777619**。
 
 下面我们对代码进行修改。**注意**，由于php一般不支持大整数运算，因此需要使用bc系列函数辅助。bc系列的函数通过将数字转为字符串来确保精度，避免计算结果以科学计数法表示。
-```php
+```
 class StringsHelper
 {
     const NUMBER = '16777619';  // 以字符串形式表示

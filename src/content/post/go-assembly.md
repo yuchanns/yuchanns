@@ -31,7 +31,7 @@ go编译器会智能判断对代码进行优化和使用汇编。而我们在分
 
 ### 获取一份简单的汇编代码
 现在手上有一份关于`range`的代码，但是我们运行之后出现了一些问题[^1][^2]：
-```go
+```
 package assembly
 
 import "fmt"
@@ -55,7 +55,7 @@ func RangeClause() {
 <summary>避免错误的写法</summary>
 
 将`&v`替换成`&arr[i]`
-```go
+```
 package assembly
 
 import "fmt"
@@ -79,7 +79,7 @@ func RangeClause() {
 <details>
 <summary>汇编结果</summary>
 
-```go
+```
 "".RangeClause STEXT size=842 args=0x0 locals=0x158
         0x0000 00000 (range_clause.go:5)     TEXT    "".RangeClause(SB), ABIInternal, $344-0
         0x0000 00000 (range_clause.go:5)     MOVQ    (TLS), CX
@@ -417,7 +417,7 @@ caller ret addr
 > “好了，现在我们已经学会了加减乘除四则运算，接下来我们来解答一下这道微积分的题目”XD
 
 我们先从一个简单的范例`1+1`来实践一下对汇编代码的分析：
-```go
+```
 package assembly
 
 func Add() {
@@ -426,7 +426,7 @@ func Add() {
 }
 ```
 汇编结果：
-```go
+```
 "".Add STEXT nosplit size=32 args=0x0 locals=0x18
         0x0000 00000 (add.go:3)      TEXT    "".Add(SB), ABIInternal, $24-0
         0x0000 00000 (add.go:3)      MOVQ    (TLS), CX
@@ -488,7 +488,7 @@ func Add() {
 
 ### 继续a+b分析
 上面我们发现两个数字相加，其实在汇编代码中直接体现为相加的结果了。所以我们把函数改成两个传入参数变量相加，看看有什么变化：
-```go
+```
 package assembly
 
 func VariableAdd(a, b int) {
@@ -497,7 +497,7 @@ func VariableAdd(a, b int) {
 }
 ```
 汇编结果：
-```go
+```
 "".VariableAdd STEXT size=90 args=0x10 locals=0x18
         0x0000 00000 (variable_add.go:3)     TEXT    "".VariableAdd(SB), ABIInternal, $24-16
         0x0000 00000 (variable_add.go:3)     MOVQ    (TLS), CX
@@ -539,7 +539,7 @@ func VariableAdd(a, b int) {
 
 ### 分析range
 那么，经过对go汇编知识的简单了解和初步练习，现在我们可以回到对range的分析上了。
-```go
+```
 // 源码第八行
 for _, v := range arr {
 // 汇编结果
@@ -627,7 +627,7 @@ for _, v := range arr {
 从`0x0032`到`0x007c`正好对应源码第六行。
 
 我们知道，一个切片实际上是由一个指针、两个整型组成的结构体[^9]：
-```go
+```
 type slice struct {
     array unsafe.Pointer
     len   int 
@@ -635,7 +635,7 @@ type slice struct {
 }
 ```
 那么在声明的时候需要赋予`slice.len`和`slice.cap`值——对应于在`0x0070`和`0x007c`，而它的底层指向数组指针`slice.array`则是`0x0068`完成。但是这段汇编中，匿名数组是怎么生成的我们并不知道，所以我们再写一段源码，内容是生成一个数组，然后对其进行切片操作：
-```go
+```
 package assembly
 
 func ArraySlice() {
@@ -645,7 +645,7 @@ func ArraySlice() {
 }
 ```
 输出汇编为：
-```go
+```
 "".ArraySlice STEXT nosplit size=97 args=0x0 locals=0x38
         0x0000 00000 (arr_slice.go:3)        TEXT    "".ArraySlice(SB), NOSPLIT|ABIInternal, $56-0
         0x0000 00000 (arr_slice.go:3)        SUBQ    $56, SP

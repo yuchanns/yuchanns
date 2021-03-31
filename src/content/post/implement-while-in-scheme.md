@@ -12,13 +12,13 @@ draft: false
 ## 定义语法
 我们使用的是`define-syntax`关键字，来源于[R6RS标准](http://www.r6rs.org/final/html/r6rs/r6rs-Z-H-14.html#node_sec_11.2.2)。本质上是创建一个宏(Macro)，只不过lisp的宏比C系语言更强大一些。
 
-```scheme
+```
 (define-syntax <keyword> <expression>)
 ```
 
 这里需要注意下和`define`的区别。两者都可以创建一个函数，但是`define`使用的参数是形参，而`define-syntax`可以对参数进行修改影响到外部，这也是实现循环的一个必要条件。
 
-```scheme
+```
 (library (libs customsyntax)
   (export while)
   (import (chezscheme))
@@ -33,7 +33,7 @@ while的内部的实现其实就是递归的自我调用，结合when对条件�
 
 下面是使用示范：
 
-```scheme
+```
 (import (chezscheme)
         (libs customsyntax))
 

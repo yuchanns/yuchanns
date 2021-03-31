@@ -18,7 +18,7 @@ React可选项：JSX。
 
 Vue使用HTML字符串和一些自定义指令作为模板。通常推荐以`.vue`后缀来区分模板和脚本（以及可选的样式）。
 
-```jsx
+```
 <template>
   <p>Hello, {{ name }}!</p>
 </template>
@@ -32,7 +32,7 @@ export default {
 
 React则使用[JSX](https://facebook.github.io/jsx/)——一种ECMAScript的扩展（语法糖）。
 
-```jsx
+```
 export default function Greeter({ name }) {
   return <p>Hello, {name}!</p>;
 }
@@ -44,7 +44,7 @@ React可选项：逻辑`&&`运算符、三元表达式或提前返回。
 Vue使用`v-if`、`v-else`和`v-else-if`指令来实现模板的局部条件渲染。
 
 
-```jsx
+```
 <template>
   <article>
     <h1 v-if="awesome">Vue is awesome!</h1>
@@ -62,7 +62,7 @@ export default {
 
 `&&`运算符提供了一种`if`条件语句的简单表达方式。
 
-```jsx
+```
 export default function Awesome({ awesome }) {
   return (
     <article>
@@ -74,7 +74,7 @@ export default function Awesome({ awesome }) {
 
 如果你还需要`else`从句，就使用三元表达式来代替。
 
-```jsx
+```
 export default function Awesome({ awesome }) {
   return (
     <article>
@@ -89,7 +89,7 @@ export default function Awesome({ awesome }) {
 
 当然你也可以让两个分支完全分开，然后通过提前返回代替选择。
 
-```jsx
+```
 export default function Awesome({ awesome }) {
   if (!awesome) {
     return (
@@ -113,7 +113,7 @@ React可选项：`Array.map`
 Vue使用`v-for`指令遍历数组和对象。
 
 
-```jsx
+```
 <template>
   <ul>
     <li v-for="(ingredient, index) in ingredients" :key="index">
@@ -131,7 +131,7 @@ export default {
 
 在React中，你可以通过内建的`Array.map`函数将数组映射成元素集合。
 
-```jsx
+```
 export default function Recipe({ ingredients }) {
   return (
     <ul>
@@ -145,7 +145,7 @@ export default function Recipe({ ingredients }) {
 对象的迭代则需要一点技巧。Vue允许你同样使用`v-for`指令获取key和value。
 
 
-```jsx
+```
 <template>
   <ul>
     <li v-for="(value, key) in object" :key="key">
@@ -162,7 +162,7 @@ export default {
 ```
 在React中我喜欢使用内建的`Object.entries`函数迭代对象。
 
-```jsx
+```
 export default function KeyValueList({ object }) {
   return (
     <ul>
@@ -180,7 +180,7 @@ React可选项：手动传递属性。
 Vue自动将`class`和`style`属性绑定到组件的外层HTML元素上。
 
 
-```jsx
+```
 <!-- Post.vue -->
 
 <template>
@@ -205,7 +205,7 @@ export default {
 ```
 在React中，你需要手动传入`className`和`style`属性。注意，`style`的值必须是一个对象类型，不支持字符串。
 
-```jsx
+```
 export default function Post({ title, className, style }) {
   return (
     <article className={className} style={style}>
@@ -222,7 +222,7 @@ export default function Post({ title, className, style }) {
 ```
 如果想要传递（除了title以外）剩余的全部属性，展开运算符就派上用场了。
 
-```jsx
+```
 export default function Post({ title, ...props }) {
   return (
     <article {...props}>
@@ -239,7 +239,7 @@ React可选项： 属性
 属性的行为在React和Vue中几乎完全一样，唯一的不同就是React组件不会继承未知的属性。
 
 
-```jsx
+```
 <!-- Post.vue -->
 
 <template>
@@ -254,7 +254,7 @@ export default {
 ```
 
 
-```jsx
+```
 export default function Post({ title }) {
   return <h3>{title}</h3>;
 }
@@ -262,7 +262,7 @@ export default function Post({ title }) {
 Vue使用一个`:`前缀来传递属性变量，本质是`v-bind`指令的别名。React则使用花括号动态传递变量值。
 
 
-```jsx
+```
 <!-- Post.vue -->
 
 <template>
@@ -277,7 +277,7 @@ export default {
 ```
 
 
-```jsx
+```
 export default function Post({ title }) {
   return <PostTitle title={title} />;
 }
@@ -289,7 +289,7 @@ React可选项：`useState`钩子。
 Vue的`data`选项用于存储组件内部的状态值。
 
 
-```jsx
+```
 <!-- ButtonCounter.vue -->
 
 <template>
@@ -310,7 +310,7 @@ export default {
 ```
 React通过暴露`useState`钩子返回一个长度为2的数组，其中包含了当前状态值和用于更新状态值的setter函数。
 
-```jsx
+```
 import { useState } from 'react';
 
 export default function ButtonCounter() {
@@ -325,7 +325,7 @@ export default function ButtonCounter() {
 ```
 也可以根据个人喜好，选择在多个`useState`调用间分发状态或者全部在一个对象中进行。
 
-```jsx
+```
 import { useState } from 'react';
 
 export default function ProfileForm() {
@@ -337,7 +337,7 @@ export default function ProfileForm() {
 ```
 
 
-```jsx
+```
 import { useState } from 'react';
 
 export default function ProfileForm() {
@@ -354,7 +354,7 @@ export default function ProfileForm() {
 `v-model`是Vue的一个快捷指令，可以在传递`value`属性的同时监听`input`事件。这样让Vue看起来似乎拥有了两种值绑定的方式，但实际上在底层依旧是“属性单向传递，事件触发更新”。
 
 
-```jsx
+```
 <!-- Profile.vue -->
 
 <template>
@@ -374,7 +374,7 @@ export default {
 Vue对`v-model`指令扩展了以下用法：
 
 
-```jsx
+```
 <template>
   <input
     type="text"
@@ -386,7 +386,7 @@ Vue对`v-model`指令扩展了以下用法：
 
 而React没有与之对等的指令。你必须每次都明确指定：
 
-```jsx
+```
 import { useState } from 'react';
 
 export default function Profile() {
@@ -410,7 +410,7 @@ Vue使用计算属性的理由有两个：避免逻辑和标记语言的混合�
 不使用计算属性的情况下：
 
 
-```jsx
+```
 <!-- ReversedMessage.vue -->
 
 <template>
@@ -425,7 +425,7 @@ export default {
 ```
 
 
-```jsx
+```
 export default function ReversedMessage({ message }) {
   return <p>{message.split('').reverse().join('')}</p>;
 }
@@ -434,7 +434,7 @@ export default function ReversedMessage({ message }) {
 在React中，你可以通过将计算属性结果赋予一个变量的方式在模板里取值。
 
 
-```jsx
+```
 <!-- ReversedMessage.vue -->
 
 <template>
@@ -455,7 +455,7 @@ export default {
 ```
 
 
-```jsx
+```
 export default function ReversedMessage({ message }) {
   const reversedMessage = message.split('').reverse().join('');
 
@@ -466,7 +466,7 @@ export default function ReversedMessage({ message }) {
 
 在下面的例子中，`reversedMessage`仅当依赖的`message`发生了改变才会重新进行计算。
 
-```jsx
+```
 import { useMemo } from 'react';
 
 export default function ReversedMessage({ message }) {
@@ -484,7 +484,7 @@ React可选项：函数。
 Vue具有一个`methods`选项，用来声明可在组件中使用的方法。
 
 
-```jsx
+```
 <!-- ImportantButton.vue -->
 
 <template>
@@ -506,7 +506,7 @@ export default {
 
 在React中，你可以直接在组件内部声明普通函数。
 
-```jsx
+```
 export default function ImportantButton() {
   function doSomething() {
     // ...
@@ -526,7 +526,7 @@ React可选项：回调属性。
 事件本质上就是一系列在子组件发生变化时所调用的回调函数。Vue将事件视为一等公民，所以你可以通过`@`来进行监听，这是`v-on`指令的缩写。
 
 
-```jsx
+```
 <!-- PostForm.vue -->
 
 <template>
@@ -543,7 +543,7 @@ React可选项：回调属性。
 
 事件在React里不具备特殊的地位，就仅仅是一些被子组件所调用的回调属性。
 
-```jsx
+```
 export default function PostForm({ onSave, onPublish }) {
   return (
     <form>
@@ -563,7 +563,7 @@ React可选项：高阶函数，如果有那个必要的话。
 Vue拥有一些诸如`prevent`和`stop`等等的修饰符，用于在不接触事件处理句柄的情况下更改其处理方式。
 
 
-```jsx
+```
 <!-- AjaxForm.vue -->
 
 <template>
@@ -584,7 +584,7 @@ export default {
 ```
 React里并没有这类修饰符语法。阻止默认行为以及阻断事件传播主要就在回调属性中进行处理。
 
-```jsx
+```
 export default function AjaxForm() {
   function submitWithAjax(event) {
     event.preventDefault();
@@ -601,7 +601,7 @@ export default function AjaxForm() {
 
 如果你实在想要使用修饰符一类的功能，你可以使用高阶函数来代替。
 
-```jsx
+```
 function prevent(callback) {
   return (event) => {
       event.preventDefault();
@@ -632,7 +632,7 @@ React可选项：`useEffect`钩子。
 一个常见的例子是安装和卸载第三方库文件。
 
 
-```jsx
+```
 <template>
   <input type="text" ref="input" />
 </template>
@@ -655,7 +655,7 @@ export default {
 
 通过`useEffect`你可以声明一个需要在渲染完成后运行的“副作用”。当你在`useEffect`中返回一个回调函数时，它将会在Effect被清除时参与其中。在这个例子里，就是当组件被销毁时。
 
-```jsx
+```
 import { useEffect, useRef } from 'react';
 import DateTimePicker from 'awesome-date-time-picker';
 
@@ -678,7 +678,7 @@ export default function Component() {
 这看起来就像Vue组件在`mounted`中注册一个`beforeDestroy`监听器。
 
 
-```jsx
+```
 <script>
 export default {
   mounted() {
@@ -697,7 +697,7 @@ export default {
 
 如果没有指定任何依赖，effect将会在每次渲染后执行，并在下一次渲染之前进行清除。这样有点像`mounted`、`updated`、`beforeUpdate`和`beforeDestroy`的组合。
 
-```jsx
+```
 useEffect(() => {
     // Happens after every render
 
@@ -709,7 +709,7 @@ useEffect(() => {
 
 如果你明确指定了effect没有任何依赖，那么effect只会在组件的第一次渲染时执行。因为它没有任何原因驱动更新。这个则类似于`mounted`和`beforeDestroyed`的组合。
 
-```jsx
+```
 useEffect(() => {
     // Happens on mount
 
@@ -721,7 +721,7 @@ useEffect(() => {
 
 如果你指定了某些依赖，那么effect就只会在这些依赖变化时执行——将在监视器这一小节继续说明。
 
-```jsx
+```
 const [count, setCount] = useState(0);
 
 useEffect(() => {
@@ -754,7 +754,7 @@ React可选项：`useEffect`钩子。
 监视器在概念上类似于生命周期钩子：“当X发生时，执行Y”。React中并不存在监视器，但你仍然可以用`useEffect`达到同样的效果。
 
 
-```jsx
+```
 <!-- AjaxToggle.vue -->
 
 <template>
@@ -785,7 +785,7 @@ export default {
 ```
 
 
-```jsx
+```
 import { useEffect, useState } from 'react';
 
 export default function AjaxToggle() {
@@ -814,7 +814,7 @@ export default function AjaxToggle() {
 如果你不想在第一次渲染后执行，那么你需要创建一个`ref`用来存储第一次渲染发生与否。
 
 
-```jsx
+```
 import { useEffect, useRef, useState } from 'react';
 
 export default function AjaxToggle() {
@@ -851,7 +851,7 @@ React可选：JSX属性或渲染属性
 在React中你需要声明一个`<slot />`告知内容应该属于哪里。而React只需要你渲染`children`属性。
 
 
-```jsx
+```
 <!-- RedParagraph.vue -->
 
 <template>
@@ -862,7 +862,7 @@ React可选：JSX属性或渲染属性
 ```
 
 
-```jsx
+```
 export default function RedParagraph({ children }) {
   return (
     <p style={{ color: 'red' }}>
@@ -875,7 +875,7 @@ export default function RedParagraph({ children }) {
 由于`slots`只是一些React的属性值，因此我们不需要在模板中进行任何声明。我们只需要用JSX语法接收属性变量，然后将它渲染在我们需要的任何时候任何地点。
 
 
-```jsx
+```
 <!-- Layout.vue -->
 
 <template>
@@ -902,7 +902,7 @@ export default function RedParagraph({ children }) {
 ```
 
 
-```jsx
+```
 export default function RedParagraph({ sidebar, children }) {
   return (
     <div className="flex">
@@ -936,7 +936,7 @@ Vue拥有的作用域插槽可以将数据传递给对应的插槽进行渲染�
 对于作用域插槽，我们可以再次使用`children`或者任何传递给具名插槽的的属性。但是我们通过传递一个函数来代替声明一个模板。
 
 
-```jsx
+```
 <!-- CurrentUser.vue -->
 
 <template>
@@ -963,7 +963,7 @@ export default {
 ```
 
 
-```jsx
+```
 import { useContext } from 'react';
 import UserContext from './UserContext';
 
@@ -992,7 +992,7 @@ React可选项：`createContext`和`useContext`钩子。
 依赖注入允许一个组件和其子树共享状态。React中有相似的特性叫做上下文(context)。
 
 
-```jsx
+```
 <!-- MyProvider.vue -->
 
 <template>
@@ -1021,7 +1021,7 @@ export default {
 ```
 
 
-```jsx
+```
 import { createContext, useContext } from 'react';
 
 const fooContext = createContext('foo');
@@ -1049,14 +1049,14 @@ React可选项：组件。
 React中不存在指令，然而大部分指令能解决的问题都可以用组件来代替解决。
 
 
-```jsx
+```
 <div v-tooltip="Hello!">
   <p>...</p>
 </div>
 ```
 
 
-```jsx
+```
 return (
   <Tooltip text="Hello">
     <div>

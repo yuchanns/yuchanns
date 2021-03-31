@@ -18,7 +18,7 @@ php分别有两套函数可以创建socket：
 使用socket或stream函数，既可以创建客户端也可以创建服务端。本文主要探讨流式创建服务端相关内容。
 ### 原始socket函数
 使用原始socket创建服务端，一共有三个步骤，分别是创建、绑定、监听，就像“第二步，把大象放入冰箱”一样简单：
-```php
+```
 <?php
 
 // 创建
@@ -37,7 +37,7 @@ socket_listen($mainSocket);
 > 如果你要创建的是socket客户端，那么只需要将第三步替换为`socket_connect`函数。
 
 当然，这只是创建好了socket服务端，我们还需要使用下列函数进行接收客户端连接、读取客户端、写入客户端、关闭客户端等操作。
-```php
+```
 while (true) {
     $newConn = socket_accept($mainSocket);
     echo "new connection[" . (int) $newConn . "] comes in." . PHP_EOL;
@@ -65,7 +65,7 @@ while (true) {
 <summary>查看通信记录</summary>
 
 **服务端记录**：
-```bash
+```
 $ php socket.php
 new connection[5] comes in.
 recv: hello socket!
@@ -74,7 +74,7 @@ connection[5] closed
 
 ```
 **telnet客户端记录**：
-```bash
+```
 $ telnet 127.0.0.1 9501
 Trying 127.0.0.1...
 Connected to localhost.
@@ -92,7 +92,7 @@ Connection closed by foreign host.
 > 注意，接下来本文主要围绕stream系列函数进行讨论。
 
 在刚才的case中，telnet发送一段内容后就会被关闭连接。如果我们要再次向服务端发送信息，还需要再次创建连接——使用短连接一方面频繁创建耗费资源，另一方面使用体验也很差。而socket的优点之一就是可以维持长连接。我们只需要在不关闭连接的前提下循环读取客户端连接就可以了：
-```php
+```
 <?php
 
 $mainSocket = stream_socket_server(
@@ -128,7 +128,7 @@ while (true) {
 <summary>查看通信记录</summary>
 
 **服务端记录**：
-```bash
+```
 $ php block_stream.php
 new connection[6] comes in.
 recv: hello stream
@@ -139,7 +139,7 @@ connection[6] closed
 
 ```
 **客户端记录**：
-```bash
+```
 $ telnet 127.0.0.1 9501
 Trying 127.0.0.1...
 Connected to localhost.
@@ -167,7 +167,7 @@ Connection closed by foreign host.
 
 当然从上文代码中看，会阻塞的原因是由于我们使用了第二层死循环读取，在断开连接前，代码只会在这层循环中无限执行。我们可以对此作出一些修改，使其变成支持多个连接。
 
-```php
+```
 <?php
 
 $mainSocket = stream_socket_server(
@@ -208,7 +208,7 @@ while (true) {
 <summary>查看通信记录</summary>
 
 **服务端**：
-```bash
+```
 $ php src/block_stream.php
 new connection[6] comes in.
 recv[6]: hello stream
@@ -220,7 +220,7 @@ recv[7]: hello stream2
 
 ```
 **客户端1**：
-```bash
+```
 $ telnet 127.0.0.1 9501
 Trying 127.0.0.1...
 Connected to localhost.
@@ -232,7 +232,7 @@ hello stream
 read:hello stream
 ```
 **客户端2**：
-```bash
+```
 $ telnet 127.0.0.1 9501
 Trying 127.0.0.1...
 Connected to localhost.
@@ -259,7 +259,7 @@ read:hello stream2
 上文中，`stream_socket_accept`读取会发生阻塞的原因是当前读取的连接无活动，所以造成了阻塞等待活动。而通过`stream_select`过滤，无活动的连接将不会传入`stream_socket_accept`，这样就解决了多连接响应阻塞的问题。
 
 由于可读fd数组是以引用形式传入，所以我们需要复制一个连接数组副本，原本用于保存所有连接，副本用于接受过滤连接。然后在每轮新的循环开头获取原本，传递副本进行过滤。
-```php
+```
 <?php
 
 $mainSocket = stream_socket_server(
@@ -312,7 +312,7 @@ while (true) {
 <summary>查看通信记录</summary>
 
 **服务端**：
-```bash
+```
 $ php src/block_stream.php
 new connection[6] comes in.
 new connection[7] comes in.
@@ -329,7 +329,7 @@ connection[7] closed
 
 ```
 **客户端1**：
-```bash
+```
 $ telnet 127.0.0.1 9501
 Trying 127.0.0.1...
 Connected to localhost.
@@ -344,7 +344,7 @@ quit
 Connection closed by foreign host.
 ```
 **客户端2**：
-```bash
+```
 $ telnet 127.0.0.1 9501
 Trying 127.0.0.1...
 Connected to localhost.
@@ -369,7 +369,7 @@ Connection closed by foreign host.
 通过`stream_set_blocking`将fd设置为读取非阻塞，就可以解决这个问题。
 
 当设置读取非阻塞时，如果`fread`无法立即读取完毕fdA，则会立即返回空给进程，这样进程就可以立即进入下一轮fd的遍历，执行其他fd的响应动作。当全部fd处理完毕则进入下一轮循环，如此往复。直到某一轮循环中fdA读取完毕，才会执行fdA的响应动作。这样有效避免了读取阻塞影响其他fd。
-```php
+```
 // ...
 stream_set_blocking($mainSocket, false);
 
@@ -395,7 +395,7 @@ while (true) {
 <details>
 <summary>展开查看</summary>
 
-```php
+```
 <?php
 
 $mainSocket = stream_socket_server('tcp://127.0.0.1:9501', $errno, $errstr, STREAM_SERVER_BIND | STREAM_SERVER_LISTEN);

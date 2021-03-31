@@ -31,13 +31,13 @@ draft: false
 Rust语言使用[rustup](https://rustup.rs/)作为安装器，它可以安装、更新和管理Rust的所有官方工具链。绝大多数情况下建议使用者使用该工具进行环境安装。
 ### 环境安装
 对于`*nix`系统用户而言，执行：
-```bash
+```
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 对于`Windows`系统用户而言，下载安装[rustup-init.exe](https://win.rustup.rs/x86_64)。
 
 安装完毕后可以通过`rustup show`获取工具链安装地址，进一步查看有哪些工具链，例如在笔者的macOS上是：
-```bash
+```
 ❯ rustup show
 Default host: x86_64-apple-darwin
 rustup home:  /Users/yuchanns/.rustup
@@ -62,7 +62,7 @@ cargo         cargo-clippy  cargo-fmt     clippy-driver rust-gdb      rust-gdbgu
 `cargo`是**官方包管理器**，可以方便地管理包依赖的问题。
 
 使用`cargo new proj_name`可以创建一个新的项目，包含一个`Cargo.toml`依赖管理文件和`src`源码文件夹。
-```bash
+```
 ❯ cargo new proj_name
      Created binary (application) `proj_name` package
 ❯ tree proj_name
@@ -74,7 +74,7 @@ proj_name
 1 directory, 2 files
 ```
 执行`cargo run .`可以简单编译运行默认的代码，编译结果将会与`src`同级的`target`下，包含`target/debug`和`target/release`两个文件夹。
-```bash
+```
 ❯ cd proj_name
 ❯ cargo run .
    Compiling proj_name v0.1.0 (/Users/yuchanns/Coding/backend/github/rustbyexample/trpl/proj_name)
@@ -83,7 +83,7 @@ proj_name
 Hello, world!
 ```
 同时我们注意到文件根目录下生成了一个`Cargo.lock`文件，记录详细的依赖版本信息。然后观察`Cargo.toml`：
-```bash
+```
 ❯ cat Cargo.toml
 [package]
 name = "proj_name"
@@ -99,7 +99,7 @@ rand = "0.8.1"
 添加依赖，是通过编辑该文件，手动写入包名和版本，然后在编译过程中`cargo`就会自动下载依赖并使用。
 
 也许有的读者好奇是否还有类似于其他语言的**CLI**命令，通过`cargo add`等命令添加依赖的方式，遗憾的是官方并没有提供这样的支持。而社区则提供了一个[killercup/cargo-edit](https://github.com/killercup/cargo-edit)实现了这一需求：
-```bash
+```
 cargo install cargo-edit
 cargo add rand
 cargo rm rand
@@ -109,7 +109,7 @@ cargo rm rand
 ![](/images/issue-subcommand-of-cargo-add-new-dependency.png)
 
 和许多其他语言一样，身在中国境内，用户还需要设置`cargo`的镜像站点，改善下载状况：
-```bash
+```
 ❯ cat ~/.cargo/config
 [source.crates-io]
 registry = "https://github.com/rust-lang/crates.io-index"
@@ -147,7 +147,7 @@ Rust语法分为 **语句(Statement)** 和 **表达式(Expression)** 。
 * 由`{}`和一系列表达式组成的表达式为 **块表达式(Block Expression)** ，总是返回最后一个表达式的求值结果，如果有`;`则返回单元值
 
 因此块表达式常常可以这样使用：
-```rust
+```
 fn main() {
     let a = {
         let a = 1;
@@ -163,7 +163,7 @@ fn main() {
 
 位置表达式表示内存位置，可以对数据单元的内存进行读写，代表持久性数据；值表达式引用数据值，只能读，代表临时数据。
 
-```bash
+```
 fn main () {
     let a = "hello world"
 }
@@ -179,14 +179,14 @@ fn main () {
 * 其他情况都是值上下文
 
 Rust使用`let`声明变量时默认不可对位置表达式重新赋值，需要在声明时通过`mut`关键字声明可变的位置表达式：
-```rust
+```
 fn main () {
     let mut a = "hello";
     a = "world";
 }
 ```
 通过`let`可以重复对同一个变量名进行不同数据类型的赋值，这样的操作会“遮蔽”前一个同名变量，可以认为是“只对变量名字进行复用”(那个变量的实际上还在内存当中)：
-```rust
+```
 fn main() {
     let a = String::from("hello world");
     let b = &a;
@@ -196,7 +196,7 @@ fn main() {
 ```
 
 当位置表达式出现在值上下文中，会出现内存地址的转移，同时 **转移(Move)** 对内存的 **所有权(Ownership)** ，其结果是将无法再通过这个位置表达式读写该内存地址。
-```rust
+```
 fn main () {
     let a = String::from("hello world");
     // 下面的表达式中位置表达式出现在值上下文(即赋值表达式的右侧)
@@ -218,7 +218,7 @@ Rust没有GC，就是 **依靠所有权实现对内存的管理** 。
 
 ### 函数与闭包
 Rust使用`fn`声明函数定义，并通过在入参后面加`: type`的方式约定入参类型，通过在函数括号后面加`-> type`的方式约定函数返回类型：
-```rust
+```
 fn fizz_buzz(num: i32) -> String {
     // ...
 }
@@ -231,7 +231,7 @@ fn fizz_buzz(num: i32) -> String {
 * 闭包使用`||`代替函数的`()`
 * 闭包需要使用`move`关键字显式转移变量所有权避免成为悬垂指针(即使你忘了，编译器也会帮你检查出来)
 
-```rust
+```
 fn main() {
     // 返回值里的impl表明闭包实际上是用匿名结构体实现了一个trait
     fn make_true2() -> impl Fn() -> bool {
@@ -265,7 +265,7 @@ Rust中没有三元操作符，`if`表达式的分支必须返回同一个类型
 * `for...in`本质上是一个迭代器
 * 无限循环请使用`loop`而不是`while true`，因为编译器会忽略循环体里的表达式，引起报错
 
-```rust
+```
 fn main () {
     let n = 13;
     // if分支是块表达式，返回类型必须相同
@@ -293,7 +293,7 @@ Rust还提供了`match`表达式和某些场景下可以代替它进行简化的
 * `match`表达式左侧可以通过操作符`@`将匹配值赋予某个变量
 * `match`表达式必须穷尽所有可能，可以用通配符`_`处理剩余情况
 
-```rust
+```
 fn main() {
     let number = 42;
     match number {
@@ -386,7 +386,7 @@ Rust提供4种复合数据类型：
         * 方法中第一个参数如果是`&self`，通过`.`调用
         * 否则方法使用`::`调用
 
-```rust
+```
 struct People {
     name: &'static str,
     gender: u32,
@@ -427,7 +427,7 @@ fn main() {
     * 也支持**类C枚举体**
     * 还支持携带类型参数
 
-```rust
+```
 // 成员是值
 enum Number {
     Zero,
@@ -484,7 +484,7 @@ Rust标准库提供了4种通用集合类型：
 * 可以作为标签标记类型拥有某些特定性为
 * **组合优于继承，面向接口编程**
 
-```rust
+```
 struct Plane;
 struct Car;
 trait Behave {
@@ -517,14 +517,14 @@ fn main() {
 ```
 ## 错误处理
 Rust的错误处理通过返回`Result<T, E>`的方式进行，这是一个枚举体。
-```rust
+```
 enum Result<T, E> {
     Ok(T),
     Err(E),
 }
 ```
 结合`match`进行处理，下面这个[猜数字游戏](https://rust-lang.budshome.com/ch02-00-guessing-game-tutorial.html)是一个简单的示例：
-```rust
+```
 use rand::Rng;
 use std::cmp::Ordering;
 use std::io::stdin;

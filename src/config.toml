@@ -1,29 +1,30 @@
 baseurl = "https://yuchanns.xyz/"
 languageCode = "zh-CN"
 title = "代码炼金工坊"
-theme = "lithium"
+theme = "goblog"
 # googleAnalytics = ""
 # disqusShortname = ""
-disableKinds = ["taxonomy", "term", "section", "404"]
+#disableKinds = ["taxonomy", "term", "section", "404"]
+copyright = "@ yuchanns"
 
 [permalinks]
-    post = "/:year/:month/:day/:title/"
-    page = "/:title/"
+    post = "/:year/:month/:day/:filename/"
+    page = "/:filename/"
 
-[[menu.main]]
-    name = "About"
-    url = "/about/"
-[[menu.main]]
-    name = "Awesome"
-    url = "/awesome/"
-[[menu.main]]
-    name = "GitHub"
-    url = "https://github.com/yuchanns"
+#[[menu.main]]
+#    name = "About"
+#    url = "/about/"
+#[[menu.main]]
+#    name = "Awesome"
+#    url = "/awesome/"
+#[[menu.main]]
+#    name = "GitHub"
+#    url = "https://github.com/yuchanns"
 
 [params]
     mainSections = ["post"]
 
-    description = ""
+    description = "追寻计算机炼金术的贤者之石"
 
     # path to the favicon, under "static"
     favicon = "favicon.ico"
@@ -36,3 +37,13 @@ disableKinds = ["taxonomy", "term", "section", "404"]
 
     [params.icon]
     url = "favicon.ico"
+
+    [[params.menu]]
+        name = "About"
+        url = "/about/"
+    [[params.menu]]
+        name = "Awesome"
+        url = "/awesome/"
+    [[params.menu]]
+        name = "GitHub"
+        url = "https://github.com/yuchanns"

@@ -12,7 +12,7 @@ draft: false
 
 使用方式很简单：
 
-```go
+```
 package main
 
 import (
@@ -46,7 +46,7 @@ func main() {
 
 应用在启动时会打印它的pid。然后打开一个终端，使用curl访问`localhost:9001/delay`，同时使用`kill -1 $pid`对该应用发出**SIGHUP**的信号，接着再使用另一个终端curl再次访问同样的路由，可以看到应用具有类似如下输出：
 
-```bash
+```
 2020/09/14 17:03:11 pid is 1877
 2020/09/14 17:03:23 1877 Received SIGHUP. forking.
 2020/09/14 17:03:23 1877 Received SIGTERM.
@@ -71,7 +71,7 @@ func main() {
 
 首先，和普通的`net/http`相比，该库使用`endless.endlessServer`代替原生的`http.Server`结构体，然后我们就可以用通过发送相应的信号使它平滑重启或平滑关闭。
 
-```go
+```
 type endlessServer struct {
 	http.Server
 	EndlessListener  net.Listener
@@ -91,7 +91,7 @@ type endlessServer struct {
 
 在这个方法中，调用了一个`func (srv *endlessServer) handleSignals()`方法，就是关于平滑重启的具体实现过程。可以看到，上面提到的SignalHooks，具有`PRE`和`POST`两种调用时机，分别在信号处理前和信号处理后。这样用户就可以自定义前置和后置信号动作了。
 
-```go
+```
 func (srv *endlessServer) handleSignals() {
 	var sig os.Signal
 
@@ -136,7 +136,7 @@ func (srv *endlessServer) handleSignals() {
 
 为避免读者迷惑，笔者删除与重点无关的代码。
 
-```go
+```
 func (srv *endlessServer) fork() (err error) {
 	var files = make([]*os.File, len(runningServers))
 	var orderArgs = make([]string, len(runningServers))

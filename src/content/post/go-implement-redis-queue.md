@@ -45,7 +45,7 @@ draft: false
 队列需要做哪些工作呢？队列需要和redis产生通信、交互。因此它需要拥有一个字段用来保存redis的连接；我们所有的对redis操作都通过队列来实现，因此最好在此结构上封装一些简易的redis操作方法，比如`lrem`；另外当我们把消息传给队列时，它需要有一个`delivery`方法将消息投递到队列中；此外也要有一个`receive`方法将消息从队列中取出。
 
 基于这些描述，我们对队列的结构有了一个大致的了解，可以将其用代码描述出来：
-```go
+```
 type Queue struct {
     conn *redis.Connect
 }
@@ -73,7 +73,7 @@ func (q *Queue) Receive(source, dest string) {
 同时我们注意到在队列取出消息之后，还会执行消费操作。当我们传递不同的信息时，可能需要执行的消费动作也不同；为扩展考虑，不能每新增一种消息就往队列中添加新的消费动作代码，所以我们最好让消息结构本身自带一个消费方法，只需要队列取出消息之后调用这个方法进行消费即可，将其命名为`resolve`。
 
 不同消息需要创建不同的消息结构，但是他们都最好遵照我们前面定下的消息结构规范，这样队列可以统一使用同一种流程来处理消息。因此我们这里使用**接口**来约定结构。
-```go
+```
 type IMessage interface {
     Resolve()
     GetChannel() string
@@ -91,7 +91,7 @@ type IMessage interface {
 
 ### redigo
 `redigo`提供了一个连接池管理方案，通过实例化`redis.Pool`结构，可以获取一个连接池实例，每次使用时通过调用实例的`func (p *Pool) Get() redis.Conn`方法获取一个redis连接，然后通过redis连接的`func (ac *activeConn) Close() error`方法将用完的连接回收。
-```go
+```
 import "github.com/gomodule/redigo/redis"
 
 // 创建连接池实例
@@ -113,7 +113,7 @@ conn := pool.Get()
 defer conn.Close()
 ```
 使用`redigo`从redis队列中读取或推送消息时，需要使用[]byte类型的消息：
-```go
+```
 msg := []byte("hello redis")
 if _, err := conn.Do("LPUSH", "prepare", msg); err != nil {
     panic(err)
@@ -133,7 +133,7 @@ fmt.Println(string(rUint8)) // "hello redis"
 我写过一篇[《json-iterator/go使用笔记》](https://yuchanns.org/posts/2020/02/07/usage-of-json-iterator-go/)，感兴趣的读者可以点击阅读。
 
 **jsoniter**可以将结构体转化成`[]byte`，也可以将`[]byte`转化成结构体。
-```go
+```
 import jsoniter "github.com/json-iterator/go"
 
 // 通过tag标注序列化后对应的字段
@@ -157,7 +157,7 @@ jsoniter.Unmarshal(str, &t2)
 首先从消息接口`IMessage`着手，然后我们通过编写一个结构体`Message`来实现该接口。
 > message.go
 
-```go
+```
 package main
 
 type IMessage interface {
@@ -199,7 +199,7 @@ func (m *Message) Unmarshal(reply []byte) (IMessage, error) {
 队列结构需要存储redigo的连接池实例。
 > queue.go
 
-```go
+```
 package main
 
 type Queue struct {
@@ -267,7 +267,7 @@ func (q *Queue) Delivery(msg IMessage) error {
 很容易知道，队列读取消息需要循环地进行，不停检测是否有新的消息推送，因此我们需要一个死循环语句来重复执行读取消息的方法。为了不阻碍主协程的进行，需要使用`go`关键字开启一个新的协程来进行这一动作：
 > queue.go
 
-```go
+```
 func (q *Queue) InitReceiver(msg IMessage) {
     // 投递目标名称加“.prepare”用于表示待执行队列
     prepareQueue := fmt.Sprintf("%s.prepare", msg.GetChannel())
@@ -301,7 +301,7 @@ func (q *Queue) InitReceiver(msg IMessage) {
 好了，我们可以说基本上实现了大致的队列功能。现在可以写个测试跑一下看看效果：
 > main.go
 
-```go
+```
 package main
 
 import (
@@ -358,7 +358,7 @@ func main() {
 现在我们对消息结构体的消费方法做出一点改动，使用`crypto/rand`[^5]包让它随机产生失败——这是一个常用的伪随机数标准库，感兴趣的请阅读官方文档。
 > message.go
 
-```go
+```
 import (
     "crypto/rand"
     "math/big"
@@ -386,7 +386,7 @@ func (m *Message) Resolve() error {
 我们使用方法名为`ack`为队列结构体添加这一功能。当然，更简单的方式，并不需要发送确认或否定信息：单纯地在每次获取信息之前(或消费信息之后)，轮询执行队列中是否有多余的消息，如果有，说明是之前因为意外而消费失败丢失的消息，将其再次通过`rpoplpush`放回待执行队列即可。
 > queue.go
 
-```go
+```
 func (q *Queue) ack(imsg IMessage, sourceQueue, destQueue string) {
     for {
         // 这是一个死循环，需要小心注意打断避免永远循环
@@ -409,7 +409,7 @@ func (q *Queue) ack(imsg IMessage, sourceQueue, destQueue string) {
 然后在循环消费的协程中调用此方法：
 > queue.go
 
-```go
+```
 func (q *Queue) InitReceiver(msg IMessage) {
     // 省略代码
     go func() {
@@ -433,7 +433,7 @@ func (q *Queue) InitReceiver(msg IMessage) {
 依旧是对消息结构体的消费方法做改动，用以模拟这一情况的发生：
 > message.go
 
-```go
+```
 import (
     "crypto/rand"
     "math/big"
@@ -467,7 +467,7 @@ func (m *Message) Resolve() error {
 在创建`childCtx`的时候，我们同时会获得一个`cancel`函数，一旦调用这个函数，就会向`childCtx`内置的一个空结构体channel发送信号；而协程中就可以通过`childCtx.Done()`这个方法读取到这一信号——此信号用于通知协程，该退出了。
 > main.go
 
-```go
+```
 import "context"
 
 func main() {
@@ -489,7 +489,7 @@ func main() {
 ```
 > queue.go
 
-```go
+```
 // 注意方法形参添加了一个context.Context类型的变量ctx
 // 方法返回了一个函数类型的值
 func (q *Queue) InitReceiver(ctx context.Context, msg IMessage) func() {
@@ -522,7 +522,7 @@ func (q *Queue) InitReceiver(ctx context.Context, msg IMessage) func() {
 因此我们还需要建立一个通道，等待子协程完成了当前工作， 收到消息之后通知主协程。而主协程需要在得到“可以结束了”的通知之后再退出：
 > queue.go
 
-```go
+```
 func (q *Queue) InitReceiver(ctx context.Context, msg IMessage) func() {
     // 省略代码
     childCtx, cancel := context.WithCancel(ctx)
@@ -560,7 +560,7 @@ func (q *Queue) InitReceiver(ctx context.Context, msg IMessage) func() {
 一个消费者独木难支，那么我们可以多开几个协程，并行/并发地处理更多消息，提升单位时间内的效率：
 > main.go
 
-```go
+```
 func main() {
     // 省略代码
     // 新增了第三个参数，用来设定协程数量
@@ -570,7 +570,7 @@ func main() {
 ```
 > queue.go
 
-```go
+```
 // 新增了第三个形参，用来设定协程数量
 func (q *Queue) InitReceiver(ctx context.Context, msg IMessage, number int) func() {
     // 投递目标名称加“.prepare”用于表示待执行队列

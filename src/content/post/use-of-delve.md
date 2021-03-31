@@ -16,7 +16,7 @@ draft: false
 ## 快速开始
 dlv的获取方式很简单，和平时拉取go第三方库的方式一样，执行`go get -u github.com/go-delve/delve/cmd/dlv`即可。
 
-```bash
+```
 ❯ tree
 .
 ├── README.md
@@ -26,14 +26,14 @@ dlv的获取方式很简单，和平时拉取go第三方库的方式一样，执
 
 打开你的终端，进入项目所在的根目录——本文以使用了go module管理的[yuchanns/gobyexample](https://github.com/yuchanns/gobyexample)为例，它的module名为`github.com/yuchanns/gobyexample`，项目结构如上——本例子试图对根目录下的dlv文件夹中的main.go文件进行debug；然后执行`dlv debug github.com/yuchanns/gobyexample/dlv`开启了debug会话框：
 
-```bash
+```
 dlv debug github.com/yuchanns/gobyexample/dlv
 Type 'help' for list of commands.
 (dlv)
 ```
 
 键入`funs main`，得到包含main字眼的函数的信息，其中，属于用户编写的入口main函数为`main.main`；接着输入`b main.main`对该函数进行断点标记，然后键入`c`直接运行到该断点处，可以看到会话输出了函数的内容：
-```bash
+```
 (dlv) funcs main
 main.main
 runtime.main
@@ -54,7 +54,7 @@ Breakpoint 1 set at 0x10c2393 for main.main() ./dlv/main.go:5
 (dlv)
 ```
 键入`s`进行单步调试，连续两次，再键入`locals`查看分配的局部变量信息：
-```bash
+```
 (dlv) s
 > main.main() ./dlv/main.go:7 (PC: 0x10c23b6)
      2:
@@ -72,7 +72,7 @@ greet = "Hello World!"
 
 ## 命令详解
 我们以下面这段代码为例，内容为20个goroutine分别进行斐波那契数列的计算：
-```go
+```
 package main
 
 import (
@@ -108,7 +108,7 @@ func main() {
 
 在开启的debug会话中，键入`help`可以查看拥有哪些命令，以及命令的解释。在调试过程中可以经常使用辅助查询命令名称。
 
-```bash
+```
 (dlv) help
 The following commands are available:
 
@@ -185,7 +185,7 @@ Type help followed by a command for full documentation.
 命令前面可以选择查看第几个goroutine或者第几frame的源码，这个暂且不提。
 
 命令后面可以是函数名称，例如`FibIter`，也可以是`文件名:行数`，例如`gobyexample/dlv/main.go:8`，效果一样：
-```bash
+```
 (dlv) l gobyexample/dlv/main.go:8
 Showing /Users/yuchanns/Coding/golang/gobyexample/dlv/main.go:8 (PC: 0x10c281f)
    3:	import (
@@ -206,7 +206,7 @@ Showing /Users/yuchanns/Coding/golang/gobyexample/dlv/main.go:8 (PC: 0x10c281f)
 例如笔者要把断点打在`main.main`函数的`for`关键字处。我们可以先用`ls main.main`来查看源码，然后得知文件名以及`for`关键字行数为`gobyexample/dlv/main.go:22`。
 
 于是使用`b gobyexample/dlv/main.go:22`的方式打上一个断点。
-```bash
+```
 (dlv) ls main.main
 Showing /Users/yuchanns/Coding/golang/gobyexample/dlv/main.go:20 (PC: 0x10c2933)
   15:
@@ -229,7 +229,7 @@ Breakpoint 1 set at 0x10c296a for main.main() ./dlv/main.go:22
 单步调试，可以用`s`代替，作用就是一步一步执行代码。
 
 比如现在我们停在22行代码，键入`s`，前进到23行，22行代码就被运行了；如果再按两下`s`，会发现我们不在第24行，而是跳转到了`wg.Add`这个函数的内部。
-```bash
+```
 (dlv) c
 > main.main() ./dlv/main.go:22 (hits goroutine(1):1 total:1) (PC: 0x10c296a)
     17:		return FibIter(1, 0, n)
@@ -282,7 +282,7 @@ Breakpoint 1 set at 0x10c296a for main.main() ./dlv/main.go:22
 用于显示当前所有的goroutine情况，以及各自的编号。可在命令后面追加flag，用于决定每条记录的附带显示信息。
 
 该命令可以`grs`代替，键入命令，我们发现当前一共有7个goroutine在进行：
-```bash
+```
 (dlv) grs
 * Goroutine 1 - User: ./dlv/main.go:22 main.main (0x10c29ce) (thread 145740)
   Goroutine 2 - User: /usr/local/go/src/runtime/proc.go:305 runtime.gopark (0x103623b)
@@ -297,7 +297,7 @@ Breakpoint 1 set at 0x10c296a for main.main() ./dlv/main.go:22
 刚才我们注意到，虽然键入s可以逐步运行代码，但是仅限于主函数所在的内容，却无法查看到goroutine内部函数的运行状态。
 
 这是就轮到`goroutine`派上用场了，该命令也可以用`gr`代替，加上`grs`命令显示的goroutine编号，可以将debug视角切换到goroutine内部。比如说我们使用`gr 19`来查看19号goroutine。然后键入`ls`查看当前运行的源码情况：
-```bash
+```
 (dlv) gr 19
 Switched from 1 to 19 (thread 146294)
 (dlv) ls
@@ -324,7 +324,7 @@ Switched from 1 to 19 (thread 146294)
 其中`args`用来查看函数入口的形参信息，而`locals`则用来查看函数内部分配的实参的信息。
 
 在这个例子中，我们只有形参，键入`args`可以看到**FibIter**函数内部的全部形参信息：
-```bash
+```
 (dlv) args
 a = 1
 b = 1
@@ -336,7 +336,7 @@ n = 99
 `breakpoint`或简写`bp`命令可以打印出目前正在使用中的全部断点信息，其中包括断点名称。
 
 然后执行`clear 断点名称`的方式来删除指定的断点；也可以用`clearall [<linespec>]`的方式删除所有正则匹配的行数的断点。
-```bash
+```
 (dlv) bp
 Breakpoint runtime-fatal-throw at 0x1033970 for runtime.fatalthrow() /usr/local/go/src/runtime/panic.go:1158 (0)
 Breakpoint unrecovered-panic at 0x10339e0 for runtime.fatalpanic() /usr/local/go/src/runtime/panic.go:1185 (0)
@@ -361,7 +361,7 @@ frame实际上是栈帧，即记录了每一个函数调用过程的信息帧。
 每一帧都记录了执行的函数对应的文件地址，可以据此判断哪一帧才是我们需要的。
 
 然后使用`frame 帧编号`的方式进入该帧，结合上面的命令查看该帧中的相应信息。
-```bash
+```
 (dlv) bt
  0  0x00000000010c2854 in main.FibIter
     at ./dlv/main.go:13
@@ -435,7 +435,7 @@ n = 84
 限于篇幅，笔者没有把所有的命令都详细写出，其实有了上面的基础，读者在学习其他命令的过程中应当没有什么麻烦。
 
 值得注意的是，其中有一些命令可以相互组合使用：比如说`print`、`b`和`on`，可以实现每次运行到断点部分时，自动打印出变量信息：
-```bash
+```
 (dlv) b gobyexample/dlv/main.go:8
 Breakpoint 2 set at 0x10c281f for main.FibIter() ./dlv/main.go:8
 (dlv) on 2 print a
@@ -462,7 +462,7 @@ Breakpoint 2 set at 0x10c281f for main.FibIter() ./dlv/main.go:8
 通常，在测试局部功能时，都是通过编写测试用例进行，dlv自然也支持这种方法。
 
 在此之前，我们也可以执行`dlv help`看看除了`debug`外都有哪些其他命令：
-```bash
+```
 ❯ dlv help
 Delve is a source level debugger for Go programs.
 
@@ -520,7 +520,7 @@ Use "dlv [command] --help" for more information about a command.
 > 注：什么是`core dump`文件？当一份代码编译后运行一段时间会发生崩溃，但是又很难定位错误时，较原始的办法是不停地在一些关键代码上报日志；而一个更方便的方法则是通过设置环境变量`GOTRACEBACK=crash`，生成一份进程运行直到崩溃时详细信息的快照，然后对这个快照进行回溯。
 
 对测试用例所在的目录执行`dlv test github.com/yuchanns/gobyexample/dlv`，然后对测试函数进行断点，其余操作和前两节一致：
-```go
+```
 // gobyexample/dlv/pkg_test.go
 package main
 
@@ -535,7 +535,7 @@ func TestFib(t *testing.T) {
 	}
 }
 ```
-```bash
+```
 ❯ dlv test github.com/yuchanns/gobyexample/dlv
 Type 'help' for list of commands.
 (dlv) b TestFib

@@ -15,7 +15,7 @@ draft: false
 换句话说，斐波那契数可以通过将$T^n$应用于对偶(1, 0)而产生出来。
 
 现在将T看做是变换族$T_{pq}$中p=0且q=1的特殊情况，其中$T_{pq}$是对偶(a, b)按照a←bq+aq+ap和b←bp+aq规则的变换。请证明，如果我们应用变换$T_{pq}$两次，其效果等同于应用同样形式的一次变换$T_{p'q'}$，其中p'和q'可以由p和q计算出来。这就指明了一条求出这种变换的平方的路径。将所有的这些集中到一起，形成下面的过程，其运行只需要对数的步数：
-```scheme
+```
 (define (fib n)
   (fib-iter 1 0 0 1 n))
 (define (fib-iter a b p q count)
@@ -58,7 +58,7 @@ $$q' = q^2+2pq$$
 $$p' = 2qp+2q^2+p^2-q'=q^2+p^2$$
 
 所以答案为：
- ```scheme
+ ```
  (define (fib n)
    (fib-iter 1 0 0 1 n))
  (define (fib-iter a b p q count)
@@ -81,14 +81,14 @@ $$p' = 2qp+2q^2+p^2-q'=q^2+p^2$$
 ### 过程作为参数
 > 3个例子
 * 计算从a到b的各整数之和：
-```scheme
+```
 (define (sum-integers a b)
   (if (> a b)
       0
       (+ a (sum-integers (+ a 1) b))))
 ```
 * 计算给定范围内的整数的立方和：
-```scheme
+```
 (define (cube x) (* x x x))
 (define (sum-cubes a b)
   (if (> a b)
@@ -96,7 +96,7 @@ $$p' = 2qp+2q^2+p^2-q'=q^2+p^2$$
       (+ (cube a) (sum-cubes (+ a 1) b))))
 ```
 * 计算序列$\frac{1}{1\cdot3}+\frac{1}{5\cdot7}+\frac{1}{9\cdot11}+\cdots$之和：
-```scheme
+```
 (define (pi-sum a b)
   (if (> a b)
       0
@@ -108,7 +108,7 @@ $$p' = 2qp+2q^2+p^2-q'=q^2+p^2$$
 $\sum\limits_{n=a}^{b}f(n)=f(a)+\cdots+f(b)$
 
 翻译成程序语言即是：
-```scheme
+```
 (define (sum term a next b)
   (if (> a b)
       0
@@ -116,7 +116,7 @@ $\sum\limits_{n=a}^{b}f(n)=f(a)+\cdots+f(b)$
          (sum term (next a) next b))))
 ```
 利用这个公共模式，上面三个例子可以改写为：
-```scheme
+```
 (define (inc n) (+ n 1))
 ; 计算从a到b的各整数之和
 (define (identity x) x)
@@ -138,7 +138,7 @@ $\sum\limits_{n=a}^{b}f(n)=f(a)+\cdots+f(b)$
 $$f_a^b=[f(a+\frac{dx}{2})+f(a+dx+\frac{dx}{2})+f(a+2dx+\frac{dx}{2})+\cdots]dx$$
 
 描述为一个过程：
-```scheme
+```
 (define (integral f a b dx)
   (define (add-dx x) (+ x dx))
   (* (sum f (+ a (/ dx 2.0)) add-dx b)
@@ -158,7 +158,7 @@ $$\frac{h}{3}[y_0+4y_1+2y_2+4y_3+2y_4+\cdots+2y_{n-2}+4y_{n-1}+y_n]$$
 当我们尝试往过程```(sum term a next b)```中代入参数时，得到term=f、a=0、next=inc、b=n的结果。但实际上每一轮的(term a)返回值根据k而变化。
 
 因此我们应当把$y_0、4y_1、2y_2、\cdots、4y_{n-1}、y_n$分别看成一个内含f的整体，即定义一个过程`simpson-term`：
-```scheme
+```
 (define (simpson-term k f a h n)
   (define y (f (+ a (* k h))))
   (if (or (= k 0) (= k n))
@@ -169,7 +169,7 @@ $$\frac{h}{3}[y_0+4y_1+2y_2+4y_3+2y_4+\cdots+2y_{n-2}+4y_{n-1}+y_n]$$
 ```
 
 现在我们有term=simson-term、a=0、next=inc、b=n，可得：
-```scheme
+```
 (define (simpson-integral f a b n)
   (define h (/ (- b a) n))
   (define (simpson-term k)
@@ -191,7 +191,7 @@ $$\frac{h}{3}[y_0+4y_1+2y_2+4y_3+2y_4+\cdots+2y_{n-2}+4y_{n-1}+y_n]$$
 * 什么是线性递归和线性递归（概念）？
 * 两者区别？
 
-```scheme
+```
 (define (sum term a next b)
 	(define (iter a result)
 		(if (> a b)
@@ -200,7 +200,7 @@ $$\frac{h}{3}[y_0+4y_1+2y_2+4y_3+2y_4+\cdots+2y_{n-2}+4y_{n-1}+y_n]$$
 	(iter a 0))
 ```
 ### 1.31 抽象出product过程用来定义factorial（阶乘）
-```scheme
+```
 ; 线性迭代写法
 (define (product term a next b)
   (define (iter a result)
@@ -218,7 +218,7 @@ $$\frac{h}{3}[y_0+4y_1+2y_2+4y_3+2y_4+\cdots+2y_{n-2}+4y_{n-1}+y_n]$$
 ```
 按照公式$\frac{π}{4}=\frac{2\cdot4\cdot4\cdot6\cdot6\cdot8\cdot\cdot\cdot}{3\cdot3\cdot5\cdot5\cdot7\cdot7\cdot\cdot\cdot}$计算π的近似值？
 ### 1.32 抽象出sum和product的公共模式accumulate
-```scheme
+```
 ; 线性迭代写法
 (define (accumulate combiner null-value term a next b)
 	(define (iter a result)

@@ -9,7 +9,7 @@ draft: false
 这个库具有很多优点。最常被人称道的就是性能高于充满反射的官方提供的编码库——据说在编码结构体时候，Go版本的效率是`encoding/json`的6倍，而Java版本的效率是官方的3倍。
 
 同时这个库还完全兼容官方库的**api**，替换官方库的方式不需要那么**hack**。
-```go
+```
 import jsoniter "github.com/json-iterator/go"
 
 type Student struct {
@@ -51,7 +51,7 @@ func Marshal() {
 对于**gin-gonic/gin**，官方提供[^1]`$ go build -tags=jsoniter .`命令在编译时替换编码库。更多信息请看文后[补充](#补充)
 
 对于一些没有提供替换接口的库，也可以通过monkey补丁[^2]来简单粗暴的替换掉官方编码库。
-```go
+```
 // 使用go get -u "bou.ke/monkey"获取猴子补丁库
 import (
   "bou.ke/monkey"
@@ -94,7 +94,7 @@ echo json($user);
 这个解决方案就是通过结构体`tag`和多余字段来进行转换。
 
 以下这段代码完整版可以参考笔者的代码库[yuchanns/gobyexample](https://github.com/yuchanns/gobyexample/blob/master/gorm/model/order.go#L53-L54)。
-```go
+```
 type User struct {
   ID          uint   `json:"id" gorm:"primary_key"`
   Name        string `json:"name"`
@@ -117,7 +117,7 @@ func (u *User) AfterFind() {
 而在`json-iterator/go`中有一个更优的解法，不需要在原有的结构体中添加多余的字段，也不需要在钩子函数中写一堆重复代码，使用者也不需要记忆修改哪个字段。
 
 光是查阅`RegisterTypeEncoder/RegisterTypeDecoder`这两个方法的源码的注释，可能会一时间摸不着头脑，幸好官方中`extra.timeAsInt64Codec`使用了这两个方法可供我们参考[^5]。
-```go
+```
 func RegisterTypeEncoder(typ string, encoder ValEncoder) {
   typeEncoders[typ] = encoder
 }
@@ -128,7 +128,7 @@ type ValEncoder interface {
 }
 ```
 首先这个注册函数接受两个参数，第一个参数为`string`类型，用来指定生效的类型，支持自定义类型；第二个字段是一个接口类型参数，也就是提供使用者进行自定义的入口。用户所需要做的就是实现这个`jsoniter.ValEncoder`接口，提供需要的方法，然后将接口的实现实例使用这个函数进行注册。
-```go
+```
 type locationAsStringCodec struct{}
 
 func (locationAsStringCodec) IsEmpty(ptr unsafe.Pointer) bool {
@@ -169,7 +169,7 @@ func RegisterEncoder() {
 第一种方法的缺陷在于每个使用这段代码库的人都需要对IDE作出同样设置才能生效。
 
 第二种方法则与IDE无关，编译指示写在了文件之中，所有获得这份代码的人都可以得到同样的设置。只不过使用IDE的时候进行测试方便一点。下面是`pkg_test.go`：
-```go
+```
 // +build jsoniter
 
 package json_iterator
@@ -194,7 +194,7 @@ func TestSetupRouter() {
 }
 ```
 以及对gin官方文档测试案例的稍微更改[^7]：
-```go
+```
 package json_iterator
 
 import (

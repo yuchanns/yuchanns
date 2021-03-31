@@ -27,11 +27,11 @@ draft: false
 首先我们编写一个dockerfile，包含这些内容：以`jenkins/jenkins:lts`镜像为基础，以root身份将jenkins用户加入到docker用户组中，然后切回jenkins身份。启动容器时挂载将宿主机中的`./jenkins_home`挂载到容器中`/var/jenkins_home`，此举确保插件和流水任务存储在宿主机中；jenkins需要用到docker，所以还要把`/usr/bin/docker`和`/var/run/docker.sock`挂载到容器中，前者是docker客户端，后者是客户端与服务端通信的终端文件。需要注意的是docker.sock是需要使用权限的，因此我们才需要将jenkins加入到dockery用户组中，否则在使用docker进行构建任务时会发生权限问题。
 
 在宿主机中运行
-```bash
+```
 awk -F ':' '/docker/{print $3}' /etc/group
 ```
 获取到宿主机中docker的权限组id(例如133)，接着编写如下dockerfile内容：
-```bash
+```
 FROM jenkins/jenkins:lts
 
 USER root
@@ -43,7 +43,7 @@ RUN  echo "docker:x:${dockerGid}:jenkins" >> /etc/group
 USER jenkins
 ```
 然后使用如下docker-compose.yaml进行编排
-```yaml
+```
 version: '3'
 services:
   jenkins:

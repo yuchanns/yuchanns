@@ -77,7 +77,7 @@ Docker最大的优点就是标准化——如同集装箱一般、将各种类�
 <details>
 <summary>点击查看Dockerfile</summary>
 
-```dockerfile
+```
 FROM php:7.2-fpm-alpine
 
 WORKDIR /www
@@ -110,7 +110,7 @@ CMD ["php-fpm"]
 
 这里稍微讲解一下用到的Docker-compose.yaml编写功能，更详细的请自行搜索：
 
-```yaml
+```
 version: '3'  # 指定docker-compose版本，主流3.x，支持docker1.13+
 services:  # 配置服务，每个服务都用于生成一个镜像
   nginx:
@@ -161,17 +161,17 @@ networks:
 ```
 
 然后我们执行
-```bash
+```
 docker-compose up --build -d # 第一次执行时添加--build，后台运行添加-d
 ```
 就可以构建镜像群，并且启动。
 
 如果要关闭镜像群，执行
-```bash
+```
 docker-compose down
 ```
 删除镜像群则使用
-```bash
+```
 docker-compose rm -f
 ```
 

@@ -27,7 +27,7 @@ draft: false
 
 event扩展提供了两个final修饰的类，**EventBase**和**Event**。其中，EventBase是事件基类，它的作用是保存挂起需要监听的事件，然后在事件被唤醒的时候调用回调函数进行处理；Event就是被监听的事件类本身。
 
-```php
+```
 <?php
 /** 
  * event.php
@@ -74,7 +74,7 @@ $eventBase->loop();  // 进入事件循环状态
 <details>
 <summary>展开查看客户端代码</summary>
 
-```php
+```
 <?php
 /** 
  * client.php
@@ -100,7 +100,7 @@ while (true) {
 </details>
 同理，我们对客户端连接也可以进行事件创建，挂起，并使用一个事件池进行维护（高亮部分）。
 
-```php
+```
 <?php
 /** 
  * events.php
@@ -160,7 +160,7 @@ $eventBase->loop();
 <details>
 <summary>展开查看报时客户端代码（高亮部分）</summary>
 
-```php
+```
 <?php
 /** 
  * client_alarm.php
@@ -192,7 +192,7 @@ while (true) {
 
 （通过上一篇文章）我们知道，无论是设置非阻塞，或者使用select、epoll等I/O复用技术，针对的都是网络IO，属于cpu操作。换言之，对于业务代码中的阻塞无能为力。考虑一下这种情况：业务代码中涉及到了mysql或者redis操作，由于数据量大，会产生一定的阻塞时间。此时将会导致所有的活跃的连接阻塞等待执行。这种情况该如何处理？
 
-```php
+```
 // 修改客户端事件的回调函数，使偶数连接阻塞20秒执行
 $clientEvent = new \Event(
     $eventBase,
@@ -229,7 +229,7 @@ $clientEvent = new \Event(
 
 我们以创建两个子进程为例，实现如下代码：
 
-```php
+```
 <?php
 /**
  * multi_sockets.php
@@ -325,7 +325,7 @@ function logTime() {
 <summary>展开查看控制台输出</summary>
 
 * 服务端
-```bash
+```
 $ php event/event_.php 
 [2019-09-01 09:34:46]parent[23022] waiting...
 [2019-09-01 09:34:46]child[23023] starting...
@@ -352,7 +352,7 @@ $ php event/event_.php
 ```
 * 连接到进程23023的客户端A(6)
 
-```bash
+```
 $ telnet 127.0.0.1 9501
 Trying 127.0.0.1...
 Connected to localhost.
@@ -363,7 +363,7 @@ hi im A!
 ```
 * 连接到进程23024的客户端B(7)
 
-```bash
+```
 $ telnet 127.0.0.1 9501
 Trying 127.0.0.1...
 Connected to localhost.
@@ -375,7 +375,7 @@ hi im B!
 </details>
 但与此同时，我们仔细查看服务端控制台输出日志，也会发现如下记录：
 
-```bash
+```
 [2019-09-01 09:34:51]child[23024] wakeup and try to accept...
 
 [2019-09-01 09:34:51]child[23023] wakeup and try to accept...
@@ -416,7 +416,7 @@ hi im B!
 <details>
 <summary>展开查看原生socket同步阻塞多进程代码</summary>
 
-```php
+```
 <?php
 $clients = [];
 

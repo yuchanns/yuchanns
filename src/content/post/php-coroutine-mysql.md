@@ -12,7 +12,7 @@ draft: false
 
 由这篇文章我们可以得知，传统php-fpm模式下的单例模式在协程中会发生跨协程污染的问题，而解决方法就是**创建一个协程上下文管理器，以协程id做隔离，分别实现每个协程中的单例连接**。
 
-```php
+```
 <?php
 // 例子摘抄
 class dbContext
@@ -79,7 +79,7 @@ go(function (){
 
 easyswoole操作数据库的方法是，调用MysqlPool::invoke方法，以回调的形式进行操作。
 
-```php
+```
 <?php
 
 namespace App\HttpController
@@ -102,7 +102,7 @@ MysqlPool::invoke(function(MysqlObject $db) {
 
 如上，我们通过代码跳转最终知道了invoker方法是通过trait特性混入AbstractPool抽象类的。
 
-```php
+```
 <?php
 // 方法源码摘抄
 public static function invoke(callable $call,float $timeout = null)
@@ -133,7 +133,7 @@ public static function invoke(callable $call,float $timeout = null)
 ### 对AbstractPool进行分析
 继续查看AbstractPool的getObj方法，去除掉一些异常抛出之后的源码：
 
-```php
+```
 <?php
 // getObj方法摘抄
 public function getObj()
@@ -151,7 +151,7 @@ public function getObj()
 
 接着看看$this->poolChannel是什么：
 
-```php
+```
 <?php
 use Swoole\Coroutine\Channel;
 
@@ -172,7 +172,7 @@ public function __construct(PoolConf $conf)
 ### 对$obj的产生进行分析
 我们开始关注initObject方法，看看$obj是怎么产生的：
 
-```php
+```
 <?php
 // 去除掉一些判断和异常抛出
 private function initObject():bool
@@ -192,7 +192,7 @@ private function initObject():bool
 
 回到MysqlPool类，我们可以看到：
 
-```php
+```
 <?php
 /**
  * Created by PhpStorm.

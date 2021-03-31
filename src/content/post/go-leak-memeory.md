@@ -8,7 +8,7 @@ draft: false
 ## 问题和分析
 
 代码简化后如下：
-```go
+```
 package main
 
 import (
@@ -67,7 +67,7 @@ func main() {
 由于引入了pprof，所以我们可以通过`http://localhost:8080/debug/pprof/goroutine?debug=1`访问到goroutine状况——
 
 在一开始，一共有三个goroutine，分别是一个主G和两个net/http的G：
-```bash
+```
 goroutine profile: total 3
 1 @ 0x1038170 0x103178a 0x1030d55 0x10ca245 0x10cb141 0x10cb123 0x11a389f 0x11b684e 0x12c9a88 0x10677b1
 #	0x1030d54	internal/poll.runtime_pollWait+0x54		/Users/yuchanns/go/go1.14/src/runtime/netpoll.go:203
@@ -109,7 +109,7 @@ goroutine profile: total 3
 #	0x12cf8ab	net/http.(*conn).serve+0x86b					/Users/yuchanns/go/go1.14/src/net/http/server.go:1895
 ```
 然后对`http://localhost:8080/debug/pprof/goroutine?debug=1`进行多次访问，再次查看goroutine状态，发现G的数量多达153，其中150个全是`main.leakGrs`这个方法的：
-```bash
+```
 goroutine profile: total 153
 150 @ 0x1038170 0x1006dfd 0x1006bc5 0x15883ee 0x10677b1
 #	0x15883ed	main.leakGrs.func1+0x4d	/Users/yuchanns/Coding/golang/gobyexample/main.go:22
@@ -166,7 +166,7 @@ goroutine profile: total 153
 
 所以提倡应该使用有缓冲的通道，并且把通道长度设置成写入成员的个数。
 
-```go
+```
 func leakGrs() error {
 	s := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
 	ch := make(chan error, 9)

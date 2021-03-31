@@ -44,13 +44,13 @@ draft: false
 ## go服务端gin中间件使用方法
 > 代码库地址：[yuchanns/bullets](https://github.com/yuchanns/bullets)
 
-```bash
+```
 go get -u github.com/yuchanns/bullets
 ```
 
 * 使用中间件
 
-```go
+```
 package main
 
 import (
@@ -81,7 +81,7 @@ func main() {
 
 * 自定义打tag
 
-```go
+```
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/opentracing/opentracing-go"

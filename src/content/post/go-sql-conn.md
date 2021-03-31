@@ -30,7 +30,7 @@ draft: false
 
 *gorm.DB的db字段就是管理数据库连接的地方。接下来我们简单阅读以下sql.DB结构体的内容。
 
-```go
+```
 type DB struct {
 	// Atomic access only. At top of struct to prevent mis-alignment
 	// on 32-bit platforms. Of type time.Duration.
@@ -77,7 +77,7 @@ type DB struct {
 
 ## gorm和数据库的交互
 上面我们已经了解了`database/sql`标准库是如何创建新连接的。在不考虑gorm的情况下，我们直接使用该标准库，发起查询时应是如下操作：
-```go
+```
 row, err := db.Query("select * from tbl_n")
 // do something with row
 row.Close()
@@ -85,7 +85,7 @@ row.Close()
 当我们调用**DB.Query**方法时，它会调用私有方法**DB.query**，而此方法会通过**DB.conn**尝试获取缓存的连接或者新建的连接。现在，我们是第一次连接，所以没有缓存的连接，该方法直接走创建连接的流程，调用DB.connector.Connect方法——这个方法前文提到过。返回给DB.query方法一个连接，接着DB.query又调用了**DB.queryDC**方法经过一系列查询（此处不是我们关注的重点，略过），生成一个Rows结构体，返回给gopher使用。
 
 然后我们调用**Row.Close**方法关闭查询。Close方法会调用Rows结构体中的**releaseConn**方法释放连接，这个方法实际上是由driverConn携带的：
-```go
+```
 func (db *DB) query(ctx context.Context, query string, args []interface{}, strategy connReuseStrategy) (*Rows, error) {
 	dc, err := db.conn(ctx, strategy)
 	if err != nil {

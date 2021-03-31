@@ -11,7 +11,7 @@ draft: false
 [**pprof**](https://github.com/google/pprof)是一个用于分析数据的可视化和分析工具，由谷歌公司的开发团队使用go语言编写成的。它通过一些手段收集进程在运行中调用堆栈等信息，按照一定格式保存到一个proto协议的结果文件中，然后对这个文件生成多种维度的可视化分析结果，用于对进程运行过程状况的分析。
 
 要使用完整的pprof工具，可以使用`go get`工具进行获取和安装：
-```bash
+```
 go get -u github.com/google/pprof
 ```
 
@@ -27,7 +27,7 @@ go get -u github.com/google/pprof
 结合[标准库文档](https://pkg.go.dev/runtime/pprof/)，我们先对`runtime/pprof`进行分析。
 
 对于一个独立的go程序，要记录其运行过程，需要较为hack的手段对源码进行一些修改，使用`pprof.StartCPUProfile`和`pprof.StopCPUProfile`进行cpu的信息收集（或者`pprof.WriteHeapProfile`对内存堆调用的记录）。以一个尾递归斐波那契函数为例：
-```go
+```
 package main
 
 import (
@@ -70,7 +70,7 @@ func main() {
 > 注：在上面那段代码中，如果斐波那契的数字太小了，可能会出现读取不到样本的情况(**Unable to get data from CPU profiling**)。这是因为`pprof.StartCPUProfile`中cpu采样率为100HZ(并且建议最佳使用500HZ)，而[案例函数运算太快了](https://stackoverflow.com/questions/58296808/unable-to-get-data-from-cpu-profiling)，所以样本不足。调大数字即可解决。
 
 使用pprof工具读取这个文件后，进入交互模式，键入`top`命令，可以看到按到使用热度排序的前10个函数的调用列表：
-```bash
+```
 ❯ go tool pprof cpu.out
 Type: cpu
 Time: Sep 26, 2020 at 8:28pm (CST)
@@ -125,7 +125,7 @@ Showing nodes accounting for 190ms, 100% of 190ms total
 上面笔者提到了`top`命令，也许引起了读者的好奇心：这些命令是从哪里来的？都有哪些？
 
 在pprof交互模式中，可以使用help来得到使用帮助：
-```bash
+```
 (pprof) help
   Commands:
     callgrind        Outputs a graph in callgrind format
@@ -212,7 +212,7 @@ Showing nodes accounting for 190ms, 100% of 190ms total
 * tree：和peek类似，但是输出全部的信息。
 
 键入`list fibIter`，得到：
-```bash
+```
 (pprof) list fibIter
 Total: 190ms
 ROUTINE ======================== main.fibIter in /Users/yuchanns/Coding/golang/gobyexample/pprof/main.go
@@ -239,7 +239,7 @@ ROUTINE ======================== main.fibIter in /Users/yuchanns/Coding/golang/g
 > 注：这里读者可能得出和笔者不一样的结果，这是因为每次执行程序的结果有一定的随机性，比如说总共耗时190ms，但是fibIter只执行了180ms，另外10ms是打印耗时等情况。
 
 键入`traces`，可以看到大部分为fibIter的递归调用，截取部分输出结果：
-```bash
+```
 -----------+-------------------------------------------------------
              main.fibIter
              main.fibIter
@@ -276,7 +276,7 @@ ROUTINE ======================== main.fibIter in /Users/yuchanns/Coding/golang/g
 
 确实可以结合测试函数编写，而且有更为简单的方法——借助`go help testflag`得到（节选）：
 
-```bash
+```
 The following flags are recognized by the 'go test' command and
 control the execution of any test:
 
@@ -312,7 +312,7 @@ profile the tests during execution:
 简单来说，在使用`go test`的过程中，添加对应的flag就可以生成cpu或者内存的使用报告，测试包中内置了pprof的引用。
 
 执行`go test -bench=BenchmarkFib -benchtime=1x -cpuprofile cpu2.out`，指定只运行一次；笔者写了一个名为`BenchmarkFib`的测试用例：
-```go
+```
 package main
 
 import "testing"
@@ -332,7 +332,7 @@ func BenchmarkFib(b *testing.B) {
 
 ## 分析一个内存泄露的案例
 这是一段现实中一般不存在的代码，假设有一天你写了出来，并上线了：
-```go
+```
 package main
 
 var leakSlice []int
@@ -349,7 +349,7 @@ func memoryLeak() {
 
 > 观察累计分配内存模式(type=alloc_space)的结果报告：
 
-```bash
+```
 ❯ go tool pprof -sample_index=1 mem.out
 Type: alloc_space
 Time: Sep 27, 2020 at 1:39am (CST)
@@ -368,7 +368,7 @@ Dropped 21 nodes (cum <= 0.07GB)
 
 > 然后观察常驻分配内存模式(type=inuse_space)的结果报告：
 
-```bash
+```
 ❯ go tool pprof -sample_index=3 mem.out
 Type: inuse_space
 Time: Sep 27, 2020 at 1:39am (CST)
@@ -387,7 +387,7 @@ Showing nodes accounting for 7.45GB, 100% of 7.45GB total
 > 把一个切片赋值给另一个切片，在底层是共享同一个数组的，所以即使第二个切片只用到了其中一部分成员，但是两个切片的cap还是一样的大小。函数结束后，函数内部的切片占用的内存得到了释放，但是全局切片依然引用着那个大数组，所以cap还是那么大，内存只有一半得到了释放，所以常驻了7.45GB的内存。
 
 对源码中的切片赋值片段稍作修改：
-```go
+```
 package main
 
 var leakSlice []int
@@ -399,7 +399,7 @@ func memoryLeak() {
 }
 ```
 再次重复上述操作，首先观察累计分配内存模式(type=alloc_space)的结果，依然临时分配了14.9GB的内存，接着再看常驻分配内存模式(type=inuse_space)的结果，发现：
-```bash
+```
 ❯ go tool pprof -sample_index=3 mem.out
 Type: inuse_space
 Time: Sep 27, 2020 at 2:02am (CST)
@@ -426,7 +426,7 @@ Showing nodes accounting for 1.13MB, 100% of 1.13MB total
 在标准库文档中，示例的用法很简单，直接`import _ "net/http/pprof"`，然后访问`localhost:port/debug/pprof`下载报告就可以，在代码中也不需要做什么hack的变更。
 
 按照语法常识，只引用，而不使用，说明操作全在这个库的`init`函数中完成了，所以我们追踪源码一探究竟：
-```go
+```
 func init() {
 	http.HandleFunc("/debug/pprof/", Index)
 	http.HandleFunc("/debug/pprof/cmdline", Cmdline)

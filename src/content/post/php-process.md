@@ -19,7 +19,7 @@ draft: false
 php默认是**单进程**模式的，但是通过[pcntl扩展](https://www.php.net/manual/zh/book.pcntl.php)就可以支持**多进程**编程。
 ## 创建一个简单的进程
 依照上述维基百科的定义，只要我们写出代码，然后将其运行起来，便可以得到一个进程。简单写一个死循环*loop.php*，然后在shell中使用`ps aux | grep loop.php`命令进行观察：
-```php
+```
 <?php
 
 while (true) {
@@ -27,7 +27,7 @@ while (true) {
 }
 ```
 
-```bash
+```
 # shell1启动进程
 php loop.php
 # shell2观察进程
@@ -46,7 +46,7 @@ yuchanns  40053 100.0  0.1  4342852  16396 s001  R+  3:33PM   0:14.22 php loop.p
 子进程获得父进程的数据空间、堆和栈的副本，彼此之间并不共享资源。
 
 php依赖于[pcntl_fork](https://www.php.net/manual/zh/function.pcntl-fork.php)创建子进程。此函数调用一次，但是会返回两次。分别在fork之后的父进程和子进程中返回一次。子进程中返回值为0，父进程中返回值为子进程的pid。我们可以据此判断当前执行代码的进程是父进程还是子进程，并对其后续的执行步骤做出区分。
-```php
+```
 <?php
 $pid = pcntl_fork();
 if ($pid === -1) {  // 如果返回-1说明fork失败
@@ -61,7 +61,7 @@ while (true) {
 }
 ```
 分别在父子进程中执行一个死循环，然后使用ps观察进程：
-```bash
+```
 # shell1启动进程
 php loop.php
 parent started...
@@ -83,7 +83,7 @@ yuchanns  41324  99.9  0.0  4352068    740 s000  R+    3:53PM   2:37.01 php loop
 
 ## 创建守护进程
 [posix_setsid](https://www.php.net/manual/zh/function.posix-setsid.php)就是用于使进程获得会话权的函数。
-```php
+```
 <?php
 $pid = pcntl_fork();
 if ($pid === -1) {  // 如果返回-1说明fork失败
@@ -111,7 +111,7 @@ while (true) {
 
 我们可以通过信号量，对刚才独立的子进程发出一个执行退出的命令。
 
-```bash
+```
 kill -9 42545
 ```
 ### 信号类型
@@ -121,7 +121,7 @@ kill -9 42545
 <details>
 <summary>点击查看</summary>
 
-```php
+```
 define ('WNOHANG', 1);
 define ('WUNTRACED', 2);
 define ('WCONTINUED', 16);
@@ -188,7 +188,7 @@ pctnl提供了[pcntl_signal](https://www.php.net/manual/zh/function.pcntl-signal
 
 当然，在安装完信号处理器之后，我们还需要调用[pcntl_signal_dispatch](https://www.php.net/manual/zh/function.pcntl-signal-dispatch.php)，调用这些处理器等待信号。
 
-```php
+```
 <?php
 $pid = pcntl_fork();
 if ($pid === -1) {  // 如果返回-1说明fork失败
@@ -222,7 +222,7 @@ while ($loop) {
 <details>
 <summary>查看代码</summary>
 
-```php
+```
 <?php
 $pidFile = 'loop.pid';
 
@@ -278,7 +278,7 @@ while ($loop) {
 </details>
 
 先后在shell中执行：
-```bash
+```
 php src/loop.php
 parent started...
 child started...

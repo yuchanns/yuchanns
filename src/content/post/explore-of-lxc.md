@@ -14,7 +14,7 @@ draft: false
 * 内核版本: 5.4.0-28-generic
 * 硬件：Intel NUC8i7BEH
 
-```bash
+```
 yuchanns@yuchanns-NUC8i7BEH
 ---------------------------
 OS: Ubuntu 20.04 LTS x86_64
@@ -43,7 +43,7 @@ LXC，全称*Linux Container*即**Linux容器化**，是一种利用Linux内核�
 其实很容易发现，当我们在Windows10下使用Docker时，Docker会提示我们需要开启Windows的HyperV或者安装VirtualBox等虚拟机软件才能使用Docker。经过一番搜索，我了解到无论在Windows还是MacOS下，Docker首先会创建一个MobyLinux虚拟机，用以模拟出Linux底层内核环境，再此基础上再使用runC等容器引擎实现进程隔离。通过一系列的复杂转换，作为使用者的我们基本上是感觉不出有什么差别。只有共享磁盘I/O给人感觉性能异常低下（尤其是使用了oh-my-zsh！）。
 
 在这里小小地提一句Windows下进入MobyLinux的方法[^2]：
-```bash
+```
 #get a privileged container with access to Docker daemon
 docker run --privileged -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker alpine sh
 
@@ -78,7 +78,7 @@ self(path2, right)->e
 其中，`unshare`、`mount`和`execve`均属于Linux内核提供的系统调用，与语言无关，只需要使用的语言实现了这些接口就能进行调用。可以通过`man`命令查看相关的描述。
 ### 手册
 * unshare
-  ```bash
+  ```
   UNSHARE(1)                                                                          User Commands                                                                          UNSHARE(1)
 
   NAME
@@ -99,7 +99,7 @@ self(path2, right)->e
   unshare有7种命名空间*flag*，分别是**CLONE_NEWNS**、**CLONE_NEWUTS**、**CLONE_NEWIPC**、**CLONE_NEWNET**、**CLONE_NEWPID**、**CLONE_NEWCGROUP**、**CLONE_NEWUSER**。详细解释见man手册。
 
 * mount
-  ```bash
+  ```
   MOUNT(8)                                                                                               System Administration                                                                                              MOUNT(8)
 
   NAME
@@ -124,7 +124,7 @@ self(path2, right)->e
   > Unix系统中所有文件都排列在一个大型树状组织中，即file hierarchy，根目录为/。mount命令用于将在某些设备上找到的文件系统附加到大文件树上。
 
   结合**CLONE_NEWPID**在容器中使用`mount proc proc /proc`命令挂载/proc，然后使用`top`或者`ps -ef`可以看到容器和宿主机的进程产生了隔离。然而如果直接在容器中使用该命令，使用者将会发现，宿主系统中的/proc受到了影响。在手册中，我们发现：
-  ```bash
+  ```
   Since Linux 2.6.15 it is possible to mark a mount and its submounts as shared, private, slave or unbindable.  A shared mount provides the ability to create mirrors of that mount such that mounts and unmounts within  any of  the  mirrors  propagate  to the other mirror.  A slave mount receives propagation from its master, but not vice versa.  A private mount carries no propagation abilities.  An unbindable mount is a private mount which cannot be cloned through a bind operation.  The detailed semantics are documented in Documentation/filesystems/sharedsubtree.txt file in the kernel source tree.
 
         Supported operations are:
@@ -143,7 +143,7 @@ self(path2, right)->e
   ```
   在mount命令中添加`--make-private`参数就可以避免宿主受到影响。当然，不止是/proc，我们期待所有的mount操作都与外部隔离，那么还可以使用`--make-rprivate`参数，该参数从指定的路径开始递归地作用于各级子目录。
 * execve
-  ```bash
+  ```
   EXECVE(2)                                  EXECVE(2)
   NAME
         execve - execute program
@@ -166,7 +166,7 @@ self(path2, right)->e
 书中使用Golang实现了Namespace隔离，笔者此处不赘述，可以参考[yuchanns/toybox](https://github.com/yuchanns/toybox)。
 
 本文从php这门脚本语言来实现相应的功能。从不同的语言角度来看，实际上有助于读者理解这些命令的作用，分辨清楚语言和系统调用的边界。
-```php
+```
 #!/usr/bin/php
 <?php
 $command = "/bin/sh";
@@ -204,14 +204,14 @@ if ($argv[0] == __FILE__) {
 * 挂载目录之前需要先设置挂载递归私有化，避免影响到宿主机。
 
 上述脚本运行之后，我们将进入到容器中。在容器中使用`top`或`ps -ef`可以看到自身成为了pid为1的初始进程。这是**CLONE_NEWNS**和**CLONE_NEWPID**的功劳：
-```bash
+```
 # ps -ef
 UID          PID    PPID  C STIME TTY          TIME CMD
 root           1       0  0 22:03 pts/0    00:00:00 /bin/sh
 root           6       1  0 22:03 pts/0    00:00:00 ps -ef
 ```
 当然，在上述脚本中，我们还隔离了UTS、进程IPC通信和网络等资源，使用`ifconfig`可以看到与宿主机相反，容器中什么网络设备都没有；在容器中创建`ipc Message Queues`，宿主机并不能看到创建的消息队列：
-```bash
+```
 # ipcmk -Q
 Message queue id: 0
 # ipcs -q
@@ -221,7 +221,7 @@ key        msqid      owner      perms      used-bytes   messages
 0xa8dd3a61 0          root       644        0            0           
 ```
 读取进程uts的符号链接指向，宿主的父进程与容器本身的进程也是不同的，在容器中修改hostname不会影响到宿主机的hostname：
-```bash
+```
 # hostname -b toybox
 # hostname
 toybox # 宿主机输出yuchanns-NUC8i7BEH

@@ -14,7 +14,7 @@ draft: false
 ## 生成器
 `yield`<sup>[2](https://www.php.net/manual/zh/language.generators.syntax.php)</sup>是php 5.5.0版本后加入的一个语言关键字。只能在函数体内部使用，作用是允许函数执行中断。例如：
 
-```php
+```
 <?php
 
 function test()
@@ -29,7 +29,7 @@ foreach (test() as $item) {
 ```
 乍看之下，这个关键字造成的效果似乎和循环没什么区别，实际不然。如果你使用`var_dump`打印该函数会发现返回值是一个对象；进而获取其所属类，将会得到**Generator**<sup>[3](https://www.php.net/manual/zh/class.generator.php)</sup>这个类。
 
-```php
+```
 var_dump(test());
 // object(Generator)#1 (0) {
 // }
@@ -55,7 +55,7 @@ echo get_class(test());  // Generator
 
 上面我们提到，协程这一个概念可以使进程主动暂停和恢复执行子例程。程序编写者通过yield关键字来指定代码让出执行权的位置，并通过循环进行调度，就可以并发地执行两个方法（即子例程）。看下面这段代码：
 
-```php
+```
 <?php
 /**
  * 实现一个打印方法，将内容输出到终端中
@@ -96,7 +96,7 @@ while (count($list) > 0) {
 <details>
 <summary>输出结果</summary>
 
-```bash
+```
 task1 iter0
 task1 iter1
 task2 iter0
@@ -120,7 +120,7 @@ task1 iter9
 
 我们通过编写一个**Task**类来包装子例程，控制其行为。这个类接受例程id和一个生成器。它将例程id作为子例程的id号（我们称为协程id），使用isFinished包装生成器的valid方法。比较瞩目的是run方法，主要做了两件事：第一次调用生成器的时候手动操作rewind将其重置，并返回第一次生成结果；第二次以后返回通过send来调用生成行为的结果。
 
-```php
+```
 <?php
 
 class Task
@@ -159,7 +159,7 @@ class Task
 ```
 于是，我们可以通过Task实例来实现上面的协程例子：
 
-```php
+```
 <?php
 // 因为上面的while嵌套循环实在太丑效率也低，我决定使用双向链表队列来代替list保存子例程
 // 队列的FIFO特性保证子例程次序执行
@@ -182,7 +182,7 @@ while (!$queue->isEmpty()) {  // 在队列空之前持续循环
 
 基于上述调度不便的原因，我们需要实现一个调度器类，节省使用者每次编写这些判断代码的麻烦。
 
-```php
+```
 <?php
 
 class Scheduler
@@ -226,7 +226,7 @@ class Scheduler
 
 最后，我们通过调度器可以很方便地实现协程了——
 
-```php
+```
 <?php
 
 $scheduler = new Scheduler();

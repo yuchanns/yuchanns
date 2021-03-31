@@ -26,7 +26,7 @@ draft: false
 * `on`: 触发条件
 * `jobs`: 作业集
 
-```yaml
+```
 name: learn-github-action
 on: push
 jobs:
@@ -51,7 +51,7 @@ jobs:
 这里笔者简单举例三个比较重要的事件`push`、`pull_request`和`schedule`。
 
 用户可以简单地在on标签上配置事件关键字数组，例如：
-```yaml
+```
 on: [push, pull_request]
 ```
 这样在仓库发生**push**和**pr**时就会触发该工作流。
@@ -59,7 +59,7 @@ on: [push, pull_request]
 也可以将on的内容改成一个对象，将事件当做键名，对事件进行具体的配置。
 
 例如，在笔者的example仓库中，将旧有的代码保留在分支master上，新的Monorepo管理方式的代码放在monorepo分支上。笔者希望工作流只在更新monorepo分支的时候触发，那么可以通过`on.<event>.branches`来配置这一条件：
-```yaml
+```
 on:
   push:
     branches:
@@ -68,7 +68,7 @@ on:
 当然，也可以通过`on.<event>.branches-ignore`来配置忽略的分支，需要注意的是，两者不能同时使用。
 
 另外，计划上每个工作流只负责monorepo中的每个小仓库，笔者还需要工作流只被对应的小仓库的变更触发，也就是对文件路径的指定支持。这里可以使用`on.<event>.paths`来配置：
-```yaml
+```
 on:
   push:
     branches:
@@ -85,7 +85,7 @@ on:
 
 而`schedule`这一事件相对比较特殊，它是一个定时器事件，支持`Posix cron`语法调度配置：
 
-```yaml
+```
 on:
   schedule:
     - cron: '*/15 * * * *'
@@ -114,7 +114,7 @@ on:
 
 ### 默认配置
 想象一下，笔者的每一个作业都是针对某个小仓库(文件夹)下的代码配置的，在涉及到一些路径操作时，如果能将文件夹设置为根目录，以此进行相对路径操作是再好不过了，用`defaults`标签就可以实现：
-```yaml
+```
 defaults:
   run:
     working-directory: learn-github-action
@@ -129,7 +129,7 @@ defaults:
 
 这是一个对象，每个键名就是一个作业的名称，例如笔者打算创建一个作业名叫`say-hello`，而它的值也将是一个对象：
 
-```yaml
+```
 job:
   name: # 作业名称
   needs: # 依赖项
@@ -157,7 +157,7 @@ job:
 这里只列出一些笔者觉得比较重要的标签，全部标签可以查看[手册](https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobs)来获取。
 
 在job中，有一个必须指定的标签，是`runs-on`，用于指定使用的运行器，也就是虚拟机环境，它支持Windows、Ubuntu和macOS这三种环境，一般使用`ubuntu-latest`：
-```yaml
+```
 jobs:
   say-hello:
     runs-on: ubuntu-latest
@@ -173,7 +173,7 @@ jobs:
 |macOS Catalina | 10.15	macos-latest or macos-10.15|
 
 在一个工作流中，先进行构建，然后单元测试，最后再发布，这是很常见的事情，这三者之间存在一个先后顺序，也就是依赖性，可以通过`needs`标签来配置:
-```yaml
+```
 jobs:
   build:
   test:
@@ -183,7 +183,7 @@ jobs:
 ```
 
 `steps`标签则用于配置作业的所有步骤，它是一个数组，每个成员是一个对象：
-```yaml
+```
 steps:
   - uses: actions/checkout@v2
   - uses: actions/setup-node@v1
@@ -195,7 +195,7 @@ steps:
 比如最常见的，在一个作业中，往往第一个步骤是拉取仓库代码，这涉及到生成密钥等一系列复杂操作。官方有一个`actions/checkout@v2`配置，用户只需要在`steps`第一个步骤中指定使用该插件，就可以简单配置仓库代码拉取步骤。如果想要安装一个语言环境，也可以通过这种方式，使用别人或者自己预先配置好的插件实现安装步骤，十分方便。
 
 有时候，我们希望在一个已打包的标准容器中进行CI/CD，这时候就需要`container`和`services`标签。例如笔者其中一个仓库是`gobyexample`，使用go语言进行编码，而代码中还用到了redis和mysql，这时候最简单的方式就是配置三个容器，作为作业运行环境：
-```yaml
+```
 jobs:
   build:
   test:
@@ -232,7 +232,7 @@ jobs:
         * 执行单元测试
 
 按照上述思路，我们可以编写出如下配置：
-```yaml
+```
 name: go-demo # 工作流名称
 on: # 触发条件
   push:

@@ -8,7 +8,7 @@ draft: false
 <details>
 <summary>kmpIndex by golang</summary>
 
-```go
+```
 package main
 
 import (
@@ -85,7 +85,7 @@ func main() {
 
 ## 数据
 * 退化赋值操作：前提条件：至少有一个新变量被定义，且必须是同一作用域
-  ```go
+  ```
   func main() {
     x := 100  // 定义新变量
     println(&x)
@@ -111,7 +111,7 @@ func main() {
 * 常量无**未使用错误**
 
 * 常量组中如不指定类型和初始化值，与上一行非空常量右值相同
-  ```go
+  ```
   func main() {
     const (
       x uint16 = 120
@@ -123,7 +123,7 @@ func main() {
   ```
 
 * 使用iota实现一组自增常量值来实现枚举类型。自增默认数据类型为int，可显式指定
-  ```go
+  ```
   const (
     x, a = iota, iota * 10  // 0, 0 * 10
     y, b                    // 1, 1 * 10
@@ -134,7 +134,7 @@ func main() {
 * 常量无法读取地址
 
 * 无类型声明的常量不会做强类型检查
-  ```go
+  ```
   const x = 100
   const y byte = x  // 相当于 const y byte = 100
 
@@ -147,7 +147,7 @@ func main() {
 * slice、map、channel是引用类型
 
 * 语法歧义：转换的目标是指针、单向通道或没有返回值的函数类型，要用括号
-  ```go
+  ```
   (*int)(p)
   (<-chan int)(c)
   (func())(x)
@@ -161,7 +161,7 @@ func main() {
 * 变参本质上是切片。将切片作为变参，需要展开操作。如果是数组，要转换成切片。切片可修改原数据
 
 * 命名参数可由return隐式返回
-  ```go
+  ```
   func div(x, y int) (z int, err error) {
     if y == 0 {
       err = errors.New("division by zero")
@@ -175,7 +175,7 @@ func main() {
 * 普通函数和匿名函数都可以作为结构体字段或经通道传递
 
 * go交叉编译：
-  ```bash
+  ```
   GOOS=linux GOARCH=amd64 go build -gcflags "-N -l" -v  
   ```
 
@@ -184,7 +184,7 @@ func main() {
 * 不建议使用`panic`，除非是不可恢复性的错误
 
 * 拼接动态字符串可用`strings.Join`或`bytes.Buffer`
-  ```go
+  ```
   stringA := strings.Join([]string{"a", "a", "a"}, "")
 
   var b bytes.Buffer
@@ -198,7 +198,7 @@ func main() {
   ```
 
 * 访问不存在的键值，使用ok-idiom模式判断
-  ```go
+  ```
   func main() {
       m := map[string]int{
           "a": 1,
@@ -217,7 +217,7 @@ func main() {
   ```
 
 * 字典`no addressable`，不能直接修改value成员（结构或数组），应该返回整个value，修改完毕后设置字典键值，或使用指针类型（指值是指针）
-  ```go
+  ```
   type user struct {
       name string
       age byte
@@ -241,7 +241,7 @@ func main() {
   ```
 
 * 字典初始化为空，未初始化则为nil，nil无法赋值，可以读
-  ```go
+  ```
   func main() {
       var m map[string]int
       println(m["a"])  // nil
@@ -254,11 +254,11 @@ func main() {
   ```
 * 字典迭代期间增删键值是**安全**的。不能对字典进行并发操作，会导致进程崩溃
     * 启用`data race`检查问题
-      ```bash
+      ```
       go run -race test.go
       ```
     * 使用`sync.RWMutex`实现同步，避免读写操作同时进行
-      ```go
+      ```
       import (
         "sync"
         "time"
@@ -296,7 +296,7 @@ func main() {
 * 字典对象本身就是指针包装；在创建时预先准备足够的空间有助于提升性能，减少扩张时的内存分配和重新哈希操作；对于海量小对象直接用字典存储键值拷贝数据，缩短gc时间；字典不会收缩内存，可适当替换成新对象
 ## 结构体
 * 结构体建议使用命名初始化，否则作为字段类型时无法直接初始化；只有字段类型全部支持时，才能做相等操作；可使用指针操作结构字段，不能是多级指针
-  ```go
+  ```
   func main() {
       type file struct {
           name string
@@ -321,7 +321,7 @@ func main() {
   ```
 
 * 空结构自身和作为数组元素类型长度都为0。可作为通道元素类型用于事件通知
-  ```go
+  ```
   func main() {
     exit := make(chan struct{})
 
@@ -335,7 +335,7 @@ func main() {
   }
   ```
 * 匿名字段隐式地以类型名作为字段名，其成员可直接引用，但初始化时需当做独立字段；如嵌入其他包中的类型，则隐式字段名不包括包名；不能将基础类型和其指针同时嵌入，因为两者隐式名字相同；如果出现重名，就无法直接引用，需显式字段引用
-  ```go
+  ```
   type attr struct {
     perm int
   }
@@ -362,7 +362,7 @@ func main() {
   }
   ```
 * 字段标签不是注释，是描述字段的元数据，**是**类型的组成部分，**不属于**数据成员。可用反射获取，常被用于格式校验、数据库关系映射等
-  ```go
+  ```
   type user struct {
     Name string `string:"昵称"`
     Sex  byte   `byte:"性别"`
@@ -384,7 +384,7 @@ func main() {
 * 在内存分配时，字段须做对齐处理，通常以所有字段中最长的基础类型宽度为标准。如果仅有空结构类型字段或其是最后一个字段，会按1对齐，长度为0
 
 * 结构体的方法接收一个前置参数，称作receiver，类似于类中的this；receiver可以是任何**除接口和指针以外**的类型；当它是基础类型时，在方法中被调用是以复制的形式，是指针类型时，不会被复制；指针类型的receiver必须是合法指针（包括nil）或能取得实例地址；不能用多级指针调用方法
-  ```go
+  ```
   type Name int
 
   func (receiver Name) test() {
@@ -430,7 +430,7 @@ func main() {
 * 接口不能有字段、不能定义方法、可以声明方法、可以嵌入其他接口
 
 * 下面这段代码体现了**方法集决定是否实现了某个接口**的规则
-  ```go
+  ```
   package main
 
   type tester interface {
@@ -464,7 +464,7 @@ func main() {
 * 嵌入其他接口，不能有方法同名，因为不支持重载；不能嵌入自身，会引起递归错误；超集可隐式转换为子集，反正不行；支持匿名接口类型，可直接用于变量定义或作为结构字段类型
 
 * 只有当接口变量内部的两个指针（itab, data）都为nil时，接口才为nil。因此引发的常见错误如下：
-  ```go
+  ```
   package main
 
   type TestError struct{}
@@ -497,7 +497,7 @@ func main() {
 
   ```
   正确做法：
-  ```go
+  ```
   package main
 
   type TestError struct{}
@@ -525,7 +525,7 @@ func main() {
   ```
 
 * 类型推断可将接口还原为原始类型或判断是否实现了某个更为具体的接口类型
-  ```go
+  ```
   package main
 
   import "fmt"
@@ -564,7 +564,7 @@ func main() {
   ```
 ## 并发
 * 并发goroutine会因为延迟执行立即复制参数。main函数需要通过通道阻塞或`sync.WaitGroup`计数器阻塞来等待goroutine执行
-  ```go
+  ```
   package main
 
   import (
@@ -604,7 +604,7 @@ func main() {
 * `Gosched`可暂停当前任务释放线程去执行其他任务，然后等下次调度恢复执行；`Goexit`可以终止当前任务进行，并确保所有`defer`调用被执行，不会影响其他并发任务，不会引发panic，无法被捕获
 
 * 使用**CSP**（Communicating Sequential Process<sup>[[1]](https://en.wikipedia.org/wiki/Communicating_sequential_processes)</sup>）通道通信来代替内存共享，实现并发安全；使用内置函数`cap`获取通道长度，`len`获取已缓冲数量
-  ```go
+  ```
   func main() {
     exit := make(chan struct{}) // 通道用作事件通知
     c := make(chan int, 3) // 通道用作通信
@@ -629,7 +629,7 @@ func main() {
   ```
 
 * 可使用ok-idiom和range处理收发数据
-  ```go
+  ```
   func main() {
     done := make(chan struct{})
     c1, c2 := make(chan int), make(chan int)
@@ -670,7 +670,7 @@ func main() {
 * 一次性事件使用close效率更好，连续或多样性事件可通过传递不同的数据标志或使用`sync.Cond`实现；无论收发，nil通道都会阻塞，关闭nil通道会引发panic
 
 * 可使用类型转换来限制通道方向获得单向通道；单向通道不可逆向操作，不可转换为双向，不能close接收端
-  ```go
+  ```
   c := make(chan int)
 	var send chan<- int = c // 只发送
   var recv <-chan int = c // 只接收
@@ -678,7 +678,7 @@ func main() {
   ```
 
 * 使用`select`随机选择多个通道中的一个，当然同一个通道也可以case随机；所有通道不可用时会使用`default`；将已完成的通道设置为nil就会被阻塞不再被select选中
-  ```go
+  ```
   func main() {
     var wg sync.WaitGroup
     wg.Add(2)
@@ -738,7 +738,7 @@ func main() {
   ```
 
 * 还可以用default来执行一些其他逻辑，比如说扩充通道
-  ```go
+  ```
   data := []chan int{
     make(chan int, 3)
   }
@@ -755,7 +755,7 @@ func main() {
   ```
 
 * 实例：通过工厂模式组装带有通道和协程功能的对象，利用上面提到的方法集匿名嵌入结构
-  ```go
+  ```
   package main
 
   import (

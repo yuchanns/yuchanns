@@ -62,7 +62,7 @@ workflows
 与此同时，我们也要小心，有时候我们写出了错误的代码，将会导致产品无法使用，然而却触发了发版任务，这样就很尴尬和不靠谱了。所以我们可以在任务中使用`requires`(与filters平级)指令，要求这个任务需要在构建和测试任务成功时才能执行。但是这里你也要注意一个**陷阱**，如果你在构建和测试的任务中没有使用过滤器同样设置`only tags`，那么构建和测试任务就会无视tag推送，从而导致依赖于前者的版本发布任务也不会触发(笔者猜测这应该是CircleCI默认只关注branches而忽视tags的原因吧)。
 ### 一个例子
 我们可以根据上面的解读，开始尝试写一个配置文件了，并且没有涉及到npm的操作部分——这一部分假定放到了一个叫`scripts/release/realeas.sh`的脚本文件中，我们只需要指定执行这个脚本就行：
-```yaml
+```
 version: 2.1 # 指定使用最新的配置版本
 
 executors: # 预定义配置环境，方便复用
@@ -124,7 +124,7 @@ workflows: # 工作流，指导任务分配
 
 ## 结合npm发包
 这里容许笔者偷个懒，直接使用date-fns作者提供的脚本稍作修改——
-```bash
+```
 #!/bin/bash
 
 # The script builds the package and publishes it to npm
@@ -152,7 +152,7 @@ fi
 ```
 而写入版本则如同上述一样，利用node环境对package.json做写入操作：
 
-```js
+```
 #!/usr/bin/env node
 
 const path = require('path')

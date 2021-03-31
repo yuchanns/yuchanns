@@ -20,7 +20,7 @@ pongo2的文档很简单，仅提供了Api的说明，作者表示关于模板�
 本文的重点是研究将pongo2和gin结合起来使用。
 ### 分析gin的模板引擎接口
 gin的文档中关于模板引擎的使用描述不多，如何替换模板引擎我们可以先从使用的源码入手：
-```go
+```
 // HTML方法渲染指定文件名的HTTP模板
 // 同时更新HTTP code并设置Content-Type为"text/html"
 func (c *Context) HTML(code int, name string, obj interface{}) {
@@ -33,7 +33,7 @@ func (c *Context) HTML(code int, name string, obj interface{}) {
 也就是说我们只需要替换掉`c.engine.HTMLRender`就可以了。
 
 继续追溯源码，可以看到`HTMLRender`是一个接口，同时它内部又包含了另一个接口`Render`：
-```go
+```
 type HTMLRender interface {
 	// Instance方法返回一个HTML实例
 	Instance(string, interface{}) Render
@@ -68,7 +68,7 @@ type Render interface {
 * 至于<mark>WriteContentType</mark>需要完成的工作可以直接复制默认模板引擎的代码。
 
 下面直接给出结果，可以结合注释进行理解：
-```go
+```
 package main
 
 import (

@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - 'src/**'
+      - '.github/workflows/blog.yml'
 defaults:
   run:
     working-directory: src
@@ -30,6 +31,11 @@ jobs:
           hugo-version: 'latest'
       - name: Build
         run: hugo --minify
+      - name: Upload Sitemap
+        uses: actions/upload-artifact@v2
+        with:
+          name: blog-sitemap
+          path: src/public/sitemap.xml
       - name: TCB install
         run: yarn global add @cloudbase/cli
       - name: TCB login

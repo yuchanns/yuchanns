@@ -5,7 +5,7 @@ theme = "goblog"
 # googleAnalytics = ""
 # disqusShortname = ""
 #disableKinds = ["taxonomy", "term", "section", "404"]
-copyright = "@ yuchanns"
+copyright = "代码炼金工坊 © 2016-<span id=\"year\"></span><script type=\"text/javascript\">var d = new Date(); document.getElementById('year').innerHTML=d.getFullYear();</script> | <a href=\"http://www.beian.miit.gov.cn/\">闽ICP备2020021086号-1</a>"
 
 [permalinks]
     post = "/:year/:month/:day/:filename/"

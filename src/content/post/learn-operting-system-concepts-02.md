@@ -3,6 +3,8 @@ title: "操作系统概论-进程管理"
 date: 2021-04-05T01:59:56+08:00
 draft: false
 ---
+![](/images/operating-system-02.jpeg)
+
 ## 进程描述
 ### 前置概念
 * 程序的顺序执行

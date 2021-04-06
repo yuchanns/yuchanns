@@ -1,8 +1,9 @@
 ---
 title: "操作系统概论-内存管理"
-date: 2021-04-07T23:22:21+08:00
+date: 2021-04-07T00:22:41+08:00
 draft: false
 ---
+![](/images/operating-system-04.jpeg)
 ## 存储器的层次结构
 ![](/images/memory-system-structure.jpeg)
 

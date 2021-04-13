@@ -7,17 +7,21 @@ draft: false
 |Name|URL|
 |:---|---:|
 |面向信仰编程|[draveness.me](https://draveness.me/)|
+|煎鱼|[eddycjy.com/](https://eddycjy.com/)|
 |峰云就她了|[xiaorui.cc](http://xiaorui.cc/)|
 |鸟窝|[colobu.com](https://colobu.com/)|
 |mzh/blog|[mzh.io](https://mzh.io/)|
 |当然我在扯淡|[yinwang.org](http://www.yinwang.org/)|
 |酷壳|[coolshell.cn](https://coolshell.cn/)|
 |Manjusaka|[manjusaka.itscoder.com](https://manjusaka.itscoder.com/)|
+|No Headback|[xargin.com/](https://xargin.com/)|
+|码农桃花源|[qcrao.com/](https://qcrao.com/)|
 
 # Golang Books
 |Name|URL|
 |:---|---:|
 |Go语言学习笔记|[github](https://github.com/qyuhen/book)\|[实体书](https://item.jd.com/11944267.html)|
+|Go 语言编程之旅|[eddycjy.com](https://golang2.eddycjy.com/)|
 |Go语言设计与实现|[draveness.me](https://draveness.me/golang/)|
 |Go语言原本|[changkun.de](https://changkun.de/golang)|
 |teh-cmc/go-internals|[github](https://github.com/teh-cmc/go-internals)|

@@ -4,3 +4,6 @@
 [submodule "src/themes/goblog"]
 	path = src/themes/goblog
 	url = git@github.com:yuchanns/hugo-theme-goblog.git
+[submodule "src/themes/yuchanns"]
+	path = src/themes/yuchanns
+	url = git@github.com:yuchanns/hugo-theme-yuchanns.git

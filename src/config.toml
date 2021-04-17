@@ -1,25 +1,12 @@
 baseurl = "https://www.yuchanns.xyz/"
 languageCode = "zh-CN"
 title = "代码炼金工坊"
-theme = "goblog"
-# googleAnalytics = ""
-# disqusShortname = ""
-#disableKinds = ["taxonomy", "term", "section", "404"]
+theme = "yuchanns"
 copyright = "代码炼金工坊 © 2016-<span id=\"year\"></span><script type=\"text/javascript\">var d = new Date(); document.getElementById('year').innerHTML=d.getFullYear();</script> | <a href=\"http://www.beian.miit.gov.cn/\">闽ICP备2020021086号-1</a>"
 
 [permalinks]
     post = "/:year/:month/:day/:filename/"
     page = "/:filename/"
-
-#[[menu.main]]
-#    name = "About"
-#    url = "/about/"
-#[[menu.main]]
-#    name = "Awesome"
-#    url = "/awesome/"
-#[[menu.main]]
-#    name = "GitHub"
-#    url = "https://github.com/yuchanns"
 
 [params]
     mainSections = ["post"]
@@ -31,11 +18,12 @@ copyright = "代码炼金工坊 © 2016-<span id=\"year\"></span><script type=\"
 
     enableGitalk = true
 
-    [params.logo]
-    url = "yuchanns.jpg"
-    width = 50
-    height = 50
-    alt = "Logo"
+    [params.profile]
+    avatar = "/yuchanns.jpg"
+    name = "科学搜查官"
+    desc = "Magnum Opus. Gopher / Rustacean. DO NOT FOLLOW ME ! ! !"
+    github = "yuchanns"
+    twitter = "airamusume"
 
     [params.icon]
     url = "favicon.ico"
@@ -46,9 +34,6 @@ copyright = "代码炼金工坊 © 2016-<span id=\"year\"></span><script type=\"
     [[params.menu]]
         name = "Awesome"
         url = "/awesome/"
-    [[params.menu]]
-        name = "GitHub"
-        url = "https://github.com/yuchanns"
 
     [params.Gitalk]
         clientID = "6ea1fac9111c65d9cd1b" # Your client ID

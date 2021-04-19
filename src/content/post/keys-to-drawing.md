@@ -95,4 +95,6 @@ draft: false
 
 需要花大量时间在这个阶段进行练习。
 
+![](/images/draw/p001.png)
+
 > 未完待续...

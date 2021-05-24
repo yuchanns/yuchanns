@@ -16,5 +16,5 @@ You can touch me with [email](mailto:airamusume@gmail.com).
   <img align="left" src="https://github-readme-stats.vercel.app/api?username=yuchanns&show_icons=true&bg_color=30,e96443,904e95&title_color=fff&text_color=fff" />
 </a>
 <a href="https://github.com/anuraghazra/github-readme-stats">
-  <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=yuchanns&hide=css,vue,stylus,javascript&bg_color=30,e96443,904e95&title_color=fff&text_color=fff&langs_count=6" />
+  <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=yuchanns&hide=css,vue,stylus,javascript,scss&bg_color=30,e96443,904e95&title_color=fff&text_color=fff&langs_count=6" />
 </a>

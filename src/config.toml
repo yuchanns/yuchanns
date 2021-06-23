@@ -17,7 +17,7 @@ copyright = "代码炼金工坊 © 2016-<span id=\"year\"></span><script type=\"
     # path to the favicon, under "static"
     favicon = "favicon.ico"
 
-    enableGitalk = true
+    enableGitalk = false
 
     [params.profile]
     avatar = "/yuchanns.jpg"

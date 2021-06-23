@@ -7,9 +7,6 @@ on:
     paths:
       - 'src/**'
       - '.github/workflows/blog.yml'
-defaults:
-  run:
-    working-directory: src
 jobs:
   deploy:
     runs-on: ubuntu-18.04
@@ -29,8 +26,31 @@ jobs:
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: 'latest'
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16.x
+      - name: Install Packages
+        run: |
+          sudo apt-get -qq update
+          sudo apt-get install -y build-essential
+      - name: Cache go modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-go-modules-blog
+        with:
+          path: pre-render/vendor
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/go.sum') }}
       - name: Build
+        working-directory: src
         run: hugo --minify
+      - name: Pre-render and Trim Script Tags
+        working-directory: pre-render
+        run: |
+          go build -o hugoprerender
+          ./hugoprerender -d=../src/public -x=.html
       - name: Upload Sitemap
         uses: actions/upload-artifact@v2
         with:
@@ -44,4 +64,5 @@ jobs:
         run: |
           yes | $(yarn global bin)/tcb hosting delete -e $TCB_ENV_ID
       - name: TCB publish
+        working-directory: src
         run: $(yarn global bin)/tcb hosting deploy -e $TCB_ENV_ID public

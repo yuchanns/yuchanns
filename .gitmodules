@@ -7,3 +7,6 @@
 [submodule "src/themes/yuchanns"]
 	path = src/themes/yuchanns
 	url = git@github.com:yuchanns/hugo-theme-yuchanns.git
+[submodule "pre-render"]
+	path = pre-render
+	url = git@github.com:yuchanns/hugo-pre-render.git

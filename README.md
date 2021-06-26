@@ -1,20 +1,11 @@
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) **NO FOLLOW PLEASE ! ! !**
 
-Hi there~I'm [@yuchanns](https://github.com/yuchanns), having a fregquently used Chinese nickname 科学搜查官 which is a profession of [Ema Skye](https://w.atwiki.jp/aniwotawiki/pages/31294.html) from the video game Phoenix Wright.
-
-And my avatar was illustrated by a friend, a gopher drinking coffe and coding,  which acts as one sticker of Bronya from mobile game Honkai3.
+**PERIODIC REMOVAL OF FOLLOWERS**
 
 ![](./readme.png)
 
-I'm a backend developer using Golang as the main language. I also have some appreciation on Rust and Lisp.
-
-An ambisious target is to hold a setup of Computer Science from the bottom up. I wish to be a **Lifelong** CS user.
-
-You can touch me with [email](mailto:airamusume@gmail.com).
+Name's yuchanns, aka 科学搜查官, A lifelong CS user.
 
 <a href="https://github.com/anuraghazra/github-readme-stats">
-  <img align="left" src="https://github-readme-stats.vercel.app/api?username=yuchanns&show_icons=true&bg_color=30,e96443,904e95&title_color=fff&text_color=fff" />
-</a>
-<a href="https://github.com/anuraghazra/github-readme-stats">
-  <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=yuchanns&hide=css,vue,stylus,javascript,scss&bg_color=30,e96443,904e95&title_color=fff&text_color=fff&langs_count=6" />
+  <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=yuchanns&hide=css,vue,stylus,javascript,scss,php,shell,html&bg_color=30,e96443,904e95&title_color=fff&text_color=fff&langs_count=3" />
 </a>

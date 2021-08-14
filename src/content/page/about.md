@@ -20,3 +20,5 @@ draft: false
 在文章中我将进行一些学习探讨、输出一些心得体会，希望能对同道中人产生些许助力，也希望各路前辈大神不吝赐教指正错误。
 
 你可以通过我的[谷歌邮箱](mailto:airamusume@gmail.com)联系我，也可以通过微信号 **yuchanns** 联系我。
+
+![Metrics](https://raw.githubusercontent.com/yuchanns/yuchanns-metrics/main/github-metrics.svg)

@@ -35,6 +35,7 @@ draft: false
 |Rust 参考手册|[中文](https://rust-reference.budshome.com/)|
 |Rust 实践指南|[中文](https://rust-guide.budshome.com/)|
 |Rust By Example|[中文](https://rust-by-example.budshome.com/)|
+|Tokio Internals|[中文](https://tony612.github.io/tokio-internals/)|
 
 # Scheme
 |Name|URL|

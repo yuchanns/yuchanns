@@ -1,11 +1,13 @@
 ---
-title: "K8S入门-使用Kubeadm安装"
+title: "K8S 入门-使用Kubeadm安装"
 date: 2021-04-03T15:33:00+08:00
 draft: false
 ---
 ![](/images/k8s-banner.png)
 
-> TLDR; 新手司机上路，学习《Kubernetes权威指南》第二章。
+**系列文章**
+
+* [K8S入门-使用 APISIX 作为 Ingress](/2021/09/22/apisix-as-k8s-ingress/)
 
 ## 环境准备
 ### 安装虚拟机软件

@@ -7,15 +7,15 @@ draft: false
 |Name|URL|
 |:---|---:|
 |面向信仰编程|[draveness.me](https://draveness.me/)|
-|煎鱼|[eddycjy.com/](https://eddycjy.com/)|
+|煎鱼|[eddycjy.com](https://eddycjy.com/)|
 |峰云就她了|[xiaorui.cc](http://xiaorui.cc/)|
 |鸟窝|[colobu.com](https://colobu.com/)|
 |mzh/blog|[mzh.io](https://mzh.io/)|
 |当然我在扯淡|[yinwang.org](http://www.yinwang.org/)|
 |酷壳|[coolshell.cn](https://coolshell.cn/)|
 |Manjusaka|[manjusaka.itscoder.com](https://manjusaka.itscoder.com/)|
-|No Headback|[xargin.com/](https://xargin.com/)|
-|码农桃花源|[qcrao.com/](https://qcrao.com/)|
+|No Headback|[xargin.com](https://xargin.com/)|
+|代码如诗|[dgideas.net](https://dgideas.net/)|
 
 # Golang Books
 |Name|URL|

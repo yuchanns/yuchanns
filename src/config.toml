@@ -22,9 +22,9 @@ copyright = "代码炼金工坊 © 2016-<span id=\"year\"></span><script type=\"
     [params.profile]
     avatar = "/yuchanns.jpg"
     name = "科学搜查官"
-    desc = "Magnum Opus. Gopher / Rustacean. DO NOT FOLLOW ME ! ! !"
+    desc = "Magnum Opus. Gopher / Rustacean. Fan of LiSA the Singer."
     github = "yuchanns"
-    twitter = "airamusume"
+    twitter = "realyuchanns"
 
     [params.icon]
     url = "favicon.ico"

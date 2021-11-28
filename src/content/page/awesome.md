@@ -16,6 +16,8 @@ draft: false
 |Manjusaka|[manjusaka.itscoder.com](https://manjusaka.itscoder.com/)|
 |No Headback|[xargin.com](https://xargin.com/)|
 |代码如诗|[dgideas.net](https://dgideas.net/)|
+|卡瓦邦噶|[kawabangga.com](https://www.kawabangga.com/)|
+|朱双印|[zsythink.net](https://www.zsythink.net/)|
 
 # Golang Books
 |Name|URL|

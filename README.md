@@ -1,3 +1,5 @@
+**The Blog Archived Since It Seems to Me That My Posts Create No Value.**
+
 ![](./readme.png)
 
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Name's yuchanns, aka 科学搜查官, A lifelong CS user.

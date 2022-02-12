@@ -10,8 +10,8 @@ const theme: Theme<ThemeYuchannsOptions> = (opts, app) => {
   return {
     name: 'vuepress-theme-yuchanns',
     layouts: {
-      Layout: path.resolve(__dirname, '../client/layouts/layout.jsx'),
-      404: path.resolve(__dirname, '../client/layouts/notfound.jsx')
+      Layout: path.resolve(__dirname, '../client/layouts/layout'),
+      404: path.resolve(__dirname, '../client/layouts/notfound')
     },
 
     plugins: [

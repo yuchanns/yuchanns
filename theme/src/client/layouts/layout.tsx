@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import { Content } from '@vuepress/client'
+import { Content, ClientOnly } from '@vuepress/client'
 import Header from '../components/header'
 import Footer from '../components/footer'
 import RootFoot from '../components/rootFoot'
@@ -13,7 +13,7 @@ export default defineComponent({
         <main>
           <article>
             <section>
-              <Content />
+              <ClientOnly><Content /></ClientOnly>
             </section>
           </article>
         </main>

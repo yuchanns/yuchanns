@@ -21,7 +21,8 @@ export default defineUserConfig<ThemeOptions, ViteBundlerOptions>({
       copyright: "<a href=\"https://beian.miit.gov.cn/\">闽ICP备2020021086号-1</a>",
       startDate: 2016,
       nav: [
-        { name: "YuC", link: "https://yuc.wiki" }
+        { name: "YuC", link: "https://yuc.wiki" },
+        { name: "Awesome", link: "/awesome"}
       ]
     },
 

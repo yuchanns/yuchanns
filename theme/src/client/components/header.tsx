@@ -2,6 +2,7 @@ import { defineComponent } from 'vue'
 import ToggleTheme from './toggleTheme'
 import { useThemeLocaleData } from '../utils'
 import { useSiteLocaleData, RouterLink } from '@vuepress/client'
+import { isRelativeURL } from '../utils'
 
 export default defineComponent({
   setup() {
@@ -14,7 +15,13 @@ export default defineComponent({
         </h4>
         <div class="spacer"></div>
         <div class="nav">
-          { data.nav.map(item => <a href={ item.link }>{ item.name }</a>) }
+          { data.nav.map(item => {
+            if (isRelativeURL(item.link)) {
+              return (<RouterLink to={ item.link }>{ item.name }</RouterLink>)
+            } else {
+              return (<a href={ item.link }>{ item.name }</a>)
+            }})
+          }
           <ToggleTheme />
         </div>
       </header>

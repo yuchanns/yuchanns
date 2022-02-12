@@ -15,7 +15,8 @@ const theme: Theme<ThemeYuchannsOptions> = (opts, app) => {
     },
 
     plugins: [
-      ['@vuepress/theme-data', { themeData: opts }]
+      ['@vuepress/theme-data', { themeData: opts }],
+      ['@vuepress/plugin-nprogress']
     ]
   }
 }

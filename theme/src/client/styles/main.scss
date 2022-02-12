@@ -1,6 +1,7 @@
 *,::before,::after {
 	box-sizing:inherit
 }
+
 body {
 	--bg:#ffffff;
 	--img-bg:#ffffff;
@@ -29,7 +30,8 @@ body {
 	--list-divider:rgba(0,0,0,0.12);
 	--list-item-hover:rgba(0,0,0,0.04);
 	--theme-icon-light:block;
-	--theme-icon-dark:none
+	--theme-icon-dark:none;
+    --nprogress-color: #d23669;
 }
 @media (prefers-color-scheme:dark) {
 	body {
@@ -61,7 +63,8 @@ body {
         --list-divider:rgba(255,255,255,0.12);
         --list-item-hover:rgba(255,255,255,0.08);
         --theme-icon-light:none;
-        --theme-icon-dark:block
+        --theme-icon-dark:block;
+        --nprogress-color: var(--pink);
     }
 }
 body {

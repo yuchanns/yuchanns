@@ -17,7 +17,7 @@ export default defineUserConfig<ThemeOptions, ViteBundlerOptions>({
         github: "yuchanns",
         twitter: "realyuchanns",
       },
-      description: "追寻计算机炼金术的贤者之石",
+      description: "没有困难的事情，只有迟疑的开始",
       copyright: "<a href=\"https://beian.miit.gov.cn/\">闽ICP备2020021086号-1</a>",
       startDate: 2016,
       nav: [

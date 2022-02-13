@@ -15,13 +15,10 @@ export default defineComponent({
         </h4>
         <div class="spacer"></div>
         <div class="nav">
-          { data.nav.map(item => {
-            if (isRelativeURL(item.link)) {
-              return (<RouterLink to={ item.link }>{ item.name }</RouterLink>)
-            } else {
-              return (<a href={ item.link }>{ item.name }</a>)
-            }})
-          }
+          { data.nav.map(item => isRelativeURL(item.link) ?
+              <RouterLink to={ item.link }>{ item.name }</RouterLink> :
+              <a href={ item.link }>{ item.name }</a>
+          )}
           <ToggleTheme />
         </div>
       </header>

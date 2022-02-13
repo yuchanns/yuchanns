@@ -7,7 +7,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 export default defineUserConfig<ThemeOptions, ViteBundlerOptions>({
     lang: 'zh-CN',
     title: '代码炼金工坊',
-    description: 'Gopher / Rustacean. Fan of LiSA(織部 里沙).',
+    description: 'Enjoy Go/Rust. Vim User. Loving Anime Girls. Fan of LiSA(織部 里沙).',
 
     theme: path.resolve(__dirname, '../theme/lib/node'),
     themeConfig: {

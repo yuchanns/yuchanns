@@ -13,6 +13,7 @@ Enjoy Go/Rust/Lua. Vim User. Loving Anime Girls. Fan of LiSA(織部 里沙)👆.
 * My Projects:
   * [gray-matter-rs](https://github.com/the-alchemists-of-arland/gray-matter-rs)
   * [ladybug](https://github.com/LiSALADYBUG/ladybug)
+  * [vpzk](https://github.com/vpzk-ecosystem/vpzk)
 
 <details>
   <summary>Toggle metrics!</summary>

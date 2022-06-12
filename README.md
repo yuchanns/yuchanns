@@ -12,7 +12,7 @@ Enjoy Go/Rust/Lua. Vim User. Loving Anime Girls. Fan of LiSA(織部 里沙)👆.
 * My Notes: [yuchanns.xyz](https://yuchanns.xyz)
 * My Projects:
   * [gray-matter-rs](https://github.com/the-alchemists-of-arland/gray-matter-rs)
-  * [ladybug](https://github.com/LiSALADYBUG/ladybug)
+  * [ladybug](https://github.com/ladybugos/ladybug)
   * [vpzk](https://github.com/vpzk-ecosystem/vpzk)
 
 <details>

@@ -1,0 +1,9 @@
+:root {
+  --backlink-bracket-color: rgba(115, 115, 115, 1);
+  --backlink-bracket-opacity: .5;
+}
+
+.backlink-bracket {
+  color: var(--backlink-bracket-color);
+  opacity: var(--backlink-bracket-opacity);
+}

@@ -1,6 +1,6 @@
 import { defineUserConfig } from '@vuepress/cli'
-import { defaultTheme } from '@vuepress/theme-default'
 import { zettelkastenPlugin } from '@vpzk/plugin-zettelkasten'
+import { localTheme } from './theme'
 
 export default defineUserConfig({
   base: "/",
@@ -12,11 +12,11 @@ export default defineUserConfig({
     }
   },
 
-  theme: defaultTheme({
+  theme: localTheme({
     sidebar: false
   }),
 
   plugins: [
-    zettelkastenPlugin({ dir: "notes" })
+    zettelkastenPlugin({ vault: "notes" })
   ]
 })

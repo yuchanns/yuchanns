@@ -32,7 +32,8 @@ export const zettelkastenPlugin = (opts: zettelkastenOptions): Plugin => {
     for (const { path, title } of differences) {
       app.pages.push(await createPage(app, {
         path,
-        frontmatter: { title: title }
+        frontmatter: { title: title },
+        content: `## ${title}`
       }))
     }
     app.pages.map(({ path, data }) =>
@@ -46,7 +47,7 @@ export const zettelkastenPlugin = (opts: zettelkastenOptions): Plugin => {
   }
 
   // TODO: update backlinks on change
-  plugin.onWatched = async (_app) => {}
+  plugin.onWatched = async (_app) => { }
 
   return plugin
 }

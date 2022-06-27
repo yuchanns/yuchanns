@@ -1,9 +1,9 @@
 ---
-title: go 语言实现  队列
+title: go 语言实现 redis 队列
 ---
 [[文章索引|posts]]
 
-最近做一个小型项目，因为**rabbitMQ**等专业软件比较重，故团队决定采用****实现一个轻量的队列。
+最近做一个小型项目，因为**rabbitMQ**等专业软件比较重，故团队决定采用**redis**实现一个轻量的队列。
 
 ## 目标
 在这篇文章中，你可以获得：
@@ -14,12 +14,12 @@ title: go 语言实现  队列
 
 最终代码量大概265行左右。
 
-## 队列的原生用法
-``并不是被设计用来做队列的，事实上它并不是那么适合作为队列载体——官方也不推荐用来做队列，甚至因为使用``做队列的人太多，而促使[antirez](https://github.com/antirez)(的作者)开发了另一个名为Disque[^1]的专业队列库，据说将会加入到`6`中。
+## redis队列的原生用法
+`redis`并不是被设计用来做队列的，事实上它并不是那么适合作为队列载体——官方也不推荐用来做队列，甚至因为使用`redis`做队列的人太多，而促使[antirez](https://github.com/antirez)(redis的作者)开发了另一个名为Disque[^1]的专业队列库，据说将会加入到`redis6`中。
 
-尽管如此，``依旧提供了号称*Reliable queue*的队列指令[^2]。
+尽管如此，`redis`依旧提供了号称*Reliable queue*的队列指令[^2]。
 
-> 我们知道，当生产者在另一端生成消息之后，这一端的消费者就要取出这一消息进行消费动作；而在消费的过程中如果出现任何异常——例如“程序崩溃”等问题，造成进程的退出，消息就会丢失。为此，``官方提供了`RPOPLPUSH`这一队列指令，在从队列中取出消息的同时又塞进另一个队列中。这样当程序发生异常退出时，我们也可以通过第二个队列来找回丢失的消息。
+> 我们知道，当生产者在另一端生成消息之后，这一端的消费者就要取出这一消息进行消费动作；而在消费的过程中如果出现任何异常——例如“程序崩溃”等问题，造成进程的退出，消息就会丢失。为此，`redis`官方提供了`RPOPLPUSH`这一队列指令，在从队列中取出消息的同时又塞进另一个队列中。这样当程序发生异常退出时，我们也可以通过第二个队列来找回丢失的消息。
 
 它的使用方法是：
 ```
@@ -33,6 +33,7 @@ title: go 语言实现  队列
 ```
 127.0.0.1:6379> LPUSH queue msg
 ```
+下图展示了原生redis下的整个**生产-消费**流程：
 
 ## 队列、消息的设计思路
 接下来我们使用Go语言来编写实现队列的代码。
@@ -40,12 +41,12 @@ title: go 语言实现  队列
 首先可以明确的是，我们需要一个队列结构，以及一个消息结构。
 
 ### 队列的功能
-队列需要做哪些工作呢？队列需要和产生通信、交互。因此它需要拥有一个字段用来保存的连接；我们所有的对操作都通过队列来实现，因此最好在此结构上封装一些简易的操作方法，比如`lrem`；另外当我们把消息传给队列时，它需要有一个`delivery`方法将消息投递到队列中；此外也要有一个`receive`方法将消息从队列中取出。
+队列需要做哪些工作呢？队列需要和redis产生通信、交互。因此它需要拥有一个字段用来保存redis的连接；我们所有的对redis操作都通过队列来实现，因此最好在此结构上封装一些简易的redis操作方法，比如`lrem`；另外当我们把消息传给队列时，它需要有一个`delivery`方法将消息投递到队列中；此外也要有一个`receive`方法将消息从队列中取出。
 
 基于这些描述，我们对队列的结构有了一个大致的了解，可以将其用代码描述出来：
 ```go
 type Queue struct {
-    conn *.Connect
+    conn *redis.Connect
 }
 
 func (q *Queue) lrem(msg, queue string) {
@@ -66,7 +67,7 @@ func (q *Queue) Receive(source, dest string) {
 ### 消息的功能
 既然是消息，那么它就需要携带一些信息。
 
-通过上一小节的队列功能设想，我们发现每个方法都需要告诉队列要投递的队列名称，因此我们其实可以把队列名称附加到消息结构体上，这样一来，队列结构拿到消息之后，可以通过调用`getChannel`之类的方法来获取要投递的队列名称。此外消息结构体需要存储的信息不一定是一个字符串那么简单，可能是更复杂的多维信息，并且维持一定的格式也有助于规范使用者使用消息，方便程序处理——但是队列只支持传入字符串值，那么我们需要两个方法，把消息内容转化为字符串以及从字符串转化回来，也就是序列化，将其命名为`marshal`和`unmarshal`。
+通过上一小节的队列功能设想，我们发现每个方法都需要告诉队列要投递的队列名称，因此我们其实可以把队列名称附加到消息结构体上，这样一来，队列结构拿到消息之后，可以通过调用`getChannel`之类的方法来获取要投递的队列名称。此外消息结构体需要存储的信息不一定是一个字符串那么简单，可能是更复杂的多维信息，并且维持一定的格式也有助于规范使用者使用消息，方便程序处理——但是redis队列只支持传入字符串值，那么我们需要两个方法，把消息内容转化为字符串以及从字符串转化回来，也就是序列化，将其命名为`marshal`和`unmarshal`。
 
 同时我们注意到在队列取出消息之后，还会执行消费操作。当我们传递不同的信息时，可能需要执行的消费动作也不同；为扩展考虑，不能每新增一种消息就往队列中添加新的消费动作代码，所以我们最好让消息结构本身自带一个消费方法，只需要队列取出消息之后调用这个方法进行消费即可，将其命名为`resolve`。
 
@@ -82,22 +83,22 @@ type IMessage interface {
 ## 第三方库的选择
 为了实现上面两个结构体，我们需要一些第三方库的协助。
 
-* 交互：这里笔者采用`gomodule/redigo`[^3]来实现。这个库自带维护一个连接池，可以为后面的多消费者扩展提供方便。
+* redis交互：这里笔者采用`gomodule/redigo`[^3]来实现。这个库自带维护一个redis连接池，可以为后面的多消费者扩展提供方便。
 * 消息序列化：序列化有多种选择，比如JSON、Protobuf、Gob等。笔者采用`json-iterator/go`[^4]这个库来实现。
 
 这里简单介绍一下两个第三方库的基本用法，感兴趣的读者可以自行查阅官方文档或者源码了解更详细的用法。
 
 ### redigo
-`redigo`提供了一个连接池管理方案，通过实例化`.Pool`结构，可以获取一个连接池实例，每次使用时通过调用实例的`func (p *Pool) Get() .Conn`方法获取一个连接，然后通过连接的`func (ac *activeConn) Close() error`方法将用完的连接回收。
+`redigo`提供了一个连接池管理方案，通过实例化`redis.Pool`结构，可以获取一个连接池实例，每次使用时通过调用实例的`func (p *Pool) Get() redis.Conn`方法获取一个redis连接，然后通过redis连接的`func (ac *activeConn) Close() error`方法将用完的连接回收。
 ```go
-import "github.com/gomodule/redigo/"
+import "github.com/gomodule/redigo/redis"
 
 // 创建连接池实例
-pool := &.Pool{
-    Dial: func() (conn .Conn, err error) {
-        return .Dial("tcp", ":6379")
+pool := &redis.Pool{
+    Dial: func() (conn redis.Conn, err error) {
+        return redis.Dial("tcp", ":6379")
     },
-    TestOnBorrow: func(c .Conn, t time.Time) error {
+    TestOnBorrow: func(c redis.Conn, t time.Time) error {
         if time.Since(t) < time.Minute {
             return nil
         }
@@ -110,9 +111,9 @@ conn := pool.Get()
 // 回收一个连接
 defer conn.Close()
 ```
-使用`redigo`从队列中读取或推送消息时，需要使用[]byte类型的消息：
+使用`redigo`从redis队列中读取或推送消息时，需要使用[]byte类型的消息：
 ```go
-msg := []byte("hello ")
+msg := []byte("hello redis")
 if _, err := conn.Do("LPUSH", "prepare", msg); err != nil {
     panic(err)
 }
@@ -124,11 +125,11 @@ rUint8, ok := r.([]uint8)
 if !ok {
     panic("cannot assert reply as []uint8")
 }
-fmt.Println(string(rUint8)) // "hello "
+fmt.Println(string(rUint8)) // "hello redis"
 ```
 
 ### jsoniter
-我写过一篇[[json-iterator/go使用笔记|usage-of-jsoniter]]，感兴趣的读者可以点击阅读。
+我写过一篇[《json-iterator/go使用笔记》](https://yuchanns.org/posts/2020/02/07/usage-of-json-iterator-go/)，感兴趣的读者可以点击阅读。
 
 **jsoniter**可以将结构体转化成`[]byte`，也可以将`[]byte`转化成结构体。
 ```go
@@ -201,7 +202,7 @@ func (m *Message) Unmarshal(reply []byte) (IMessage, error) {
 package main
 
 type Queue struct {
-    pool *.Pool
+    pool *redis.Pool
 }
 
 // 此方法用于删除执行队列中的消息
@@ -303,18 +304,18 @@ func (q *Queue) InitReceiver(msg IMessage) {
 package main
 
 import (
-    "github.com/gomodule/redigo/"
+    "github.com/gomodule/redigo/redis"
     "os"
     "os/signal"
     "syscall"
 )
 
 func main() {
-    pool := &.Pool{
-        Dial: func() (conn .Conn, err error) {
-            return .Dial("tcp", ":6379")
+    pool := &redis.Pool{
+        Dial: func() (conn redis.Conn, err error) {
+            return redis.Dial("tcp", ":6379")
         },
-        TestOnBorrow: func(c .Conn, t time.Time) error {
+        TestOnBorrow: func(c redis.Conn, t time.Time) error {
             if time.Since(t) < time.Minute {
                 return nil
             }
@@ -375,7 +376,7 @@ func (m *Message) Resolve() error {
 于是我们发现一部分消息因为消费失败而丢失了。
 
 ## 改进·Ack机制解决消息丢失问题
-当然，在[前文](#队列的原生用法)中我们已经预料到了这种意外情况，并且已经做出了预防工作——利用的“可靠队列”指令`RPOPLPUSH`将要进行消费的消息放入了执行队列中。现在我们只需要实现从队列找回消息的功能。
+当然，在[前文](#redis队列的原生用法)中我们已经预料到了这种意外情况，并且已经做出了预防工作——利用redis的“可靠队列”指令`RPOPLPUSH`将要进行消费的消息放入了执行队列中。现在我们只需要实现从队列找回消息的功能。
 
 > Ack确认机制，Acknowledgement (data networks)[^6]
 >
@@ -553,7 +554,7 @@ func (q *Queue) InitReceiver(ctx context.Context, msg IMessage) func() {
 ## 改进·支持复数消费者
 通过上面的两次改进，这个队列结构已经具备了一定的可靠性，可以投入工作使用了。
 
-在经过一段的时间运行之后，由于请求的流量迅速增加，而消息的每次处理大约需要花费一秒钟(模拟)的时间，因此队列中消息大量堆积，占用的内存开始暴涨，可能最后导致崩溃或者影响到整个服务器的运行。
+在经过一段的时间运行之后，由于请求的流量迅速增加，而消息的每次处理大约需要花费一秒钟(模拟)的时间，因此redis队列中消息大量堆积，占用的内存开始暴涨，可能最后导致redis崩溃或者影响到整个服务器的运行。
 
 一个消费者独木难支，那么我们可以多开几个协程，并行/并发地处理更多消息，提升单位时间内的效率：
 > main.go
@@ -613,21 +614,21 @@ func (q *Queue) InitReceiver(ctx context.Context, msg IMessage, number int) func
 文中的源码可以在[yuchanns/gobyexample](https://github.com/yuchanns/gobyexample/tree/master/queue)中找到。
 
 本文到这里结束，我们经历了——
-* 原生用法调研
+* redis原生用法调研
 * 结合具体语言设计队列和消息的结构
 * 第三方库辅助的选择
 * 根据第三方库调整设计
 * 着手实现代码
 * 分析缺陷，设计改进方案
 
-这些流程，结合Go语言实现了具有一定可靠性的队列。
+这些流程，结合Go语言实现了具有一定可靠性的redis队列。
 
 需要新增不同的消息和消费方式？只需要遵守`IMessage`接口的约定编写新的消息实现就可以了！
 
 那么，还有哪些可以改进的方案呢？上面的代码有哪些不足？一些处理是否有更好的选择？希望读者可以思考一下:)
 
 [^1]: [antirez/disque](https://github.com/antirez/disque)
-[^2]: [Pattern: Reliable queue](https://.io/commands/rpoplpush#pattern-reliable-queue)
+[^2]: [Pattern: Reliable queue](https://redis.io/commands/rpoplpush#pattern-reliable-queue)
 [^3]: [gomodule/redigo](https://github.com/gomodule/redigo)
 [^4]: [json-iterator/go](https://github.com/json-iterator/go)
 [^5]: [crypto/rand](https://godoc.org/crypto/rand)

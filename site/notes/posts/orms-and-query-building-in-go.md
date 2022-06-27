@@ -1,7 +1,7 @@
 ---
 title: Go 的 ORM 和查询构建
 ---
-[[文章索引|posts]] [[翻译系列|translation]]
+[[文章索引|posts]] [[翻译系列|translation]] [[Go 系列|go]]
 
 > 原文地址：[https://andrewpillar.com/programming/2019/07/13/orms-and-query-building-in-go/](https://andrewpillar.com/programming/2019/07/13/orms-and-query-building-in-go/)
 

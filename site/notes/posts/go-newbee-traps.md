@@ -1,7 +1,7 @@
 ---
 title: go 语言萌新陷阱
 ---
-[[文章索引|posts]]
+[[文章索引|posts]] [[Go 系列|go]]
 
 节选自[《50 Shades of Go: Traps, Gotchas, and Common Mistakes for New Golang Devs》](http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/)，仅摘录一些笔者比较在意的片段。
 

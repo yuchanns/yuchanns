@@ -10,11 +10,12 @@ Enjoy Go/Rust/Lua. Vim User. Loving Anime Girls. Fan of LiSA(織部 里沙).
 ![LiSA](/images/LiSA.png)
 
 * Explore
-    * [[Blog|blog]]
+    * [[Posts|posts]]
     * [[K8s|k8s]]
     * [[Linux|linux]]
     * [[Go|go]]
     * [[Rust|rust]]
+    * [[Operating System|os]]
 
 * Touch
     * mailto: [me@yuchanns.xyz](mailto:me@yuchanns.xyz)

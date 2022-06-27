@@ -1,6 +1,10 @@
 import { defineUserConfig } from '@vuepress/cli'
 import { zettelkastenPlugin } from '@vpzk/plugin-zettelkasten'
+import { shikiPlugin } from '@vuepress/plugin-shiki'
 import { localTheme } from './theme'
+import { katexPlugin } from '@renovamen/vuepress-plugin-katex'
+
+const isProd = process.env.NODE_ENV === 'production'
 
 export default defineUserConfig({
   base: "/",
@@ -13,10 +17,13 @@ export default defineUserConfig({
   },
 
   theme: localTheme({
-    sidebar: false
+    sidebar: false,
+    themePlugins: { prismjs: !isProd }
   }),
 
   plugins: [
-    zettelkastenPlugin({ vault: "notes" })
+    zettelkastenPlugin({ vault: "notes" }),
+    katexPlugin(),
+    isProd ? shikiPlugin({ theme: 'github-dark' }) : []
   ]
 })

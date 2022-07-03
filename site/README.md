@@ -1,7 +1,7 @@
 ---
 home: true
 title: Home
-heroImage: https://skillicons.dev/icons?i=linux,go,rust,lua,vim,kubernetes,docker,nodejs,react,vue,php
+heroImage: https://skillicons.dev/icons?i=linux,go,rust,lua,neovim,kubernetes,docker,typescript,react,vue,php
 actions:
   - text: 进入笔记
     link: /notes/

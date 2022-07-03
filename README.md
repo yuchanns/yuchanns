@@ -6,9 +6,9 @@
 
 Hi, I'm yuchanns, aka Hanchin Hsieh.
 
-Enjoy Go/Rust/Lua. Vim User. Loving Anime Girls. Fan of LiSA(織部 里沙)👆.
+Enjoy Go/Rust/Lua. (Neo)Vimer. Loving Anime Girls. Fan of LiSA(織部 里沙)👆.
 
-![my skills](https://skillicons.dev/icons?i=linux,go,rust,lua,vim,kubernetes,docker,nodejs,react,vue,php)
+![my skills](https://skillicons.dev/icons?i=linux,go,rust,lua,neovim,kubernetes,docker,typescript,react,vue,php)
 
 * My Notes: [yuchanns.xyz](https://yuchanns.xyz)
 * My Projects:

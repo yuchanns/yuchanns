@@ -1,0 +1,2 @@
+- [ ] read [yuzu](https://github.com/yuzu-emu/yuzu)
+- [ ] read [Ryujinx](https://github.com/Ryujinx/Ryujinx)

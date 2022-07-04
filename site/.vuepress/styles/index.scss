@@ -7,3 +7,14 @@ html.dark {
   --c-brand: #ffa7c4;
   --c-brand-light: #d23669;
 }
+
+.theme-default-content img {
+  border-radius: 6px;
+  box-shadow:0 0 10px #555;
+}
+
+@media (min-width:550px) {
+  .theme-default-content img {
+    max-width: 65%;
+  }
+}

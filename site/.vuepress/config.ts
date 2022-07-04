@@ -3,6 +3,7 @@ import { zettelkastenPlugin } from '@vpzk/plugin-zettelkasten'
 import { shikiPlugin } from '@vuepress/plugin-shiki'
 import { localTheme } from './theme'
 import { katexPlugin } from '@renovamen/vuepress-plugin-katex'
+import { tasksPlugin } from '@vpzk/plugin-tasks'
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -24,6 +25,7 @@ export default defineUserConfig({
   plugins: [
     zettelkastenPlugin({ vault: "notes" }),
     katexPlugin(),
-    isProd ? shikiPlugin({ theme: 'github-dark' }) : []
+    isProd ? shikiPlugin({ theme: 'github-dark' }) : [],
+    tasksPlugin({ enabled: true })
   ]
 })

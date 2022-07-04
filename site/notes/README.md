@@ -5,7 +5,7 @@ title: 笔记
 
 Hi, I'm yuchanns, aka Hanchin Hsieh. 
 
-Enjoy Go/Rust/Lua. Vim User. Loving Anime Girls. Fan of LiSA(織部 里沙).
+Enjoy Go/Rust/Lua. (Neo)Vimer. Loving Anime Girls. Fan of LiSA(織部 里沙).
 
 ![LiSA](/images/LiSA.png)
 
@@ -16,6 +16,8 @@ Enjoy Go/Rust/Lua. Vim User. Loving Anime Girls. Fan of LiSA(織部 里沙).
     * [[Go|go]]
     * [[Rust|rust]]
     * [[Operating System|os]]
+
+* [[Tasks|todo]]
 
 * Touch
     * mailto: [me@yuchanns.xyz](mailto:me@yuchanns.xyz)

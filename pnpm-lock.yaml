@@ -28,6 +28,23 @@ importers:
       vue: 3.2.37
       vuepress: 2.0.0-beta.48_cvdz5rjhltiqfsopd7oft5nvg4
 
+  packages/@vpzk/plugin-tasks:
+    specifiers:
+      '@hedgedoc/markdown-it-task-lists': ^1.0.4
+      '@types/markdown-it': ^12.2.3
+      '@vuepress/client': 2.0.0-beta.48
+      '@vuepress/core': 2.0.0-beta.48
+      '@vuepress/utils': 2.0.0-beta.48
+      markdown-it: '12'
+    dependencies:
+      '@hedgedoc/markdown-it-task-lists': 1.0.4_markdown-it@12.3.2
+      '@types/markdown-it': 12.2.3
+      '@vuepress/client': 2.0.0-beta.48
+      '@vuepress/core': 2.0.0-beta.48
+      '@vuepress/utils': 2.0.0-beta.48
+    devDependencies:
+      markdown-it: 12.3.2
+
   packages/@vpzk/plugin-zettelkasten:
     specifiers:
       '@types/markdown-it': ^12.2.3
@@ -47,6 +64,7 @@ importers:
   site:
     specifiers:
       '@renovamen/vuepress-plugin-katex': 2.0.0-alpha.25
+      '@vpzk/plugin-tasks': workspace:*
       '@vpzk/plugin-zettelkasten': workspace:*
       '@vuepress/client': 2.0.0-beta.48
       '@vuepress/core': 2.0.0-beta.48
@@ -56,6 +74,7 @@ importers:
       vuepress: 2.0.0-beta.48
     dependencies:
       '@renovamen/vuepress-plugin-katex': 2.0.0-alpha.25
+      '@vpzk/plugin-tasks': link:../packages/@vpzk/plugin-tasks
       '@vpzk/plugin-zettelkasten': link:../packages/@vpzk/plugin-zettelkasten
     devDependencies:
       '@vuepress/client': 2.0.0-beta.48
@@ -84,6 +103,14 @@ packages:
     dependencies:
       '@babel/helper-validator-identifier': 7.16.7
       to-fast-properties: 2.0.0
+
+  /@hedgedoc/markdown-it-task-lists/1.0.4_markdown-it@12.3.2:
+    resolution: {integrity: sha512-L2qzTIxjl2o35DUWLm3oYSMumcMXR74B9KuQ0jMlvOhu3N71TvvySi+zErOvgacQ9cOpYiGW67zvvCtwkbbXAA==}
+    peerDependencies:
+      markdown-it: '>=12'
+    dependencies:
+      markdown-it: 12.3.2
+    dev: false
 
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -786,6 +813,9 @@ packages:
     resolution: {integrity: sha512-rZ8PZLhK4ORPjFqLp9aqC4/S1j4qWFsPPz13xmWdrbBkU/LlxMcok+f+6f8YnQ57MiZwKtOaW15biZZsY5Igvw==}
     dev: true
 
+  /entities/2.1.0:
+    resolution: {integrity: sha512-hCx1oky9PFrJ611mf0ifBLBRW8lUUVRlFolb5gWRfIELabBlbp9xZvrqZLZAs+NxFnbfQoeGd8wDkygjg7U85w==}
+
   /entities/3.0.1:
     resolution: {integrity: sha512-WiyBqoomrwMdFG1e0kqvASYfnlb0lp8M5o5Fw2OFq1hNZxxcNk8Ik0Xm7LxzBhuidnZB/UtBqVCgUz3kBOP51Q==}
     engines: {node: '>=0.12'}
@@ -1302,6 +1332,11 @@ packages:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
     dev: true
 
+  /linkify-it/3.0.3:
+    resolution: {integrity: sha512-ynTsyrFSdE5oZ/O9GEf00kPngmOfVwazR5GKDq6EYfhlpFug3J2zybX56a2PRRpc9P+FuSoGNAwjlbDs9jJBPQ==}
+    dependencies:
+      uc.micro: 1.0.6
+
   /linkify-it/4.0.1:
     resolution: {integrity: sha512-C7bfi1UZmoj8+PQx22XyeXCuBlokoyWQL5pWSP+EI6nzRylyThouddufc2c1NDIcP9k5agmN9fLpA7VNJfIiqw==}
     dependencies:
@@ -1356,6 +1391,16 @@ packages:
 
   /markdown-it-emoji/2.0.2:
     resolution: {integrity: sha512-zLftSaNrKuYl0kR5zm4gxXjHaOI3FAOEaloKmRA5hijmJZvSjmxcokOLlzycb/HXlUFWzXqpIEoyEMCE4i9MvQ==}
+
+  /markdown-it/12.3.2:
+    resolution: {integrity: sha512-TchMembfxfNVpHkbtriWltGWc+m3xszaRD0CZup7GFFhzIgQqxIfn3eGj1yZpfuflzPvfkt611B2Q/Bsk1YnGg==}
+    hasBin: true
+    dependencies:
+      argparse: 2.0.1
+      entities: 2.1.0
+      linkify-it: 3.0.3
+      mdurl: 1.0.1
+      uc.micro: 1.0.6
 
   /markdown-it/13.0.1:
     resolution: {integrity: sha512-lTlxriVoy2criHP0JKRhO2VDG9c2ypWCsT237eDiLqi09rmbKoUetyGHq2uOIRoRS//kfoJckS0eUzzkDR+k2Q==}

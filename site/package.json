@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@renovamen/vuepress-plugin-katex": "2.0.0-alpha.25",
-    "@vpzk/plugin-zettelkasten": "workspace:*"
+    "@vpzk/plugin-zettelkasten": "workspace:*",
+    "@vpzk/plugin-tasks": "workspace:*"
   }
 }

@@ -48,6 +48,10 @@ html.dark {
   max-height: 150px;
 }
 
+.backlink-body * {
+  font-size: 0.6rem!important;
+}
+
 .backlink {
   flex-grow: 1;
   flex-basis: 30%;

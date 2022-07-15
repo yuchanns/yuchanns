@@ -15,7 +15,7 @@ export const BacklinkReferences = defineComponent({
       hs.push(h('div', { class: 'backlink' }, [
         h('h2', h(RouterLink, { to: backlink.path }, { default: () => backlink.title })),
         // TODO: page content link should be routerable.
-        h('div', { class: 'backlink-body', innerHTML: backlink.contentRendered })
+        h('div', { class: 'backlink-body', innerHTML: backlink.referredContentRendered })
       ]))
     }
     return () => h('div', { class: 'backlinks-group' }, [

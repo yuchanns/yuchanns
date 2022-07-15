@@ -40,9 +40,15 @@ export const zettelkastenPlugin = (opts: zettelkastenOptions): Plugin => {
       Object.assign(data, {
         backlinks: app.pages.filter(({ links }) =>
           links.filter(({ raw }) => path == raw).length
-        ).map(({ title, path, content, contentRendered, excerpt }) =>
-          ({ title, path, content, contentRendered, excerpt })
-        )
+        ).map(({ title, path: pagePath, content, contentRendered, excerpt }) => {
+          const contents = content.split('\n\n')
+          const idx = contents.findIndex(content => {
+            return content.includes(path.replace('.html', '').replace(`${opts.vault}/`, ''))
+          })
+          const referredContent = contents.slice(idx, idx + 4).join('\n\n')
+          const referredContentRendered = app.markdown.render(referredContent)
+          return ({ title, path: pagePath, content, contentRendered, excerpt, referredContent, referredContentRendered })
+        })
       }))
   }
 

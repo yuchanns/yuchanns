@@ -36,22 +36,21 @@ export const zettelkastenPlugin = (opts: zettelkastenOptions): Plugin => {
         content: `## ${title}`
       }))
     }
-    app.pages.map(({ path, data }) =>
-      Object.assign(data, {
+    app.pages.map(({ path, data }) => {
+      const searchPath = path.replace('.html', '').replace(`${opts.vault}/`, '')
+      return Object.assign(data, {
         backlinks: app.pages.filter(({ links }) =>
           links.filter(({ raw }) => path == raw).length
-        ).map(({ title, path: pagePath, content, contentRendered, excerpt }) => {
+        ).map(({ title, path, content, contentRendered, excerpt }) => {
           const contents = content.split('\n\n')
-          const idx = contents.findIndex(content => {
-            return content.includes(path.replace('.html', '').replace(`${opts.vault}/`, ''))
-          })
+          const idx = contents.findIndex(content => content.includes(searchPath))
           const referredContent = contents.slice(idx, idx + 4).join('\n\n')
           const referredContentRendered = app.markdown.render(referredContent)
-          return ({ title, path: pagePath, content, contentRendered, excerpt, referredContent, referredContentRendered })
+          return ({ title, path, content, contentRendered, excerpt, referredContent, referredContentRendered })
         })
-      }))
+      })
+    })
   }
-
   // TODO: update backlinks on change
   plugin.onWatched = async (_app) => { }
 

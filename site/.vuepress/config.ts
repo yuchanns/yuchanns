@@ -4,6 +4,7 @@ import { shikiPlugin } from '@vuepress/plugin-shiki'
 import { localTheme } from './theme'
 import { katexPlugin } from '@renovamen/vuepress-plugin-katex'
 import { tasksPlugin } from '@vpzk/plugin-tasks'
+import { searchPlugin } from '@vuepress/plugin-search'
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -26,6 +27,7 @@ export default defineUserConfig({
     zettelkastenPlugin({ vault: "notes" }),
     katexPlugin(),
     isProd ? shikiPlugin({ theme: 'github-dark' }) : [],
-    tasksPlugin({ enabled: true })
+    tasksPlugin({ enabled: true }),
+    searchPlugin({ getExtraFields: (page) => page.content.split('\n\n') })
   ]
 })

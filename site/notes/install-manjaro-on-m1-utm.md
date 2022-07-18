@@ -18,8 +18,8 @@ title: 在 M1 UTM 安装 Manjaro
     * `Linux kernel` 选择 `Image`
     * `Linux initial ramdisk` 选择 `initramfs-linux.img`
     * `Linux Root FS Image` 选择 `...img`
-    * 打开 `extlinux.conf` 将 `root=PARTUUID=... splash` 内容复制到 `Boot
-      Arguments`
+    * 打开 `extlinux.conf` 将 `"root=PARTUUID=... splash"` 内容复制到 `Boot
+      Arguments` (注意要带引号)
     * 下一步注意取消勾选 `OpenGL 加速`
     * 最后一步勾选 `Open VM Settings`
 * 在 `VM Settings` 里

@@ -62,7 +62,7 @@ title: PHPACTOR LSP 流程分析
 
 包括 `HandlerMiddleware($runner)` 和 `CancellationMiddleware($runner)`
 
-首次接收请求时将初始化参数保存、注册能力(`Phpactor/LanguageServerProtocol/ServerCapabilities`)并进行索引建立(Indexer)，然后开始监听请求并进行分发。
+首次接收请求时将初始化参数保存、注册能力(`Phpactor/LanguageServerProtocol/ServerCapabilities`)通知客户端、并进行索引建立(Indexer)，然后开始监听请求并进行分发。
 
 ### Indexer
 调用时机：Initialized 和 文件更新。

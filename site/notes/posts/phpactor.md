@@ -63,3 +63,9 @@ title: PHPACTOR LSP 流程分析
 包括 `HandlerMiddleware($runner)` 和 `CancellationMiddleware($runner)`
 
 首次接收请求时将初始化参数保存并进行索引建立(Indexer)，然后开始监听请求并进行分发。
+
+### Indexer
+调用时机：Initialized 和 文件更新。
+
+根据初始化时获取到的项目根路径，对路径的文件使用生成器进行遍历，并解析建立生成
+AST 目录。 保存到 `~/.cache/phpactor` 下

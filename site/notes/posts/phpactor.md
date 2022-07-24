@@ -27,3 +27,22 @@ title: PHPACTOR LSP 流程分析
 启动了 **Amp** 框架搭建的 Language Server 并异步监听和处理进来的连接。
 
 ## 请求分发
+在构建 `Phpactor\LanguageServer\Core\LanguageServer`
+实例时，聚合了事件分发服务：
+* ServiceListener (注入 DiagnosticService)
+* WorkspaceListener (注入 Workspace)
+* DidChangeWatchedFilesListener
+* DiagnosticService
+
+注册了 **Handler**:
+* TextDocument
+* Stats
+* Service
+* Command
+* DidChangeWatchedFiles
+* CodeAction
+* Exit
+
+并将 Handler 包装成 HandlerMethodRunner 注册到分发中间件实例 `Phpactor\LanguageServer\Core\Dispatcher\Dispatcher\MiddlewareDispatcher`
+
+首次接收请求时将初始化参数保存，然后开始监听请求并进行分发。

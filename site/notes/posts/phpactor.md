@@ -62,4 +62,4 @@ title: PHPACTOR LSP 流程分析
 
 包括 `HandlerMiddleware($runner)` 和 `CancellationMiddleware($runner)`
 
-首次接收请求时将初始化参数保存，然后开始监听请求并进行分发。
+首次接收请求时将初始化参数保存并进行索引建立(Indexer)，然后开始监听请求并进行分发。

@@ -35,14 +35,31 @@ title: PHPACTOR LSP 流程分析
 * DiagnosticService
 
 注册了 **Handler**:
+* Debug
+* Completion
+* SignatureHelp
+* Hover
+* Indexer
+* WorkspaceSymbol
+* GotoDefinition
+* GotoImplementation
+* Highlight
+* References
+* TypeDefinition
+* FileRename
+* Rename
+* Selection
+* DocumentSymbol
 * TextDocument
 * Stats
 * Service
-* Command
+* CommandHelper
 * DidChangeWatchedFiles
 * CodeAction
 * Exit
 
 并将 Handler 包装成 HandlerMethodRunner 注册到分发中间件实例 `Phpactor\LanguageServer\Core\Dispatcher\Dispatcher\MiddlewareDispatcher`
+
+包括 `HandlerMiddleware($runner)` 和 `CancellationMiddleware($runner)`
 
 首次接收请求时将初始化参数保存，然后开始监听请求并进行分发。

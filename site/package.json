@@ -9,15 +9,16 @@
   "devDependencies": {
     "@vuepress/client": "2.0.0-beta.48",
     "@vuepress/core": "2.0.0-beta.48",
+    "@vuepress/plugin-search": "2.0.0-beta.48",
     "@vuepress/plugin-shiki": "2.0.0-beta.48",
     "@vuepress/utils": "2.0.0-beta.48",
-    "@vuepress/plugin-search": "2.0.0-beta.48",
     "vue": "^3.2.37",
     "vuepress": "2.0.0-beta.48"
   },
   "dependencies": {
     "@renovamen/vuepress-plugin-katex": "2.0.0-alpha.25",
+    "@vpzk/plugin-tasks": "workspace:*",
     "@vpzk/plugin-zettelkasten": "workspace:*",
-    "@vpzk/plugin-tasks": "workspace:*"
+    "han-css": "^3.3.0"
   }
 }

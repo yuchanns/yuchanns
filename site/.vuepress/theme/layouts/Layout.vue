@@ -4,6 +4,8 @@ import { BacklinkReferences } from '@vpzk/plugin-zettelkasten/lib/client/compone
 import { usePageData } from '@vuepress/client'
 
 const key = usePageData().value.key
+
+import "han-css/dist/han.css"
 </script>
 
 <template>

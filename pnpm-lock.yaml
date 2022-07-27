@@ -71,12 +71,14 @@ importers:
       '@vuepress/plugin-search': 2.0.0-beta.48
       '@vuepress/plugin-shiki': 2.0.0-beta.48
       '@vuepress/utils': 2.0.0-beta.48
+      han-css: ^3.3.0
       vue: ^3.2.37
       vuepress: 2.0.0-beta.48
     dependencies:
       '@renovamen/vuepress-plugin-katex': 2.0.0-alpha.25
       '@vpzk/plugin-tasks': link:../packages/@vpzk/plugin-tasks
       '@vpzk/plugin-zettelkasten': link:../packages/@vpzk/plugin-zettelkasten
+      han-css: 3.3.0
     devDependencies:
       '@vuepress/client': 2.0.0-beta.48
       '@vuepress/core': 2.0.0-beta.48
@@ -1100,6 +1102,12 @@ packages:
     dependencies:
       reusify: 1.0.4
 
+  /fibre.js/0.2.1:
+    resolution: {integrity: sha512-2zN+IUGcEu66QD9uSOMn+Gx55BJh1ywHmt1afsox/GIO7SR2P+A7DKEW6hj5INvUmapVp07rtHyAlXggsydVOQ==}
+    dependencies:
+      findandreplacedomtext: 0.4.6
+    dev: false
+
   /fill-range/7.0.1:
     resolution: {integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==}
     engines: {node: '>=8'}
@@ -1109,6 +1117,10 @@ packages:
   /find-index/0.1.1:
     resolution: {integrity: sha512-uJ5vWrfBKMcE6y2Z8834dwEZj9mNGxYa3t3I53OwFeuZ8D9oc2E5zcsrkuhX6h4iYrjhiv0T3szQmxlAV9uxDg==}
     dev: true
+
+  /findandreplacedomtext/0.4.6:
+    resolution: {integrity: sha512-CVRIKbEwfWoKTSnLrmyX26WjMY7o0aUUTm0RXN47fF/eHINJa8C+YHZxGagC7gMWVaAEBFwH7uVXuhwZcylWOQ==}
+    dev: false
 
   /fraction.js/4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
@@ -1212,6 +1224,14 @@ packages:
       kind-of: 6.0.3
       section-matter: 1.0.0
       strip-bom-string: 1.0.0
+
+  /han-css/3.3.0:
+    resolution: {integrity: sha512-WX26OBbtsvDIlFK9c62Kxntu2DI45Vx7xZg9ekf1GHsdRmFjVPyZaVx8Ul4qJuXqysmNPMoQItFjNJcVLZm30w==}
+    engines: {node: 0.12.x}
+    dependencies:
+      fibre.js: 0.2.1
+      normalize.css: 4.2.0
+    dev: false
 
   /has-flag/4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
@@ -1496,6 +1516,10 @@ packages:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /normalize.css/4.2.0:
+    resolution: {integrity: sha512-6vowjfebV3sEudR9vL2p3NQY3CliFBcM0LWr/S97RNosTmu63HQhcggCOtGjQQmtJuCwIABPEYqtItp2PlwTsg==}
+    dev: false
 
   /npm-run-path/4.0.1:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}

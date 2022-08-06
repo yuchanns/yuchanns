@@ -1,6 +1,7 @@
 :root {
   --backlink-color: #f7f7f7;
   --backlink-header-color: #433f38;
+  --backlink-hover-color: #898989;
 }
 
 html.dark {
@@ -29,23 +30,26 @@ html.dark {
 }
 
 .backlinks {
-  transition: border-color var(--t-color);
-  padding: 1.2rem 1.75rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  align-content: stretch;
-  justify-content: space-between;
-  font-size: 0.6rem;
-  background-color: var(--backlink-color);
+  // transition: border-color var(--t-color);
+  // padding: 1.2rem 1.75rem;
+  // display: flex;
+  // flex-wrap: wrap;
+  // align-items: flex-start;
+  // align-content: stretch;
+  // justify-content: space-between;
+  // font-size: 0.6rem;
+  // background-color: var(--backlink-color);
+  width: 100%;
   h2 {
     font-size: 1.4rem;
+    margin-left: 1.5rem;
   }
 }
 
 .backlink-body {
   mask-image: linear-gradient(180deg,#000 60%,transparent);
   max-height: 150px;
+  padding: 0.1rem 1.5rem;
 }
 
 .backlink-body * {
@@ -53,18 +57,20 @@ html.dark {
 }
 
 .backlink {
-  flex-grow: 1;
-  flex-basis: 30%;
-  max-width: 30%;
+  // flex-grow: 1;
+  // flex-basis: 30%;
+  // max-width: 30%;
   max-height: 250px;
   overflow: hidden;
+  border-radius: 4px;
+  background-color: var(--backlink-color);
+  margin-bottom: 10px;
+  &:hover {
+    border: 1px solid var(--backlink-hover-color);
+  }
 }
 
 @media (max-width: 719px) {
-  .backlinks {
-    flex-direction: column;
-    padding: 0.5rem 0.5rem;
-  }
   .backlink {
     max-width: 100%;
     padding: 0 0.5rem;

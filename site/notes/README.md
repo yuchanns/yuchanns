@@ -3,9 +3,12 @@ title: 笔记
 ---
 # README
 
-Hi, I'm yuchanns, aka Hanchin Hsieh. 
-
-Enjoy Go/Rust/Lua. (Neo)Vimer. Loving Anime Girls. Fan of LiSA(織部 里沙).
+* Hi, I'm yuchanns, aka Hanchin Hsieh. 
+   * Yak Shaving Gopher/Rustacean/(Neo)Vimer.
+   * Love Anime Girls. 
+   * Fan of LiSA(織部 里沙):point_down:.
+   * Self-hatred. 
+   * Try correcting my sentences.
 
 ![LiSA](/images/LiSA.png)
 

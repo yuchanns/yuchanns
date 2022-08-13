@@ -2,7 +2,8 @@
   "extends": "./tsconfig.base.json",
   "references": [
     { "path": "./packages/@vpzk/plugin-zettelkasten/tsconfig.build.json" },
-    { "path": "./packages/@vpzk/plugin-tasks/tsconfig.build.json" }
+    { "path": "./packages/@vpzk/plugin-tasks/tsconfig.build.json" },
+    { "path": "./packages/@vpzk/plugin-better-list/tsconfig.build.json" }
   ],
   "files": []
 }

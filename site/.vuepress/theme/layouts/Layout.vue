@@ -5,7 +5,6 @@ import { usePageData } from '@vuepress/client'
 
 const key = usePageData().value.key
 
-import "han-css/dist/han.css"
 </script>
 
 <template>

@@ -28,6 +28,21 @@ importers:
       vue: 3.2.37
       vuepress: 2.0.0-beta.48_cvdz5rjhltiqfsopd7oft5nvg4
 
+  packages/@vpzk/plugin-better-list:
+    specifiers:
+      '@types/markdown-it': ^12.2.3
+      '@vuepress/client': 2.0.0-beta.48
+      '@vuepress/core': 2.0.0-beta.48
+      '@vuepress/utils': 2.0.0-beta.48
+      markdown-it: '12'
+    dependencies:
+      '@types/markdown-it': 12.2.3
+      '@vuepress/client': 2.0.0-beta.48
+      '@vuepress/core': 2.0.0-beta.48
+      '@vuepress/utils': 2.0.0-beta.48
+    devDependencies:
+      markdown-it: 12.3.2
+
   packages/@vpzk/plugin-tasks:
     specifiers:
       '@hedgedoc/markdown-it-task-lists': ^1.0.4
@@ -64,6 +79,7 @@ importers:
   site:
     specifiers:
       '@renovamen/vuepress-plugin-katex': 2.0.0-alpha.25
+      '@vpzk/plugin-better-list': workspace:*
       '@vpzk/plugin-tasks': workspace:*
       '@vpzk/plugin-zettelkasten': workspace:*
       '@vuepress/client': 2.0.0-beta.48
@@ -76,6 +92,7 @@ importers:
       vuepress: 2.0.0-beta.48
     dependencies:
       '@renovamen/vuepress-plugin-katex': 2.0.0-alpha.25
+      '@vpzk/plugin-better-list': link:../packages/@vpzk/plugin-better-list
       '@vpzk/plugin-tasks': link:../packages/@vpzk/plugin-tasks
       '@vpzk/plugin-zettelkasten': link:../packages/@vpzk/plugin-zettelkasten
       han-css: 3.3.0
@@ -833,7 +850,6 @@ packages:
 
   /entities/2.1.0:
     resolution: {integrity: sha512-hCx1oky9PFrJ611mf0ifBLBRW8lUUVRlFolb5gWRfIELabBlbp9xZvrqZLZAs+NxFnbfQoeGd8wDkygjg7U85w==}
-    dev: true
 
   /entities/3.0.1:
     resolution: {integrity: sha512-WiyBqoomrwMdFG1e0kqvASYfnlb0lp8M5o5Fw2OFq1hNZxxcNk8Ik0Xm7LxzBhuidnZB/UtBqVCgUz3kBOP51Q==}
@@ -1373,7 +1389,6 @@ packages:
     resolution: {integrity: sha512-ynTsyrFSdE5oZ/O9GEf00kPngmOfVwazR5GKDq6EYfhlpFug3J2zybX56a2PRRpc9P+FuSoGNAwjlbDs9jJBPQ==}
     dependencies:
       uc.micro: 1.0.6
-    dev: true
 
   /linkify-it/4.0.1:
     resolution: {integrity: sha512-C7bfi1UZmoj8+PQx22XyeXCuBlokoyWQL5pWSP+EI6nzRylyThouddufc2c1NDIcP9k5agmN9fLpA7VNJfIiqw==}
@@ -1439,7 +1454,6 @@ packages:
       linkify-it: 3.0.3
       mdurl: 1.0.1
       uc.micro: 1.0.6
-    dev: true
 
   /markdown-it/13.0.1:
     resolution: {integrity: sha512-lTlxriVoy2criHP0JKRhO2VDG9c2ypWCsT237eDiLqi09rmbKoUetyGHq2uOIRoRS//kfoJckS0eUzzkDR+k2Q==}

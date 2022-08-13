@@ -19,6 +19,7 @@
     "@renovamen/vuepress-plugin-katex": "2.0.0-alpha.25",
     "@vpzk/plugin-tasks": "workspace:*",
     "@vpzk/plugin-zettelkasten": "workspace:*",
+    "@vpzk/plugin-better-list": "workspace:*",
     "han-css": "^3.3.0"
   }
 }

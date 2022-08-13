@@ -1,5 +1,5 @@
 ---
-title: 笔记
+title: Note
 ---
 # README
 
@@ -13,13 +13,7 @@ title: 笔记
 ![LiSA](/images/LiSA.png)
 
 * Explore
-    * [[Blog|blog]]
-    * [[K8s|k8s]]
-    * [[Linux|linux]]
-    * [[Go|go]]
-    * [[Rust|rust]]
-
-* [[Tasks|todo]]
+    * [[VPZK|vpzk]]
 
 * Touch
     * mailto: [me@yuchanns.xyz](mailto:me@yuchanns.xyz)

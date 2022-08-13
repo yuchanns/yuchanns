@@ -1,5 +1,6 @@
 import { defineUserConfig } from '@vuepress/cli'
 import { zettelkastenPlugin } from '@vpzk/plugin-zettelkasten'
+import { shikiPlugin } from '@vuepress/plugin-shiki'
 import { localTheme } from './theme'
 import { katexPlugin } from '@renovamen/vuepress-plugin-katex'
 import { tasksPlugin } from '@vpzk/plugin-tasks'
@@ -12,9 +13,9 @@ export default defineUserConfig({
   base: "/",
   locales: {
     "/": {
-      lang: "zh-CN",
+      lang: "en-US",
       title: "VPZK",
-      description: "思考链接"
+      description: "Link Thinking"
     }
   },
 

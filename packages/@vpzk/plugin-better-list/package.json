@@ -1,0 +1,23 @@
+{
+  "name": "@vpzk/plugin-better-list",
+  "version": "0.1.0",
+  "description": "",
+  "main": "lib/node/index.js",
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json",
+    "clean": "rimraf lib *.tsbuildinfo",
+    "copy": "cpx \"src/**/*.{scss,svg}\" lib"
+  },
+  "keywords": [],
+  "author": "Hanchin Hsieh",
+  "license": "MIT",
+  "dependencies": {
+    "@types/markdown-it": "^12.2.3",
+    "@vuepress/client": "2.0.0-beta.48",
+    "@vuepress/core": "2.0.0-beta.48",
+    "@vuepress/utils": "2.0.0-beta.48"
+  },
+  "devDependencies": {
+    "markdown-it": "12"
+  }
+}

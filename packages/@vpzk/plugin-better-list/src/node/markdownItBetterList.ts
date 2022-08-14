@@ -5,9 +5,9 @@ import type * as Renderer from 'markdown-it/lib/renderer'
 const proxy = (tokens: Token[], idx: number, options: Options, _env: any, self: Renderer) => self.renderToken(tokens, idx, options)
 
 export const markdownItBetterList: PluginWithParams = (md): void => {
-  md.renderer.rules.orderder_list_open = () => '<div class="better-list"><div class="better-list-border" /><div>'
+  md.renderer.rules.orderder_list_open = () => '<div class="better-list"><div class="better-list-border"></div><div>'
   md.renderer.rules.orderder_list_close = () => '</div></div>'
-  md.renderer.rules.bullet_list_open = () => '<div class="better-list"><div class="better-list-border" /><div>'
+  md.renderer.rules.bullet_list_open = () => '<div class="better-list"><div class="better-list-border"></div><div>'
   md.renderer.rules.bullet_list_close = () => '</div></div>'
   md.renderer.rules.list_item_open = () => '<div class="better-list-block">'
   md.renderer.rules.list_item_close = () => '</div>'
@@ -21,9 +21,9 @@ export const markdownItBetterList: PluginWithParams = (md): void => {
       if (lastToken.type == 'list_item_open') {
         return `<div class="better-list-title">
           <div class="better-list-bullet">
-            <span class="better-list-bullet-control" />
+            <span class="better-list-bullet-control"></span>
             <span class="better-list-bullet-container">
-              <span class="better-list-bullet-entity" />
+              <span class="better-list-bullet-entity"></span>
             </span>
           </div>
           <div class="better-list-title-content">${defaultParagraphOpen(tokens, idx, options, env, self)}`

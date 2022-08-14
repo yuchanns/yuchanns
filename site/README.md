@@ -12,8 +12,8 @@ features:
         Hi! I'm yuchanns, AKA Hanchin Hsieh.
         Gopher/Rustacean/(Neo)Vimer.
   - title: Website
-    details: VPZK is a notebook with support for Baclinks
+    details: VPZK is a notebook with support for Baclinks.
   - title: Stack
-    details: Powered by Vuepress 2 and VPZK
+    details: Powered by Vuepress 2 and VPZK.
 footer: MIT Licensed | Copyright © 2016-present Hanchin Hsieh
 ---

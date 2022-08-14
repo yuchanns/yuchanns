@@ -43,6 +43,23 @@ importers:
     devDependencies:
       markdown-it: 12.3.2
 
+  packages/@vpzk/plugin-lazy-image:
+    specifiers:
+      '@types/markdown-it': ^12.2.3
+      '@vuepress/client': 2.0.0-beta.48
+      '@vuepress/core': 2.0.0-beta.48
+      '@vuepress/utils': 2.0.0-beta.48
+      markdown-it: '12'
+      markdown-it-image-lazy-loading: ^1.2.0
+    dependencies:
+      '@types/markdown-it': 12.2.3
+      '@vuepress/client': 2.0.0-beta.48
+      '@vuepress/core': 2.0.0-beta.48
+      '@vuepress/utils': 2.0.0-beta.48
+      markdown-it-image-lazy-loading: 1.2.0
+    devDependencies:
+      markdown-it: 12.3.2
+
   packages/@vpzk/plugin-tasks:
     specifiers:
       '@hedgedoc/markdown-it-task-lists': ^1.0.4
@@ -80,6 +97,7 @@ importers:
     specifiers:
       '@renovamen/vuepress-plugin-katex': 2.0.0-alpha.25
       '@vpzk/plugin-better-list': workspace:*
+      '@vpzk/plugin-lazy-image': workspace:*
       '@vpzk/plugin-tasks': workspace:*
       '@vpzk/plugin-zettelkasten': workspace:*
       '@vuepress/client': 2.0.0-beta.48
@@ -92,6 +110,7 @@ importers:
     dependencies:
       '@renovamen/vuepress-plugin-katex': 2.0.0-alpha.25
       '@vpzk/plugin-better-list': link:../packages/@vpzk/plugin-better-list
+      '@vpzk/plugin-lazy-image': link:../packages/@vpzk/plugin-lazy-image
       '@vpzk/plugin-tasks': link:../packages/@vpzk/plugin-tasks
       '@vpzk/plugin-zettelkasten': link:../packages/@vpzk/plugin-zettelkasten
     devDependencies:
@@ -1488,6 +1507,14 @@ packages:
     resolution: {integrity: sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==}
     engines: {node: '>= 4'}
 
+  /image-size/1.0.2:
+    resolution: {integrity: sha512-xfOoWjceHntRb3qFCrh5ZFORYH8XCdYpASltMhZ/Q0KZiOwjdE/Yl2QCiWdwD+lygV5bMCvauzgu5PxBX/Yerg==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    dependencies:
+      queue: 6.0.2
+    dev: false
+
   /immutable/4.1.0:
     resolution: {integrity: sha512-oNkuqVTA8jqG1Q6c+UglTOD1xhC1BtjKI7XkCXRkZHrN5m18/XsnUp8Q89GkQO/z+0WjonSvl0FLhDYftp46nQ==}
     dev: true
@@ -1657,6 +1684,12 @@ packages:
 
   /markdown-it-emoji/2.0.2:
     resolution: {integrity: sha512-zLftSaNrKuYl0kR5zm4gxXjHaOI3FAOEaloKmRA5hijmJZvSjmxcokOLlzycb/HXlUFWzXqpIEoyEMCE4i9MvQ==}
+
+  /markdown-it-image-lazy-loading/1.2.0:
+    resolution: {integrity: sha512-/aeNoa7DxCe3Ey01sF68shdj5JML+ixzr0adWAliwJZp0lpezl84iLCWybhcmCmSZgX0RcO7wGKzXMOI57RbKQ==}
+    dependencies:
+      image-size: 1.0.2
+    dev: false
 
   /markdown-it/12.3.2:
     resolution: {integrity: sha512-TchMembfxfNVpHkbtriWltGWc+m3xszaRD0CZup7GFFhzIgQqxIfn3eGj1yZpfuflzPvfkt611B2Q/Bsk1YnGg==}
@@ -1859,6 +1892,12 @@ packages:
 
   /queue-microtask/1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
+
+  /queue/6.0.2:
+    resolution: {integrity: sha512-iHZWu+q3IdFZFX36ro/lKBkSvfkztY5Y7HMiPlOUjhupPcG2JMfst2KKEpu5XndviX/3UhFbRngUPNKtgvtZiA==}
+    dependencies:
+      inherits: 2.0.4
+    dev: false
 
   /readable-stream/3.6.0:
     resolution: {integrity: sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==}

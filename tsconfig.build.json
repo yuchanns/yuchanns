@@ -3,7 +3,8 @@
   "references": [
     { "path": "./packages/@vpzk/plugin-zettelkasten/tsconfig.build.json" },
     { "path": "./packages/@vpzk/plugin-tasks/tsconfig.build.json" },
-    { "path": "./packages/@vpzk/plugin-better-list/tsconfig.build.json" }
+    { "path": "./packages/@vpzk/plugin-better-list/tsconfig.build.json" },
+    { "path": "./packages/@vpzk/plugin-lazy-image/tsconfig.build.json" }
   ],
   "files": []
 }

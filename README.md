@@ -23,3 +23,5 @@ Enjoy Go/Rust/Lua. (Neo)Vimer. Loving Anime Girls. Fan of LiSA(織部 里沙)�
    </a>
   </p>
 </details>
+
+<img height="100" src="https://musume.yuchanns.xyz/yuchanns:home" alt="Moe Counter CF">

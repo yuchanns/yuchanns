@@ -7,10 +7,12 @@ hero:
   name: VPZK
   text: Link your thinking.
   tagline: A notebook with support for Baclinks.
+  image:
+    src: https://skillicons.dev/icons?i=go,rust,linux,neovim,kubernetes,docker,typescript,vue,php&perline=3
   actions:
     - theme: brand
       text: LinkStart
-      link: /notes
+      link: /notes/index
     - theme: alt
       text: View on GitHub
       link: https://github.com/yuchanns/yuchanns

@@ -1,0 +1,113 @@
+:root {
+    --better-list-bullet-color: rgba(67, 63, 56, var(--better-list-bullet-opacity));
+    --better-list-bullet-opacity: 0.25;
+    --better-list-bullet-container-hover-color: #dedede;
+    --better-list-border-color: rgba(229,229,229, var(--better-list-border-opacity));
+    --better-list-border-opacity: 1;
+}
+
+.dark {
+    --better-list-bullet-color: rgba(115, 115, 115, var(--better-list-bullet-opacity));
+    --better-list-bullet-opacity: .5;
+    --better-list-border-color: rgba(115, 115, 115, var(--better-list-border-opacity));
+    --better-list-border-opacity: .5;
+}
+
+.better-list-block {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    min-height: 24px;
+    padding: 2px 0;
+    border-bottom: 1px solid transparent;
+
+    p {
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .better-list {
+        margin-left: 29px;
+        position: relative;
+    }
+    .better-list-border {
+        z-index: 1;
+        width: 1px;
+        left: 4.5px;
+        top: 0;
+        height: 100%;
+        cursor: pointer;
+        background-clip: content-box;
+        background-color: var(--better-list-border-color);
+        position: absolute;
+        border-radius: 2px;
+    }
+    div[class*=language-] {
+        margin-left: 30px;
+    }
+    .custom-container {
+        margin-left: 30px;
+    }
+}
+
+.better-list-title {
+    padding-right: 0.5rem;
+    flex-direction: row;
+    display: flex;
+}
+
+.better-list-bullet-control {
+    text-decoration: none;
+    cursor: default;
+    font-size: 14px;
+    min-width: 22px;
+    min-height: 22px;
+    padding: 2px;
+    color: initial;
+    user-select: none;
+}
+
+.better-list-bullet {
+    height: 24px;
+    margin-top: 0px;
+    float: left;
+    align-items: center;
+    flex-direction: row;
+    display: flex;
+    margin-right: 0.25rem;
+}
+
+.better-list-bullet-container {
+    display: flex;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: .3s;
+    &:hover {
+        background-color: var(--better-list-bullet-container-hover-color);
+    }
+}
+
+.better-list-bullet-entity {
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+    background-color: var(--better-list-bullet-color);
+}
+
+.better-list-title-content {
+    width: calc(100% - 22px);
+}
+
+@media (min-width: 640px) {
+    .better-list-bullet {
+        margin-right: 0.5rem;
+    }
+
+    .better-list-title-content {
+        width: calc(100% - 33px);
+    }
+}

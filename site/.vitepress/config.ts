@@ -1,4 +1,6 @@
 import { defineConfig } from 'vitepress'
+import { markdownItBetterList } from './theme/plugins/better-list'
+import { markdownItBacklinks, getBacklinks } from './theme/plugins/zettelkasten'
 
 export default defineConfig({
   lang: 'en-US',
@@ -13,6 +15,10 @@ export default defineConfig({
   markdown: {
     headers: {
       level: [0, 0]
+    },
+    config: (md) => {
+      md.use(markdownItBetterList)
+      md.use(markdownItBacklinks, { vault: 'notes' })
     }
   },
 
@@ -20,6 +26,13 @@ export default defineConfig({
     footer: {
       message: 'Released under the MIT License.',
       copyright: 'Copyright © 2016-present Hanchin Hsieh'
+    }
+  },
+
+  transformPageData: async (pageData) => {
+    let backlinks = await getBacklinks(pageData)
+    return {
+      backlinks
     }
   }
 })

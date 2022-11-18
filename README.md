@@ -17,7 +17,7 @@ Enjoy Go/Rust/Lua. (Neo)Vimer. Loving Anime Girls. Fan of LiSA(織部 里沙)�
 * Contribute to:
   * [nerdctl](https://github.com/containerd/nerdctl)
 
-<a rel="me" href="https://ani.work/@yuchanns">Mastodon</a>
+<a rel="me" href="https://ani.work/@yuchanns">@yuchanns@ani.work</a>
 
 <img height="100" src="https://musume.yuchanns.xyz/yuchanns:home" alt="Moe Counter CF">
 

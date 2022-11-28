@@ -15,8 +15,7 @@
     "@types/markdown-it": "^12.2.3",
     "sass": "^1.56.1",
     "vitepress": "1.0.0-alpha.28",
-    "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
+    "vue": "^3.2.45"
   },
   "pnpm": {
     "peerDependencyRules": {

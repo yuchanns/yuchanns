@@ -1,7 +1,6 @@
 import { defineComponent, h } from 'vue'
 import type { VNode } from 'vue'
 import { useData, useRouter } from 'vitepress'
-import { RouterLink } from 'vue-router'
 
 export const BacklinkReferences = defineComponent({
   name: "BacklinkReferences",
@@ -11,12 +10,13 @@ export const BacklinkReferences = defineComponent({
     const { page } = useData()
     const hs: VNode[] = []
     const backlinks = page.value['backlinks']
-    // let r = useRouter()
+    let r = useRouter()
     for (const backlink of backlinks) {
-      hs.push(h('div', { class: 'backlink' }, [
-        // h('h2', h(RouterLink, { to: `/${backlink.path}` }, { default: () => backlink.title })),
+      hs.push(h('div', {
+        onClick: () => { r.go(`/${backlink.path}`) },
+        class: 'backlink'
+      }, [
         h('h2', { innerHTML: backlink.title }),
-        // TODO: page content link should be routerable.
         h('div', { class: 'backlink-body', innerHTML: backlink.content })
       ]))
     }

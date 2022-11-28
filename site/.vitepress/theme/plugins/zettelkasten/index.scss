@@ -56,7 +56,10 @@
 }
 
 .backlink-body * {
-  font-size: 0.6rem!important;
+  font-size: 0.8rem;
+  a {
+    color: var(--vp-c-brand);
+  }
 }
 
 .backlink {

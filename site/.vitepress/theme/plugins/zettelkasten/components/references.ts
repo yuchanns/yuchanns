@@ -6,7 +6,6 @@ export const BacklinkReferences = defineComponent({
   name: "BacklinkReferences",
 
   setup() {
-    // TODO: investigation: do not load data on routing
     const { page } = useData()
     const hs: VNode[] = []
     const backlinks = page.value['backlinks']
@@ -20,6 +19,7 @@ export const BacklinkReferences = defineComponent({
         h('div', { class: 'backlink-body', innerHTML: backlink.content })
       ]))
     }
+
     return () => h('div', { class: 'backlinks-group' }, [
       h('h2', { class: 'backlinks-header' }, `${backlinks.length} Linked Reference(s)`),
       backlinks.length ? h('div', { class: 'backlinks' }, [...hs]) : []

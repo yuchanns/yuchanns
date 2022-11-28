@@ -27,18 +27,8 @@ export const markdownItBacklinks: PluginWithParams = (md, { vault }): void => {
 
         if (selfTitle != undefined && relativePath != undefined) {
           let backlinks = collection.get(path) ?? []
-          // TODO: use set to exclude duplicate backlinks
-          let found = false
-          for (const backlink of backlinks) {
-            if (backlink.path == relativePath) {
-              found = true
-              break
-            }
-          }
-          if (!found) {
-            backlinks.push({ title: selfTitle, path: relativePath, content: md.render(src.slice(cap.index, src.length)) })
-            collection.set(path, backlinks)
-          }
+          backlinks.push({ title: selfTitle, path: relativePath, content: md.render(src.slice(cap.index, src.length)) })
+          collection.set(path, backlinks)
         }
       }
 

@@ -1,6 +1,6 @@
 import { defineComponent, h } from 'vue'
 import type { VNode } from 'vue'
-import { useData, useRouter } from 'vitepress'
+import { useData, useRoute, useRouter } from 'vitepress'
 
 export const BacklinkReferences = defineComponent({
   name: "BacklinkReferences",
@@ -10,7 +10,12 @@ export const BacklinkReferences = defineComponent({
     const hs: VNode[] = []
     const backlinks = page.value['backlinks']
     let r = useRouter()
+    let route = useRoute()
     for (const backlink of backlinks) {
+      if (`/${backlink.path}` == route.path) {
+        // exclude self reference
+        continue
+      }
       hs.push(h('div', {
         onClick: () => { r.go(`/${backlink.path}`) },
         class: 'backlink'

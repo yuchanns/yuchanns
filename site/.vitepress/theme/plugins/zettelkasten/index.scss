@@ -71,6 +71,10 @@
   &:hover {
     border: 1px solid var(--backlink-hover-color);
   }
+  h2 {
+    color: var(--vp-c-brand);
+    cursor: pointer;
+  }
 }
 
 @media (max-width: 719px) {

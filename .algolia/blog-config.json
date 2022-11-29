@@ -1,0 +1,21 @@
+{
+  "index_name": "blog",
+  "start_urls": [
+    "https://yuchanns.xyz",
+    "https://www.yuchanns.xyz"
+  ],
+  "stop_urls": [],
+  "selectors": {
+    "lvl0": ".doc-content h1",
+    "lvl1": ".doc-content h2",
+    "lvl2": ".doc-content h3",
+    "lvl3": ".doc-content h4",
+    "lvl4": ".doc-content h5",
+    "lvl5": ".doc-content h6",
+    "text": ".doc-content p, .doc-content li"
+  },
+  "sitemap_url": [
+    "https://yuchanns.xyz/sitemap.xml",
+    "https://www.yuchanns.xyz/sitemap.xml"
+  ]
+}

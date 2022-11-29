@@ -26,7 +26,13 @@ export default defineConfig({
     footer: {
       message: 'Released under the MIT License.',
       copyright: 'Copyright © 2016-present Hanchin Hsieh'
-    }
+    },
+
+    algolia: {
+      appId: 'DWJDR4BCLN',
+      apiKey: '6c0e1d5be9322a4af4b08fdaefd7902a',
+      indexName: 'blog'
+    },
   },
 
   transformPageData: async (pageData) => {

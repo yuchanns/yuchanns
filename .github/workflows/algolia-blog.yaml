@@ -6,6 +6,8 @@ on:
       - vpzk-blog
 jobs:
   algolia:
+    runs-on: ubuntu-20.04
+    steps:
     - uses: actions/checkout@v2
     - uses: darrenjennings/algolia-docsearch-action@master
       with:

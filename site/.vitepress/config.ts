@@ -61,7 +61,7 @@ export default defineConfig({
   },
   buildEnd: async ({ outDir }) => {
     const sitemap = new SitemapStream({
-      hostname: 'https://vitepress.vuejs.org/'
+      hostname: 'https://yuchanns.xyz/'
     })
     const writeStream = createWriteStream(resolve(outDir, 'sitemap.xml'))
     sitemap.pipe(writeStream)

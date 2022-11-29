@@ -1,0 +1,27 @@
+{
+  "index_name": "blog",
+  "start_urls": [
+    "https://yuchanns.xyz/",
+    "https://www.yuchanns.xyz/"
+  ],
+  "sitemap_urls": [
+    "https://yuchanns.xyz/sitemap.xml",
+    "https://www.yuchanns.xyz/sitemap.xml"
+  ],
+  "sitemap_alternate_links": true,
+  "stop_urls": [],
+  "selectors": {
+    "lvl0": "h1",
+    "lvl1": "h2",
+    "lvl2": "h3",
+    "lvl3": "h4",
+    "lvl4": "h5, td:first-child",
+    "lvl5": "h6",
+    "text": "div, li, td:last-child"
+  },
+  "strip_chars": " .,;:#",
+  "conversation_id": [
+    "833762294"
+  ],
+  "nb_hits": 46250
+}

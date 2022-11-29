@@ -36,7 +36,7 @@ export const markdownItBacklinks: PluginWithParams = (md, { vault }): void => {
             }
           }
           if (!found) {
-            const content = src.slice(cap.index, src.length).split('\n\n')
+            const content = src.split('\n\n')
             backlinks.push({ title: selfTitle, path: relativePath, content: md.render(content.slice(0, 4).join('\n\n')) })
             collection.set(path, backlinks)
           }

@@ -1,5 +1,6 @@
 ---
 title: 文章索引
+aside: false
 ---
 * 文章索引
     * :::warning 注意

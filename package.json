@@ -30,5 +30,8 @@
         "@algolia/client-search"
       ]
     }
+  },
+  "dependencies": {
+    "vue-tweet": "^2.0.2"
   }
 }

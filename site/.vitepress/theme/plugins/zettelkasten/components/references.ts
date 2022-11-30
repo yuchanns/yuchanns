@@ -8,7 +8,7 @@ export const BacklinkReferences = defineComponent({
   setup() {
     const { page } = useData()
     const hs: VNode[] = []
-    const backlinks = page.value['backlinks']
+    const backlinks = page.value['backlinks'].reverse()
     let r = useRouter()
     let route = useRoute()
     for (const backlink of backlinks) {

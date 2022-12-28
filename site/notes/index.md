@@ -7,7 +7,7 @@ title: Note
    * Yak Shaving Gopher/Rustacean/(Neo)Vimer.
    * Love Anime Girls. 
    * Fan of [LiSA(織部 里沙)](https://www.lxixsxa.com/).
-       * ![LiSA](/images/LiSA.png)
+       * ![LiSA](/images/LiSA2.webp)
    * Self-hatred. 
    * Try correcting my sentences.
 * Explore

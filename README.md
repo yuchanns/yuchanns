@@ -1,7 +1,7 @@
 # VPZK
 
 <p align="center">
-  <img src="https://yuchanns.xyz/images/LiSA.png" width=550 />
+  <img src="https://yuchanns.xyz/images/LiSA2.webp" width=550 />
 </p>
 
 Hi, I'm yuchanns, aka Hanchin Hsieh.

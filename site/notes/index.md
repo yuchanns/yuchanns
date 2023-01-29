@@ -12,6 +12,7 @@ title: Note
    * Try correcting my sentences.
 * Explore
     * [[Posts|posts]]
+    * [[Weekly Recap|weekly-recap]]
     * [[K8s|k8s]]
     * [[Linux|linux]]
     * [[Go|go]]

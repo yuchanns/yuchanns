@@ -2,6 +2,7 @@ import { SearchPlugin } from "vitepress-plugin-search"
 import { defineConfig } from "vite"
 import visualizer from "rollup-plugin-visualizer"
 import Segment from 'segment'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 // issue: https://github.com/emersonbottero/vitepress-plugin-search/issues/11#issuecomment-1328150584
 const segment = new Segment()
@@ -21,6 +22,7 @@ export default defineConfig({
       open: true,
       gzipSize: true,
       brotliSize: true,
-    })
+    }),
+    vueJsx({})
   ],
 });

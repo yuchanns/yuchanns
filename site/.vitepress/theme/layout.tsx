@@ -1,4 +1,4 @@
-import { defineComponent, h, reactive, watch } from "vue";
+import { defineComponent, reactive, watch } from "vue";
 import DefaultTheme from 'vitepress/theme'
 import { BacklinkReferences } from './plugins/zettelkasten/components'
 import { useRoute } from "vitepress";
@@ -10,9 +10,11 @@ export const Layout = defineComponent({
     const route = useRoute()
     const state = reactive({ key: route.path })
     watch(() => route.path, (path) => state.key = path)
+    const Layout = DefaultTheme.Layout
 
-    return () => h(DefaultTheme.Layout, null, {
-      'doc-footer-before': () => h(BacklinkReferences, { key: `${state.key}` })
-    })
+    return () =>
+      <Layout>{{
+        "doc-footer-before": () => <BacklinkReferences key={state.key} />
+      }}</Layout>
   }
 })

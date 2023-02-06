@@ -1,6 +1,6 @@
 import { SearchPlugin } from "vitepress-plugin-search"
 import { defineConfig } from "vite"
-import visualizer from "rollup-plugin-visualizer"
+// import visualizer from "rollup-plugin-visualizer"
 import Segment from 'segment'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 
@@ -18,11 +18,11 @@ const options = {
 export default defineConfig({
   plugins: [
     SearchPlugin(options),
-    visualizer({
+    /* visualizer({
       open: true,
       gzipSize: true,
       brotliSize: true,
-    }),
+    }), */
     vueJsx({})
   ],
 });

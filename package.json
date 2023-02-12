@@ -32,6 +32,7 @@
     }
   },
   "dependencies": {
+    "medium-zoom": "^1.0.8",
     "vitepress": "1.0.0-alpha.45",
     "vue-tweet": "^2.0.2"
   }

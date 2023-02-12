@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import { useData, useRoute, useRouter } from 'vitepress'
+import { useData, useRouter } from 'vitepress'
 
 export const BacklinkReferences = defineComponent({
   name: "BacklinkReferences",
@@ -8,7 +8,7 @@ export const BacklinkReferences = defineComponent({
     const { page } = useData()
     const allBacklinks = page.value['backlinks']
     const r = useRouter()
-    const route = useRoute()
+    const route = r.route
     const backlinks = []
     for (const backlink of allBacklinks) {
       if (`/${backlink.path}` == route.path) {

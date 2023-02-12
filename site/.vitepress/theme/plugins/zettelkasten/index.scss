@@ -30,8 +30,8 @@
     font-size: 18px;
   }
   h2, h2, h3, h4, h5, h6 {
-    padding-top: calc(1rem + var(--vp-nav-height-desktop));
-    margin-top: calc(0.5rem - var(--vp-nav-height-desktop));
+    padding-top: calc(1rem + var(--vp-nav-height));
+    margin-top: calc(0.5rem - var(--vp-nav-height));
   }
 }
 

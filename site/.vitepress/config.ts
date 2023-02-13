@@ -4,6 +4,7 @@ import { markdownItBacklinks, getBacklinks } from './theme/plugins/zettelkasten'
 import { createWriteStream } from 'node:fs'
 import { resolve } from 'node:path'
 import { SitemapStream } from 'sitemap'
+import { getFrontmatterWithTwitter } from './theme/plugins/twitter-card/card'
 
 interface SiteMapLink {
   url: String
@@ -18,7 +19,7 @@ export default defineConfig({
   description: 'Link Thinking.',
 
   lastUpdated: true,
-  cleanUrls: 'without-subfolders',
+  cleanUrls: true,
 
   head: [['meta', { name: 'theme-color', content: '#d23669' }]],
 
@@ -41,8 +42,10 @@ export default defineConfig({
 
   transformPageData: async (pageData) => {
     let backlinks = await getBacklinks(pageData)
+    let frontmatter = getFrontmatterWithTwitter(pageData, { site: 'https://yuchanns.xyz/', creator: "yuchanns", defaultImage: 'https://yuchanns.xyz/favicon.ico' })
     return {
-      backlinks
+      backlinks,
+      frontmatter,
     }
   },
 

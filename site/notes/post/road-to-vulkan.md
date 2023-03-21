@@ -16,7 +16,7 @@ title: 在 Asahi Linux 上铺设通往 Vulkan 的道路
 
 今天我们为 Asahi Linux 发布了一个重大更新，所以我想跟大家谈谈自那时以来我们都在做些什么，并展望未来！
 
-如果这是你第一次听说我们的 GPU 冒险，请先查看我的[[关于 M1 GPU 的故事|post/tales-of-the-m1-gpu]]文章，它涵盖了我去年所做的内容！还要不要错过 Alyssa 在[她网站](https://rosenzweig.io/)上撰写的精彩系列文章，从2021年1月开始追溯到现在！^^
+如果这是你第一次听说我们的 GPU 冒险，请先查看我的[[关于 M1 GPU 的故事|post/tales-of-the-m1-gpu]]文章，它涵盖了我去年所做的内容！还有不要错过 Alyssa 在[她网站](https://rosenzweig.io/)上撰写的精彩系列文章，从2021年1月开始追溯到现在！^^
 
 如果太长了，请随意[跳到结尾部分](#总结)，了解这对 Asahi Linux 意味着什么！
 

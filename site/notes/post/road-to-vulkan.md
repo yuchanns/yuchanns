@@ -100,7 +100,7 @@ Vulkan 相当复杂，所以我们不会详细介绍……但基本上，这些�
 
 结合现有的通用 同步对象 API，这让我们完全弥补了天堑！用户空间应用程序现在可以从 DMA-BUF（与另一个进程共享的缓冲区）中取出栅格，并将其转换为 GPU 工作等待的 同步对象，然后获取该工作输出 同步对象，并将其栅格插入另一个可与其他进程共享的 DMA-BUF 中。
 
-如果你想要更多细节，请参阅 Faith Ekstrand 写的[一篇优秀文章](https://www.collabora.com/news-and-blog/blog/2022/06/09/bridging-the-synchronization-gap-on-linux/)！她也是一位非常好的导师，在没有她帮助下我无法理解所有这些 UAPI 设计方面内容。
+如果你想要更多细节，请参阅 Faith Ekstrand 写的[一篇优秀文章](https://www.collabora.com/news-and-blog/blog/2022/06/09/bridging-the-synchronization-gap-on-linux/)！她也是一位非常好的导师，没有她帮助我无法理解所有这些 UAPI 设计方面内容。
 
 太棒了！这解决了我们所有问题！但正如人们所说，“魔鬼藏在细节中”...
 

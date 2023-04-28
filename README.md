@@ -1,3 +1,7 @@
+<p align="center">
+<img src="https://yuchanns.xyz/images/LiSA2.webp" width=300 />
+</p>
+
 ```
  ___________________________________________________________________________________________________________
 / 👋 Introduction                                                                                             \
@@ -5,8 +9,6 @@
 | visitors: Hi yuchanns! Nice to meet you. 
 | 
 | yuchanns: Hi there! Welcome to my personal profile.
-| 
-| yuchanns:  ![https://yuchanns.xyz/images/LiSA2.webp]
 | 
 | visitors: That's a nice profile picture of LiSA. What do you like about her?
 | 

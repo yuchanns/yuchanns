@@ -57,8 +57,7 @@
 | visitors: Thanks for sharing all this information. One last thing - what's the Moe Counter CF that you mentioned?
 | 
 | yuchanns: Lastly, check out my Moe Counter CF below!
-| 
-| yuchanns: <img height="100" src="https://musume.yuchanns.xyz/yuchanns:home" alt="Moe Counter CF">
 +--------------------------------------------------------------------------------------------------------------------------+
 
 ```
+<img height="100" src="https://musume.yuchanns.xyz/yuchanns:home" alt="Moe Counter CF">

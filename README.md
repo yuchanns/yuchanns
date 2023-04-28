@@ -6,7 +6,7 @@
 
 Greetings, I'm **yuchanns**, aka **Hanchin Hsieh** - a fan of LiSA (織部 里沙) 👆. I have a passion for anime girls.
 
-During my leisure time, I contribute to the Open Source Projects.
+During my leisure time, I contribute to Open Sources.
 
 I run AsahiLinux on my Apple M1 Max and love working with 🐹 Go, 🦀 Rust, and 🌙 Lua. My go-to text editor is **(Neo)Vim**.
 
@@ -42,7 +42,8 @@ I've made contributions to several open-source projects, including:
 
 Feel free to reach out if you have any questions or just want to connect:
 
-- 📧 Email: [yuchanns@ani.work](mailto:yuchanns@ani.work)
-- 🔗 Mastodon: [@yuchanns@ani.work](https://ani.work/@yuchanns)
+- 📬 Email: [me@yuchanns.xyz](mailto:me@yuchanns.xyz)
+- 🐦 Twitter: [@realyuchanns](https://twitter.com/realyuchanns)
+- 🐘 Mastodon: [@yuchanns@ani.work](https://ani.work/@yuchanns)
 
 <img height="100" src="https://musume.yuchanns.xyz/yuchanns:home" alt="Moe Counter CF">

@@ -4,7 +4,9 @@
 
 I'm Hanchin Hsieh, AKA yuchanns. I'm a big Fan of LiSA(織部 里沙). Also a @containerd CTL Maintainer.
 
-You can ask me about Go, CloudNative.
+You can ask me about Go, CloudNative, nvim, and AsahiLinux.
+
+Speaking of Desktop OS, I have a set of beautiful [dotfiles](https://github.com/yuchanns/dotfiles).
 
 Here are some opensource projects I spend my leisure time:
 - [nerdctl](https://github.com/containerd/nerdctl)

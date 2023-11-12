@@ -12,7 +12,6 @@ Here are some opensource projects I spend my leisure time:
 - [nerdctl](https://github.com/containerd/nerdctl)
 - [CodeGPT.nvim](https://github.com/dpayne/CodeGPT.nvim)
 - [gray-matter-rs](https://github.com/the-alchemists-of-arland/gray-matter-rs)
-- [B-Komachi-Ai](https://github.com/yuchanns/B-Komachi-Ai)
 
 Reach me at:
 - 📬 Email: [me@yuchanns.xyz](mailto:me@yuchanns.xyz)

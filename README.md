@@ -18,4 +18,6 @@ Reach me at:
 - 🐦 Twitter: [@_yuchanns_](https://twitter.com/_yuchanns_)
 - 🐘 Mastodon: [@yuchanns@dvd.chat](https://dvd.chat/@yuchanns)
 
+![metrics](https://github.com/yuchanns/metrics/blob/main/github-metrics.svg)
+
 <img height="100" src="https://musume.yuchanns.xyz/yuchanns:home" alt="Moe Counter CF">

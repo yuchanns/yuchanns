@@ -2,7 +2,9 @@
 <img src="https://yuchanns.xyz/images/LiSA2.webp" width=300 />
 </p>
 
-I'm Hanchin Hsieh, AKA yuchanns. I'm a big Fan of LiSA(織部 里沙). Also a @containerd CTL [Emeritus](https://github.com/containerd/nerdctl/pull/3067).
+I'm Hanchin Hsieh, AKA yuchanns. I'm a big Fan of LiSA(織部 里沙).
+
+Creating and maintaining [Go Binding for Apache OpenDAL](https://github.com/apache/opendal/tree/main/bindings/go). Once a @containerd CTL [Emeritus](https://github.com/containerd/nerdctl/pull/3067).
 
 You can ask me about Go, CloudNative, nvim, and AsahiLinux.
 

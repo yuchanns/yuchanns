@@ -12,15 +12,5 @@ Speaking of Desktop OS, I have a set of beautiful [dotfiles](https://github.com/
 
 ## Recent activity
 
-<!--RECENT_ACTIVITY:start-->
-1. ⬆️ Pushed 1 commit(s) to [yuchanns/yuchanns](https://github.com/yuchanns/yuchanns)<br>
-2. ⬆️ Pushed 1 commit(s) to [yuchanns/yuchanns](https://github.com/yuchanns/yuchanns)<br>
-3. ⬆️ Pushed 1 commit(s) to [yuchanns/yuchanns](https://github.com/yuchanns/yuchanns)<br>
-4. ⬆️ Pushed 1 commit(s) to [yuchanns/nvim](https://github.com/yuchanns/nvim)<br>
-5. ⬆️ Pushed 3 commit(s) to [yuchanns/avante.nvim](https://github.com/yuchanns/avante.nvim)<br>
-<!--RECENT_ACTIVITY:end-->
-
-<!--RECENT_ACTIVITY:last_update-->
-Last Updated: Thursday, August 29th, 2024, 6:42:41 AM
-<!--RECENT_ACTIVITY:last_update_end-->
+<!--START_SECTION:activity-->
 

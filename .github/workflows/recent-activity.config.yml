@@ -1,17 +1,17 @@
 name: Update README
-
 on:
   schedule:
-    - cron: '*/30 * * * *' # Update every 30 minutes
+    - cron: "*/30 * * * *"
   workflow_dispatch:
-
 jobs:
   build:
+    name: Update this repo's README with recent activity
     runs-on: ubuntu-latest
-    name: Update Profile README
+    permissions:
+      contents: write
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: Readme-Workflows/recent-activity@v2.4.1
+      - uses: actions/checkout@v3
+      - uses: jamesgeorge007/github-activity-readme@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

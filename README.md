@@ -10,3 +10,9 @@ You can ask me about Go, CloudNative, nvim, and AsahiLinux.
 
 Speaking of Desktop OS, I have a set of beautiful [dotfiles](https://github.com/yuchanns/dotfiles).
 
+## Recent activity
+
+<!--RECENT_ACTIVITY:start-->
+
+<!--RECENT_ACTIVITY:last_update-->
+

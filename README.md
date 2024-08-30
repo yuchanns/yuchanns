@@ -2,7 +2,7 @@
   <img src="./assets/LiSA2.webp" width=550 />
 </p>
 
-> I'm looking for job opportunities outside of China. You can reach me at contact@yuchanns.xyz.
+> I'm seeking job opportunities outside of China with visa sponsorship. You can contact me at contact@yuchanns.xyz.
 
 Hi, My name is Hanchin Hsieh, AKA yuchanns. A big fan of LiSA (織部 里沙).
 

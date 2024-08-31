@@ -15,10 +15,10 @@ Regarding desktop operating systems, I have a collection of beautiful [dotfiles]
 ## Recent Activity
 
 <!--START_SECTION:activity-->
-1. 🗣 Commented on [#407](https://github.com/yetone/avante.nvim/pull/407#issuecomment-2322822854) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
-2. 🗣 Commented on [#407](https://github.com/yetone/avante.nvim/pull/407#issuecomment-2322818246) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
-3. 🗣 Commented on [#407](https://github.com/yetone/avante.nvim/pull/407#issuecomment-2322798708) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
-4. 🗣 Commented on [#407](https://github.com/yetone/avante.nvim/pull/407#issuecomment-2322744311) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
-5. 🗣 Commented on [#407](https://github.com/yetone/avante.nvim/pull/407#issuecomment-2322727928) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
+1. 🗣 Commented on [#421](https://github.com/yetone/avante.nvim/pull/421#issuecomment-2322876054) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
+2. 🎉 Merged PR [#421](https://github.com/yetone/avante.nvim/pull/421) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
+3. ❗ Opened issue [#422](https://github.com/yetone/avante.nvim/issues/422) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
+4. 🗣 Commented on [#407](https://github.com/yetone/avante.nvim/pull/407#issuecomment-2322822854) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
+5. 🗣 Commented on [#407](https://github.com/yetone/avante.nvim/pull/407#issuecomment-2322818246) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
 <!--END_SECTION:activity-->
 

@@ -15,10 +15,10 @@ Regarding desktop operating systems, I have a collection of beautiful [dotfiles]
 ## Recent Activity
 
 <!--START_SECTION:activity-->
-1. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2326693404) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
-2. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2326540804) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
-3. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2326539485) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
-4. 💪 Opened PR [#483](https://github.com/yetone/avante.nvim/pull/483) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
-5. ❗ Opened issue [#617](https://github.com/gojue/ecapture/issues/617) in [gojue/ecapture](https://github.com/gojue/ecapture)
+1. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2326749102) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
+2. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2326693404) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
+3. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2326540804) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
+4. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2326539485) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
+5. 💪 Opened PR [#483](https://github.com/yetone/avante.nvim/pull/483) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
 <!--END_SECTION:activity-->
 

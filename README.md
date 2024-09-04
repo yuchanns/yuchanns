@@ -15,10 +15,10 @@ Regarding desktop operating systems, I have a collection of beautiful [dotfiles]
 ## Recent Activity
 
 <!--START_SECTION:activity-->
-1. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2326799403) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
-2. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2326749102) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
-3. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2326693404) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
-4. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2326540804) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
-5. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2326539485) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
+1. 💪 Opened PR [#502](https://github.com/yetone/avante.nvim/pull/502) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
+2. 🚀 Published release [test](https://github.com/yuchanns/avante.nvim/releases/tag/v0.0.1) in [yuchanns/avante.nvim](https://github.com/yuchanns/avante.nvim)
+3. 🚀 Published release [test](https://github.com/yuchanns/avante.nvim/releases/tag/v0.0.1) in [yuchanns/avante.nvim](https://github.com/yuchanns/avante.nvim)
+4. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2326799403) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
+5. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2326749102) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
 <!--END_SECTION:activity-->
 

@@ -15,10 +15,10 @@ Regarding desktop operating systems, I have a collection of beautiful [dotfiles]
 ## Recent Activity
 
 <!--START_SECTION:activity-->
-1. 🔒 Closed issue [#617](https://github.com/gojue/ecapture/issues/617) in [gojue/ecapture](https://github.com/gojue/ecapture)
-2. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2327782680) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
-3. 💪 Opened PR [#502](https://github.com/yetone/avante.nvim/pull/502) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
-4. 🚀 Published release [test](https://github.com/yuchanns/avante.nvim/releases/tag/v0.0.1) in [yuchanns/avante.nvim](https://github.com/yuchanns/avante.nvim)
+1. 🎉 Merged PR [#502](https://github.com/yetone/avante.nvim/pull/502) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
+2. 🔒 Closed issue [#617](https://github.com/gojue/ecapture/issues/617) in [gojue/ecapture](https://github.com/gojue/ecapture)
+3. 🗣 Commented on [#483](https://github.com/yetone/avante.nvim/pull/483#issuecomment-2327782680) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
+4. 💪 Opened PR [#502](https://github.com/yetone/avante.nvim/pull/502) in [yetone/avante.nvim](https://github.com/yetone/avante.nvim)
 5. 🚀 Published release [test](https://github.com/yuchanns/avante.nvim/releases/tag/v0.0.1) in [yuchanns/avante.nvim](https://github.com/yuchanns/avante.nvim)
 <!--END_SECTION:activity-->
 
